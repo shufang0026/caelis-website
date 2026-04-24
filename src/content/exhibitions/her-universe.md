@@ -10,6 +10,15 @@ artists: "Various Artists"
 curator: "Caelis Galería"
 location: "Main Gallery"
 cover: "/images/exhibitions/her-universe/cover.jpg"
+gallery:
+  - path: "/images/exhibitions/her-universe/cover.jpg"
+    caption: "Her Universe - Exhibition View"
+  - path: "/images/exhibitions/her-universe/gallery-1.jpg"
+    caption: "Exhibition View 1"
+  - path: "/images/exhibitions/her-universe/gallery-2.jpg"
+    caption: "Exhibition View 2"
+  - path: "/images/exhibitions/her-universe/gallery-3.jpg"
+    caption: "Exhibition View 3"
 description: "A group exhibition at Caelis Galería featuring works that explore themes of feminine experience, identity, and creative expression."
 ---
 

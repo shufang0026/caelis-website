@@ -9,7 +9,14 @@ endDate: "2023-07-15"
 artists: "Sniqus"
 curator: "Caelis Galería"
 location: "Main Gallery"
-cover: "/images/exhibitions/sneakers-by-sniqus/cover.jpg"
+cover: "/images/exhibitions/sneakers-by-sniqus/cover.png"
+gallery:
+  - path: "/images/exhibitions/sneakers-by-sniqus/cover.png"
+    caption: "Sneakers by Sniqus - Exhibition View"
+  - path: "/images/exhibitions/sneakers-by-sniqus/gallery-1.jpeg"
+    caption: "Exhibition View 1"
+  - path: "/images/exhibitions/sneakers-by-sniqus/gallery-3.png"
+    caption: "Exhibition View 2"
 description: "Sniqus's solo exhibition at Caelis Galería, exploring sneaker culture, daily life, and the visual language of heritage through a distinctive artistic lens."
 ---
 
