@@ -1,15 +1,3 @@
 [build]
   command = "npx @11ty/eleventy"
   publish = "_site"
-
-# Admin routes — must come BEFORE catch-all
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/:splat"
-  status = 200
-
-# Catch-all SPA redirect for everything else (but NOT /.netlify/*)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
