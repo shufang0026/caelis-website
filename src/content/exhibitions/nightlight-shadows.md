@@ -8,6 +8,12 @@ artists: "Keigo Nakamura"
 startDate: 2022-12-20
 endDate: 2023-02-15
 curator: "Caelis Galería"
-cover: "/images/exhibitions/nightlight-shadows/cover.jpg"
+cover: "/images/exhibitions/nightlight-shadows/640.jpeg"
+gallery:
+  - "/images/exhibitions/nightlight-shadows/640.jpeg"
+  - "/images/exhibitions/nightlight-shadows/640-1.jpeg"
+  - "/images/exhibitions/nightlight-shadows/640-2.jpeg"
+  - "/images/exhibitions/nightlight-shadows/640-3.jpeg"
+  - "/images/exhibitions/nightlight-shadows/640-4.jpeg"
 description: "Keigo Nakamura's solo exhibition 'Nightlight Shadows' explores the interplay between light and darkness, creating ethereal, contemplative works."
 ---

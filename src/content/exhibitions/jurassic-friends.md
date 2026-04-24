@@ -8,6 +8,12 @@ artists: "Debbie Reda"
 startDate: 2022-11-24
 endDate: 2022-12-15
 curator: "Caelis Galería"
-cover: "/images/exhibitions/jurassic-friends/cover.jpg"
+cover: "/images/exhibitions/jurassic-friends/640.jpeg"
+gallery:
+  - "/images/exhibitions/jurassic-friends/640.jpeg"
+  - "/images/exhibitions/jurassic-friends/640-1.jpeg"
+  - "/images/exhibitions/jurassic-friends/640-2.jpeg"
+  - "/images/exhibitions/jurassic-friends/640-3.jpeg"
+  - "/images/exhibitions/jurassic-friends/640-4.jpeg"
 description: "Debbie Reda's solo exhibition 'Jurassic Friends' presents her iconic Little Monsters series, extending from abstract expressions to delicate displays of emotions and situations in life with various elements. The artist depicts life in the Jurassic era, bringing us back to the first encounter between the little monsters and the dinosaurs."
 ---
