@@ -9,7 +9,7 @@ endDate: "2024-09-03"
 artists: "Óscar Llorens"
 curator: "Caelis Galería"
 location: "Main Gallery"
-cover: ""
+cover: "/images/exhibitions/nostalgy/640.webp"
 heroSubtitle: "A journey through childhood memories with colorful characters and everyday scenes"
 description: "Oscar Llorens, born in 1975 in Madrid, Spain, initially studied business administration and worked as an illustrator for various advertising companies and magazines. However, he felt a deep need to explore his creativity in a more personal way. Inspired by childhood nostalgia, Llorens began creating art that reflects his most profound memories, with colorful characters and everyday scenes that bring us closer to the most important years of our lives."
 ---

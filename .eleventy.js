@@ -59,6 +59,7 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
   });
 
+  eleventyConfig.addPassthroughCopy("src/images");
   // Passthrough copies
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/assets/images");

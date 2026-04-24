@@ -9,7 +9,7 @@ endDate: "2024-04-10"
 artists: "Fanny Brodar"
 curator: "Caelis Galería"
 location: "Main Gallery"
-cover: ""
+cover: "/images/exhibitions/fanny-brodar/cover.png"
 heroSubtitle: "An ode to childhood innocence, joy, and the celebration of beauty through vivid hues"
 description: "Caelis Galería proudly presents the solo exhibition Whispers of Color by acclaimed Norwegian artist Fanny Brodar. This enchanting presentation beckons art enthusiasts to immerse themselves in Fanny's world, where vivid hues and abstract expressions converge to create a symphony of emotion and imagination."
 ---

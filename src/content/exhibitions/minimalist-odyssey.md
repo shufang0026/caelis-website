@@ -9,7 +9,7 @@ endDate: "2024-04-10"
 artists: "Tocinor"
 curator: "Caelis Galería"
 location: "Main Gallery"
-cover: ""
+cover: "/images/exhibitions/tocinor/IMG_20240109_105428355.jpg"
 heroSubtitle: "Minimalist art infused with the charm of naive characters, inspired by Miro and Picasso"
 description: "Step into the world of Tocinor, an emerging artist whose work breathes new life into the realm of minimalist art, infusing it with the charm of naive characters. Despite Tocinor's art appearing deceptively simple, beneath this facade, he implements a deconstruction concept, clearly inspired by Spanish masters like Miro and Picasso."
 ---

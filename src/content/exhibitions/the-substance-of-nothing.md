@@ -9,7 +9,7 @@ endDate: "2024-09-03"
 artists: "Juan Miguel Palacios"
 curator: "Caelis Galería"
 location: "Main Gallery"
-cover: ""
+cover: "/images/exhibitions/juan-miguel-palacios/640.webp"
 heroSubtitle: "A contemplation on materiality through abstract painting and cosmic forms"
 description: "Caelis Galería presents the exhibition The Substance of Nothingness by Juan Miguel Palacios. This emotionally charged and philosophically engaging show invites collectors and art enthusiasts to explore Palacios' contemplations on the concept of materiality."
 ---
