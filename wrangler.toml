@@ -1,0 +1,6 @@
+name = "caelis-website"
+compatibility_date = "2024-09-23"
+
+[pages]
+build_command = "npx @11ty/eleventy"
+build_output_dir = "_site"
