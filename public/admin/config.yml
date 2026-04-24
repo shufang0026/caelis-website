@@ -1,6 +1,16 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: shufang0026/caelis-website
   branch: main
+  client_id: Iv23liYxRKVrSWr0esX3
+  client_secret: 7421d884ea7b695b4c33143e823f30df24f250c3
+  commit_messages:
+    create: 'Create {{slug}}'
+    update: 'Update {{slug}}'
+    delete: 'Delete {{slug}}'
+    uploadMedia: 'Upload "{{path}}"'
+    deleteMedia: 'Delete "{{path}}"'
+
 
 media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
