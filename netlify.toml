@@ -5,7 +5,7 @@
 # Identity & CMS routes — must come BEFORE catch-all
 [[redirects]]
   from = "/.netlify/identity/*"
-  to = "/.netlify/identity/:splat"
+  to = "/admin/identity.html"
   status = 200
 
 [[redirects]]

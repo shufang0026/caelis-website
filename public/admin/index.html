@@ -5,8 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager — Caelis Galeria</title>
+  <!-- Netlify Identity Widget (required for password reset, confirmation, etc.) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Handle Identity callback redirects (password reset, email confirmation, invitation)
+    if (window.netlifyIdentity) {
+      netlifyIdentity.on("init", function(user) {
+        if (!user) {
+          netlifyIdentity.on("login", function() {
+            document.location.reload();
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
