@@ -22,5 +22,9 @@ gallery:
     caption: "Installation view"
   - path: "/images/exhibitions/alpha/640-5.jpeg"
     caption: "Installation view"
-description: "A group exhibition featuring multiple artists exploring themes of beginnings, origins, and new perspectives."
+description: "Caelis Galeria's first group exhibition, introducing emerging stars that will shine in the art universe."
 ---
+
+Caelis Galeria proudly presents its group exhibition, "Alpha." This exhibition brings together the newest works from contemporary artists recently represented by Caelis, including Debbie Reda, Niall Campbell Strachan, Ceci Martin, Gonhdo, Javier Gonzalez Burgos, Alebert Madaula, Adam Handler, Taly Cohen, Skolyshev, Saul Corona, Lee Salvador, and more.
+
+Dividing the night sky into various regions, each designated as a constellation, Caelis Constellation continues to expand, with the number, size, and brightness of its stars continually growing. "Alpha" marks our gallery's first group exhibition, aiming to introduce some of the emerging stars that will shine in the art universe in the coming years.
