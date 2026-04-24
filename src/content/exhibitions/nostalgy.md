@@ -13,7 +13,7 @@ cover: "/images/exhibitions/nostalgy/oscar-cover.png"
 heroSubtitle: "A journey through childhood memories with colorful characters and everyday scenes"
 description: "Oscar Llorens, born in 1975 in Madrid, Spain, initially studied business administration and worked as an illustrator for various advertising companies and magazines. However, he felt a deep need to explore his creativity in a more personal way. Inspired by childhood nostalgia, Llorens began creating art that reflects his most profound memories, with colorful characters and everyday scenes that bring us closer to the most important years of our lives."
 gallery:
-  - path: "/images/exhibitions/nostalgy/640.webp"
+  - path: "/images/exhibitions/nostalgy/oscar-cover.png"
     caption: "Installation view"
   - path: "/images/exhibitions/nostalgy/640-2.webp"
     caption: "Installation view"
