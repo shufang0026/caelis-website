@@ -5,6 +5,7 @@ permalink: "/exhibitions/nightlight-shadows/"
 status: "past"
 title: "Nightlight Shadows"
 artists: "Keigo Nakamura"
+artistSlug: "keigo-nakamura"
 startDate: 2022-12-20
 endDate: 2023-02-15
 curator: "Caelis Galería"

@@ -5,6 +5,7 @@ permalink: "/exhibitions/eden-garden/"
 status: "past"
 title: "Eden Garden"
 artists: "Cesc Abad"
+artistSlug: "cesc-abad"
 startDate: 2022-11-24
 endDate: 2022-12-15
 curator: "Caelis Galería"

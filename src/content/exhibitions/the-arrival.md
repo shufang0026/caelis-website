@@ -5,6 +5,7 @@ permalink: "/exhibitions/the-arrival/"
 status: "past"
 title: "The Arrival"
 artists: "@Gonhdo"
+artistSlug: "gonhdo"
 startDate: 2022-10-22
 endDate: 2022-11-16
 curator: "Caelis Galería"

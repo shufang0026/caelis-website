@@ -5,6 +5,7 @@ permalink: "/exhibitions/parallel-universe/"
 status: "past"
 title: "Parallel Universe"
 artists: "Adam Handler"
+artistSlug: "adam-handler"
 startDate: 2022-08-18
 endDate: 2022-09-14
 curator: "Caelis Galería"

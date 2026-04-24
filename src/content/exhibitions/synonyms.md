@@ -5,6 +5,7 @@ permalink: "/exhibitions/synonyms/"
 status: "past"
 title: "Synonyms"
 artists: "Sniqus"
+artistSlug: "sniqus"
 startDate: 2022-08-18
 endDate: 2022-09-14
 curator: "Caelis Galería"

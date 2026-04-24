@@ -5,6 +5,7 @@ permalink: "/exhibitions/ode-to-joy/"
 status: "past"
 title: "Ode to Joy"
 artists: "Esther Ziher"
+artistSlug: "esther-ziher"
 startDate: 2022-06-23
 endDate: 2022-07-14
 curator: "Caelis Galería"

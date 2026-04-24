@@ -84,6 +84,37 @@ title: "{{ title }}"
     </div>
     {% endif %}
 
+    <!-- About Artist -->
+    {% if artistSlug %}
+    {% for a in artistProfiles %}
+    {% if a.slug == artistSlug %}
+    <div class="mb-16">
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">About the Artist</h2>
+      <div class="grid md:grid-cols-4 gap-8">
+        {% if a.photo %}
+        <div class="md:col-span-1">
+          <div class="aspect-square bg-gray-100 overflow-hidden rounded-sm">
+            <img src="{{ a.photo }}" alt="{{ a.name }}" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+        </div>
+        {% endif %}
+        <div class="{{ 'md:col-span-3' if a.photo else 'md:col-span-4' }}">
+          <h3 class="font-display text-2xl font-light mb-2 text-text">{{ a.name }}</h3>
+          {% if a.style %}
+          <p class="text-sm tracking-widest uppercase mb-6 text-secondary">{{ a.style }}</p>
+          {% endif %}
+          <div class="prose max-w-none">
+            {% for paragraph in a.bio.split("\n\n") %}
+            <p class="text-base leading-relaxed mb-4 text-text">{{ paragraph }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
     <!-- Artworks Grid -->
     {% if artworks and artworks.length > 0 %}
     <div>

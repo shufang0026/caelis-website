@@ -30,6 +30,11 @@ module.exports = function (eleventyConfig) {
     return arr.slice(0, n);
   });
 
+  eleventyConfig.addFilter("find", function (arr, key, value) {
+    if (!arr) return null;
+    return arr.find(item => item[key] === value) || null;
+  });
+
   // Collections
   eleventyConfig.addCollection("exhibitions", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/content/exhibitions/*.md")

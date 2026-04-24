@@ -5,6 +5,7 @@ permalink: "/exhibitions/red-girl/"
 status: "past"
 title: "Red Girl"
 artists: "Skolyshev"
+artistSlug: "skolyshev"
 startDate: 2022-09-15
 endDate: 2022-10-12
 curator: "Caelis Galería"

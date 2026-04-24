@@ -5,6 +5,7 @@ permalink: "/exhibitions/show-must-go-on/"
 status: "past"
 title: "Show Must Go On"
 artists: "Xavi Carbonell"
+artistSlug: "xavi-carbonell"
 startDate: 2022-01-15
 endDate: 2022-02-07
 curator: "Caelis Galería"

@@ -5,6 +5,7 @@ permalink: "/exhibitions/anything/"
 status: "past"
 title: "Anything"
 artists: "Arol"
+artistSlug: "arol"
 startDate: 2022-07-23
 endDate: 2022-08-23
 curator: "Caelis Galería"

@@ -5,6 +5,7 @@ permalink: "/exhibitions/new-hope/"
 status: "past"
 title: "New Hope"
 artists: "August Vilella"
+artistSlug: "august-vilella"
 startDate: 2022-01-15
 endDate: 2022-02-07
 curator: "Caelis Galería"

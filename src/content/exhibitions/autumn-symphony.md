@@ -5,6 +5,7 @@ permalink: "/exhibitions/autumn-symphony/"
 status: "past"
 title: "Autumn Symphony"
 artists: "August Vilella"
+artistSlug: "august-vilella"
 startDate: 2022-09-15
 endDate: 2022-10-12
 curator: "Caelis Galería"

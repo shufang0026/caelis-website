@@ -5,6 +5,7 @@ permalink: "/exhibitions/jurassic-friends/"
 status: "past"
 title: "Jurassic Friends"
 artists: "Debbie Reda"
+artistSlug: "debbie-reda"
 startDate: 2022-11-24
 endDate: 2022-12-15
 curator: "Caelis Galería"
