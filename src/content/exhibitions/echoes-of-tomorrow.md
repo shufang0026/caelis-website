@@ -1,6 +1,7 @@
 ---
 title: "Echoes of Tomorrow"
 slug: "echoes-of-tomorrow"
+permalink: "/exhibitions/echoes-of-tomorrow/"
 status: "current"
 startDate: "2025-04-01"
 endDate: "2025-07-15"

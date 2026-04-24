@@ -1,6 +1,7 @@
 ---
 title: "Between Silence and Form"
 slug: "between-silence-and-form"
+permalink: "/exhibitions/between-silence-and-form/"
 status: "current"
 startDate: "2025-03-15"
 endDate: "2025-06-30"

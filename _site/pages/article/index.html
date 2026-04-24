@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Art Insight — Caelis Galeria</title>
+  <title>{{ title }} — Caelis Galeria</title>
   <meta name="description" content="A premier contemporary art gallery in Shanghai, dedicated to showcasing innovative works from around the world." />
   
   <!-- Fonts -->
@@ -188,18 +188,37 @@
   
   <main class="flex-1">
     
-<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-5xl mx-auto">
-    <div class="mb-16">
-      <h1 class="font-display text-4xl lg:text-5xl font-light mb-4 text-text">Art Insight</h1>
-      <p class="text-base max-w-2xl text-secondary">Curatorial texts, critical essays, artist research, and extended exhibition content from Caelis Galeria.</p>
-    </div>
+<article class="py-12 lg:py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <a href="/art-insight/" class="inline-flex items-center text-sm tracking-widest uppercase mb-12 text-secondary hover:text-text transition-colors group">
+      <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Back to Art Insight
+    </a>
 
-    <div class="space-y-0">
+    <header class="mb-12">
+      <p class="text-xs tracking-widest uppercase mb-4 text-secondary"></p>
+      <h1 class="font-display text-3xl lg:text-4xl xl:text-5xl font-light leading-tight mb-6 text-text">{{ title }}</h1>
+      <div class="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-secondary">
+        <span>By </span>
+        <span>&middot;</span>
+        <span></span>
+        <span>&middot;</span>
+        <span></span>
+      </div>
+    </header>
+
+    <!-- Cover Image -->
+    
+
+    <!-- Article Content -->
+    <div class="prose max-w-none text-text leading-relaxed">
       
     </div>
+
+    <!-- Related Exhibition -->
+    
   </div>
-</section>
+</article>
 
   </main>
   

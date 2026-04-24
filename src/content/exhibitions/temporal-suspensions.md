@@ -1,6 +1,7 @@
 ---
 title: "Temporal Suspensions"
 slug: "temporal-suspensions"
+permalink: "/exhibitions/temporal-suspensions/"
 status: "past"
 startDate: "2024-03-01"
 endDate: "2024-06-30"

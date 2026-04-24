@@ -1,6 +1,7 @@
 ---
 title: "Invisible Architectures: A Retrospective View"
 slug: "invisible-architectures-review"
+permalink: "/art-insight/invisible-architectures-review/"
 category: "Exhibition Review"
 author: "Dr. Michael Zhao"
 date: "2025-03-01"

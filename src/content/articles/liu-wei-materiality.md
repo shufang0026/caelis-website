@@ -1,6 +1,7 @@
 ---
 title: "Liu Wei: Materiality and the Urban Condition"
 slug: "liu-wei-materiality"
+permalink: "/art-insight/liu-wei-materiality/"
 category: "Artist Research"
 author: "Sarah Lin"
 date: "2025-04-28"

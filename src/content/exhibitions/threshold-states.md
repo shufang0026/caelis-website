@@ -1,6 +1,7 @@
 ---
 title: "Threshold States"
 slug: "threshold-states"
+permalink: "/exhibitions/threshold-states/"
 status: "upcoming"
 startDate: "2025-09-01"
 endDate: "2025-12-15"

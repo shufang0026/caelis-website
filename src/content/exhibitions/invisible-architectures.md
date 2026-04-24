@@ -1,6 +1,7 @@
 ---
 title: "Invisible Architectures"
 slug: "invisible-architectures"
+permalink: "/exhibitions/invisible-architectures/"
 status: "past"
 startDate: "2024-11-01"
 endDate: "2025-02-28"

@@ -1,6 +1,7 @@
 ---
 title: "Memory Fragments"
 slug: "memory-fragments"
+permalink: "/exhibitions/memory-fragments/"
 status: "past"
 startDate: "2024-07-01"
 endDate: "2024-10-31"

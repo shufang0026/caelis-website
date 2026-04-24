@@ -1,6 +1,7 @@
 ---
 title: "In Conversation: Sarah Chen on Paper, Light, and Memory"
 slug: "sarah-chen-conversation"
+permalink: "/art-insight/sarah-chen-conversation/"
 category: "Interview"
 author: "Julia Wong"
 date: "2025-03-30"

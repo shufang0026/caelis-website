@@ -1,6 +1,7 @@
 ---
 title: "Cross-Cultural Dialogues: Art Beyond Borders"
 slug: "cross-cultural-dialogues"
+permalink: "/art-insight/cross-cultural-dialogues/"
 category: "Curatorial Text"
 author: "Dr. Ming Chen"
 date: "2025-04-15"
