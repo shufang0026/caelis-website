@@ -1,4 +1,5 @@
 ---
+layout: "../pages/article.njk"
 title: "Liu Wei: Materiality and the Urban Condition"
 slug: "liu-wei-materiality"
 permalink: "/art-insight/liu-wei-materiality/"

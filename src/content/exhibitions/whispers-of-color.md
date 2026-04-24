@@ -1,4 +1,5 @@
 ---
+layout: "../pages/exhibition.njk"
 title: "Whispers of Color"
 slug: "whispers-of-color"
 permalink: "/exhibitions/whispers-of-color/"

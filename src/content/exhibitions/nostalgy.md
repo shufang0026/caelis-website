@@ -1,4 +1,5 @@
 ---
+layout: "../pages/exhibition.njk"
 title: "Nostalgy"
 slug: "nostalgy"
 permalink: "/exhibitions/nostalgy/"

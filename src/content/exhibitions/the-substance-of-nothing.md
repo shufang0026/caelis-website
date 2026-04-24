@@ -1,4 +1,5 @@
 ---
+layout: "../pages/exhibition.njk"
 title: "The Substance of Nothing"
 slug: "the-substance-of-nothing"
 permalink: "/exhibitions/the-substance-of-nothing/"

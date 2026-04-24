@@ -1,4 +1,5 @@
 ---
+layout: "../pages/article.njk"
 title: "In Conversation: Sarah Chen on Paper, Light, and Memory"
 slug: "sarah-chen-conversation"
 permalink: "/art-insight/sarah-chen-conversation/"

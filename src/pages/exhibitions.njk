@@ -4,6 +4,7 @@ title: Exhibitions
 permalink: "/exhibitions/"
 ---
 
+
 <section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
     <div class="mb-16">
@@ -12,11 +13,11 @@ permalink: "/exhibitions/"
     </div>
 
     <!-- Current -->
-    {% if currentExhibitions.length > 0 %}
+    {% if collections.currentExhibitions.length > 0 %}
     <div class="mb-20">
       <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Current</h2>
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-        {% for exhibition in currentExhibitions %}
+        {% for exhibition in collections.currentExhibitions %}
         <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-6 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
             {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
@@ -30,11 +31,11 @@ permalink: "/exhibitions/"
     {% endif %}
 
     <!-- Upcoming -->
-    {% if upcomingExhibitions.length > 0 %}
+    {% if collections.upcomingExhibitions.length > 0 %}
     <div class="mb-20">
       <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Upcoming</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for exhibition in upcomingExhibitions %}
+        {% for exhibition in collections.upcomingExhibitions %}
         <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-6 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
             {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
@@ -48,11 +49,11 @@ permalink: "/exhibitions/"
     {% endif %}
 
     <!-- Past -->
-    {% if pastExhibitions.length > 0 %}
+    {% if collections.pastExhibitions.length > 0 %}
     <div>
       <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Past</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for exhibition in pastExhibitions %}
+        {% for exhibition in collections.pastExhibitions %}
         <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>

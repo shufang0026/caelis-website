@@ -1,4 +1,5 @@
 ---
+layout: "../pages/exhibition.njk"
 title: "Minimalist Odyssey"
 slug: "minimalist-odyssey"
 permalink: "/exhibitions/minimalist-odyssey/"

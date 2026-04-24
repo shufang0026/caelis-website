@@ -1,4 +1,5 @@
 ---
+layout: "../pages/article.njk"
 title: "Invisible Architectures: A Retrospective View"
 slug: "invisible-architectures-review"
 permalink: "/art-insight/invisible-architectures-review/"

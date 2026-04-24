@@ -1,4 +1,5 @@
 ---
+layout: "../pages/article.njk"
 title: "Cross-Cultural Dialogues: Art Beyond Borders"
 slug: "cross-cultural-dialogues"
 permalink: "/art-insight/cross-cultural-dialogues/"

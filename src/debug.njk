@@ -1,0 +1,21 @@
+---
+permalink: "/debug/"
+---
+<h2>exhibitions ({{ collections.exhibitions.length }})</h2>
+<ul>
+{% for item in collections.exhibitions %}
+  <li>{{ item.url }} | {{ item.data.title }} | status: {{ item.data.status }}</li>
+{% endfor %}
+</ul>
+<h2>pastExhibitions ({{ collections.pastExhibitions.length }})</h2>
+<ul>
+{% for item in collections.pastExhibitions %}
+  <li>{{ item.url }} | {{ item.data.title }}</li>
+{% endfor %}
+</ul>
+<h2>articles ({{ collections.articles.length }})</h2>
+<ul>
+{% for item in collections.articles %}
+  <li>{{ item.url }} | {{ item.data.title }}</li>
+{% endfor %}
+</ul>

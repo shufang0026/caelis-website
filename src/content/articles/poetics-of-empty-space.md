@@ -1,4 +1,5 @@
 ---
+layout: "../pages/article.njk"
 title: "The Poetics of Empty Space: Negative Form in Contemporary Sculpture"
 slug: "poetics-of-empty-space"
 permalink: "/art-insight/poetics-of-empty-space/"
