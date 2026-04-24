@@ -11,9 +11,13 @@ endDate: 2022-02-07
 curator: "Caelis Galería"
 cover: "/images/exhibitions/show-must-go-on/IMG_3356.jpg"
 gallery:
-  - "/images/exhibitions/show-must-go-on/IMG_3356.jpg"
-  - "/images/exhibitions/show-must-go-on/IMG_3357.jpg"
-  - "/images/exhibitions/show-must-go-on/IMG_3358.jpg"
-  - "/images/exhibitions/show-must-go-on/IMG_3359.jpg"
+  - path: "/images/exhibitions/show-must-go-on/IMG_3356.jpg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/show-must-go-on/IMG_3357.jpg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/show-must-go-on/IMG_3358.jpg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/show-must-go-on/IMG_3359.jpg"
+    caption: "Installation view"
 description: "Xavi Carbonell's solo exhibition 'Show Must Go On' embodies the resilience of art and the human spirit in challenging times."
 ---

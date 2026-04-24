@@ -11,9 +11,13 @@ endDate: 2022-09-14
 curator: "Caelis Galería"
 cover: "/images/exhibitions/parallel-universe/640.jpeg"
 gallery:
-  - "/images/exhibitions/parallel-universe/640.jpeg"
-  - "/images/exhibitions/parallel-universe/640-1.jpeg"
-  - "/images/exhibitions/parallel-universe/640-2.jpeg"
-  - "/images/exhibitions/parallel-universe/640-3.jpeg"
+  - path: "/images/exhibitions/parallel-universe/640.jpeg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/parallel-universe/640-1.jpeg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/parallel-universe/640-2.jpeg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/parallel-universe/640-3.jpeg"
+    caption: "Installation view"
 description: "Adam Handler's solo exhibition 'Parallel Universe' invites viewers into alternative realities through his distinctive artistic vision."
 ---

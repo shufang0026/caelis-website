@@ -11,9 +11,13 @@ endDate: 2022-09-14
 curator: "Caelis Galería"
 cover: "/images/exhibitions/synonyms/640.jpeg"
 gallery:
-  - "/images/exhibitions/synonyms/640.jpeg"
-  - "/images/exhibitions/synonyms/640-1.jpeg"
-  - "/images/exhibitions/synonyms/640-2.jpeg"
-  - "/images/exhibitions/synonyms/640-3.jpeg"
+  - path: "/images/exhibitions/synonyms/640.jpeg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/synonyms/640-1.jpeg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/synonyms/640-2.jpeg"
+    caption: "Installation view"
+  - path: "/images/exhibitions/synonyms/640-3.jpeg"
+    caption: "Installation view"
 description: "Sniqus's solo exhibition 'Synonyms' explores the intersection of language and visual art through contemporary painting."
 ---
