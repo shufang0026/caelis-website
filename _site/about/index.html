@@ -304,6 +304,20 @@
 </footer>
 
   
+  <!-- Netlify Identity Widget (handles invite, reset, confirmation tokens from URL hash) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      netlifyIdentity.on("init", function(user) {
+        // If user just completed invite/password-reset, redirect to admin
+        if (user && window.location.hash.includes('token')) {
+          window.location.hash = '';
+          window.location.href = '/admin';
+        }
+      });
+    }
+  </script>
+
   <!-- Mobile menu script -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
