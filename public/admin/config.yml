@@ -1,6 +1,7 @@
 backend:
   name: github
   branch: main
+  repo: shufang0026/caelis-website
 
 media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
