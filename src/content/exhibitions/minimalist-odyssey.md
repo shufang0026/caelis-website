@@ -60,4 +60,4 @@ Tocinor's art invites viewers to rediscover the beauty in simplicity, where each
 
 In Tocinor's minimalist world, expect to encounter scenes that evoke nostalgia, simplicity, and a touch of whimsical playfulness. The characters, seemingly naive at first glance, unfold stories that resonate on a universal level, transcending language and culture.
 
-Welcome to Tocinor's world, where less becomes so much more.
+As a new voice in the realm of minimalist art, Tocinor beckons you to experience the joy of rediscovering the power of simplicity and the magic woven into the world of naive characters. Join us in celebrating the freshness and authenticity that Tocinor brings to the artistic landscape, where every piece is an invitation to embrace the beauty found in the uncomplicated and the sincere. Welcome to Tocinor's world, where less becomes so much more.
