@@ -210,7 +210,7 @@
         
         <a href="/exhibitions/nostalgy/" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
-            style="background-image: url(/images/exhibitions/nostalgy/640.webp)"></div>
+            style="background-image: url(/images/exhibitions/nostalgy/oscar-cover.png)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">May 2024 — Sep 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Nostalgy</h3>
           <p class="text-sm text-secondary">Óscar Llorens</p>
@@ -226,7 +226,7 @@
         
         <a href="/exhibitions/whispers-of-color/" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
-            style="background-image: url(/images/exhibitions/fanny-brodar/cover.png)"></div>
+            style="background-image: url(/images/exhibitions/fanny-brodar/a-summer-day.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Feb 2024 — Apr 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Whispers of Color</h3>
           <p class="text-sm text-secondary">Fanny Brodar</p>
@@ -234,7 +234,7 @@
         
         <a href="/exhibitions/minimalist-odyssey/" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
-            style="background-image: url(/images/exhibitions/tocinor/IMG_20240109_105428355.jpg)"></div>
+            style="background-image: url(/images/exhibitions/tocinor/tocinor-01.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Feb 2024 — Apr 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Minimalist Odyssey</h3>
           <p class="text-sm text-secondary">Tocinor</p>
@@ -329,6 +329,39 @@
         }
       });
     });
+
+    // Gallery Carousel
+    (function() {
+      var track = document.getElementById('gallery-track');
+      var prevBtn = document.getElementById('gallery-prev');
+      var nextBtn = document.getElementById('gallery-next');
+      var dots = document.querySelectorAll('.gallery-dot');
+      if (!track || !prevBtn || !nextBtn) return;
+      var items = track.querySelectorAll('[style*="width"]');
+      var total = items.length;
+      var current = 0;
+      function update() {
+        var pct = -(current * (100 / total));
+        track.style.transform = 'translateX(' + pct + '%)';
+        dots.forEach(function(d, i) {
+          d.className = 'gallery-dot w-2 h-2 rounded-full transition-colors ' + (i === current ? 'bg-text' : 'bg-gray-300');
+        });
+      }
+      prevBtn.addEventListener('click', function() {
+        current = (current - 1 + total) % total;
+        update();
+      });
+      nextBtn.addEventListener('click', function() {
+        current = (current + 1) % total;
+        update();
+      });
+      dots.forEach(function(dot, i) {
+        dot.addEventListener('click', function() {
+          current = i;
+          update();
+        });
+      });
+    })();
   </script>
 </body>
 </html>

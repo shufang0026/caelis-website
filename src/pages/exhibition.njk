@@ -49,6 +49,40 @@ title: "{{ title }}"
       </div>
     </div>
 
+    <!-- Gallery Carousel -->
+    {% if gallery and gallery.length > 0 %}
+    <div class="mb-16">
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Exhibition Views</h2>
+      <div id="gallery-carousel" class="relative overflow-hidden rounded-sm">
+        <div class="flex transition-transform duration-500 ease-out" id="gallery-track" style="width: {{ gallery.length * 100 }}%">
+          {% for item in gallery %}
+          <div class="flex-shrink-0 w-full" style="width: {{ 100 / gallery.length }}%">
+            <div class="aspect-[16/9] bg-gray-100 overflow-hidden">
+              <img src="{{ item.path }}" alt="{{ item.caption }}" class="w-full h-full object-cover" loading="lazy" />
+            </div>
+            {% if item.caption %}
+            <p class="text-xs text-secondary mt-3 text-center">{{ item.caption }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if gallery.length > 1 %}
+        <button id="gallery-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow flex items-center justify-center transition-opacity opacity-60 hover:opacity-100" aria-label="Previous">
+          <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="gallery-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow flex items-center justify-center transition-opacity opacity-60 hover:opacity-100" aria-label="Next">
+          <svg class="w-5 h-5 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="flex justify-center gap-2 mt-4" id="gallery-dots">
+          {% for item in gallery %}
+          <button class="gallery-dot w-2 h-2 rounded-full transition-colors {{ 'bg-text' if loop.first else 'bg-gray-300' }}" data-index="{{ loop.index0 }}" aria-label="Go to image {{ loop.index }}"></button>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
     <!-- Artworks Grid -->
     {% if artworks and artworks.length > 0 %}
     <div>

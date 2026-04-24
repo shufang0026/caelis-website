@@ -348,6 +348,39 @@
         }
       });
     });
+
+    // Gallery Carousel
+    (function() {
+      var track = document.getElementById('gallery-track');
+      var prevBtn = document.getElementById('gallery-prev');
+      var nextBtn = document.getElementById('gallery-next');
+      var dots = document.querySelectorAll('.gallery-dot');
+      if (!track || !prevBtn || !nextBtn) return;
+      var items = track.querySelectorAll('[style*="width"]');
+      var total = items.length;
+      var current = 0;
+      function update() {
+        var pct = -(current * (100 / total));
+        track.style.transform = 'translateX(' + pct + '%)';
+        dots.forEach(function(d, i) {
+          d.className = 'gallery-dot w-2 h-2 rounded-full transition-colors ' + (i === current ? 'bg-text' : 'bg-gray-300');
+        });
+      }
+      prevBtn.addEventListener('click', function() {
+        current = (current - 1 + total) % total;
+        update();
+      });
+      nextBtn.addEventListener('click', function() {
+        current = (current + 1) % total;
+        update();
+      });
+      dots.forEach(function(dot, i) {
+        dot.addEventListener('click', function() {
+          current = i;
+          update();
+        });
+      });
+    })();
   </script>
 </body>
 </html>
