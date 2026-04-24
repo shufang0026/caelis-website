@@ -8,6 +8,12 @@
   to = "/admin/:splat"
   status = 200
 
+# Invite acceptance page - handles #invite_token and #recovery_token
+[[redirects]]
+  from = "/invite"
+  to = "/invite.html"
+  status = 200
+
 # NOTE: We do NOT use a catch-all redirect here because it would
 # break Netlify Identity routes (/.netlify/identity/*). 
 # Eleventy generates all pages as static HTML, so no SPA fallback is needed.
