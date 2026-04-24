@@ -7,6 +7,8 @@ public_folder: "/assets/images/uploads"
 
 locale: "en"
 
+publish_mode: editorial_workflow
+
 collections:
   # Exhibitions
   - name: "exhibitions"
