@@ -1,3 +1,13 @@
 [build]
   command = "npx @11ty/eleventy"
   publish = "_site"
+
+# Admin routes - serve admin files directly
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200
+
+# NOTE: We do NOT use a catch-all redirect here because it would
+# break Netlify Identity routes (/.netlify/identity/*). 
+# Eleventy generates all pages as static HTML, so no SPA fallback is needed.

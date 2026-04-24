@@ -1,11 +1,13 @@
 backend:
-  name: github
+  name: git-gateway
   branch: main
 
 media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
 locale: "en"
+
+publish_mode: editorial_workflow
 
 collections:
   # Exhibitions
