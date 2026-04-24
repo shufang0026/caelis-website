@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Caelis Galeria</title>
+  <meta name="description" content="A premier contemporary art gallery in Shanghai, dedicated to showcasing innovative works from around the world." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#FAFAFA',
+            surface: '#FFFFFF',
+            text: '#1A1A1A',
+            primary: '#2C2C2C',
+            secondary: '#737373',
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    /* Custom base styles */
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #FAFAFA;
+      color: #1A1A1A;
+    }
+    .font-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    
+    /* Page transitions */
+    html {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAFAFA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #737373;
+      border-radius: 3px;
+    }
+    
+    /* Hide scrollbar on mobile */
+    @media (max-width: 768px) {
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    
+    /* Focus states */
+    :focus-visible {
+      outline: 2px solid #2C2C2C;
+      outline-offset: 2px;
+    }
+    
+    /* Aspect ratio boxes for placeholders */
+    .aspect-artwork {
+      aspect-ratio: 3/4;
+    }
+    .aspect-hero {
+      aspect-ratio: 16/9;
+    }
+    .aspect-square {
+      aspect-ratio: 1/1;
+    }
+    
+    /* Gradient placeholders matching original design */
+    .gradient-placeholder-1 {
+      background: linear-gradient(135deg, #E8E4E0 0%, #D4CFC8 50%, #C5BFB6 100%);
+    }
+    .gradient-placeholder-2 {
+      background: linear-gradient(135deg, #E0DCD8 0%, #CEC9C2 50%, #BEB7AE 100%);
+    }
+    .gradient-placeholder-3 {
+      background: linear-gradient(135deg, #D8D4D0 0%, #C4BFB8 50%, #B0A9A0 100%);
+    }
+    .gradient-placeholder-4 {
+      background: linear-gradient(135deg, #E4E0DC 0%, #CCC7C0 50%, #B4ADA8 100%);
+    }
+  </style>
+</head>
+<body class="bg-bg font-body antialiased min-h-screen flex flex-col">
+  
+  <!-- Navigation -->
+<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary">Caelis Galeria</span>
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
+        <a href="/exhibitions/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Exhibitions</a>
+        <a href="/art-insight/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Art Insight</a>
+        <a href="/social/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Social</a>
+        <a href="/about/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">About</a>
+        <a href="/admin/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm border border-gray-200 px-3 py-1.5 rounded hover:border-primary">Admin</a>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden transition-opacity" aria-hidden="true"></div>
+
+<!-- Mobile Menu Panel -->
+<div id="mobile-menu" class="fixed top-0 right-0 w-72 h-full bg-surface z-50 shadow-2xl transform transition-transform duration-300 hidden">
+  <div class="p-6">
+    <div class="flex items-center justify-between mb-8">
+      <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
+      <button id="mobile-menu-close" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="flex flex-col space-y-4">
+      <a href="/exhibitions/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Exhibitions</a>
+      <a href="/art-insight/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Art Insight</a>
+      <a href="/social/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Social</a>
+      <a href="/about/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">About</a>
+      <a href="/admin/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 mt-2">Admin</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeBtn = document.getElementById('mobile-menu-close');
+    const menuOverlay = document.getElementById('menu-overlay');
+    
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+      menuOverlay.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+    
+    function closeMenu() {
+      mobileMenu.classList.add('hidden');
+      menuOverlay.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+    
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  });
+</script>
+
+  
+  <main class="flex-1">
+    
+<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto">
+    <!-- About Text + Image -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 mb-20">
+      <div>
+        <h1 class="font-display text-4xl lg:text-5xl font-light mb-8 text-text">About Caelis Galeria</h1>
+        <div class="space-y-6">
+          <p class="text-base leading-relaxed text-text">Caelis Galeria is a contemporary art gallery based in Shanghai, dedicated to presenting thoughtful artistic practices and cross-cultural perspectives. Founded with a vision to bridge Eastern and Western artistic dialogues, we focus on contemporary visual expression, critical discourse, and experimental approaches within an international context.</p>
+          <p class="text-base leading-relaxed text-text">Our program encompasses solo and group exhibitions, artist residencies, publications, and public programs that engage with the most pressing questions of our time. We believe in the transformative power of art to challenge perceptions, foster understanding, and create space for contemplation.</p>
+          <p class="text-base leading-relaxed text-text">Located in the heart of Shanghai's cultural district, our 800-square-meter space provides an intimate yet expansive setting for experiencing contemporary art. We are committed to supporting both established and emerging artists whose work demonstrates exceptional artistic vision and conceptual rigor.</p>
+        </div>
+      </div>
+      <div>
+        <div class="aspect-[4/5] gradient-placeholder-1 mb-4"></div>
+        <p class="text-xs text-secondary">Gallery interior, Caelis Galeria, Shanghai</p>
+      </div>
+    </div>
+
+    <!-- Mission -->
+    <div class="py-16 border-t border-b border-gray-200 mb-20">
+      <div class="max-w-3xl">
+        <h2 class="text-xs tracking-widest uppercase mb-6 text-secondary">Our Mission</h2>
+        <p class="font-display text-2xl lg:text-3xl font-light leading-relaxed text-text">To create meaningful encounters between artworks, artists, and audiences—fostering conversations that transcend geographical and cultural boundaries while contributing to the global discourse on contemporary art.</p>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="mb-20">
+      <h2 class="text-xs tracking-widest uppercase mb-8 text-secondary">Leadership</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <div class="aspect-square w-32 gradient-placeholder-2 mb-4"></div>
+          <h3 class="font-display text-xl font-light mb-1 text-text">Dr. Ming Chen</h3>
+          <p class="text-sm mb-3 text-secondary">Founder & Director</p>
+          <p class="text-sm leading-relaxed text-text">With over two decades of experience in contemporary art curation, Dr. Chen has organized exhibitions at major institutions across Asia, Europe, and North America. Her research focuses on cross-cultural artistic exchange and the role of art in global discourse.</p>
+        </div>
+        <div>
+          <div class="aspect-square w-32 gradient-placeholder-3 mb-4"></div>
+          <h3 class="font-display text-xl font-light mb-1 text-text">Sarah Lin</h3>
+          <p class="text-sm mb-3 text-secondary">Senior Curator</p>
+          <p class="text-sm leading-relaxed text-text">Sarah Lin brings extensive experience in contemporary Asian art, having previously held curatorial positions at the Shanghai Museum of Contemporary Art and the Mori Art Museum in Tokyo. She specializes in emerging artistic practices and new media.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visit -->
+    <div class="p-8 lg:p-12 bg-surface">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-xs tracking-widest uppercase mb-6 text-secondary">Visit Us</h2>
+          <p class="text-base mb-4 text-text">
+            <strong class="font-medium">Caelis Galeria</strong><br>
+            123 Art District Road<br>
+            Jing'an District<br>
+            Shanghai 200040, China
+          </p>
+        </div>
+        <div>
+          <h2 class="text-xs tracking-widest uppercase mb-6 text-secondary">Hours</h2>
+          <p class="text-base mb-4 text-text">
+            Tuesday — Friday: 10:00 — 18:00<br>
+            Saturday — Sunday: 11:00 — 19:00<br>
+            Closed Mondays
+          </p>
+          <p class="text-sm text-secondary">Free admission<br>Private tours available by appointment</p>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-gray-200">
+        <h2 class="text-xs tracking-widest uppercase mb-4 text-secondary">Contact</h2>
+        <p class="text-base text-text">
+          General Inquiries: <a href="mailto:info@caelisgaleria.com" class="underline hover:text-primary">info@caelisgaleria.com</a><br>
+          Press: <a href="mailto:press@caelisgaleria.com" class="underline hover:text-primary">press@caelisgaleria.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+  
+  <!-- Footer -->
+<footer class="bg-surface border-t border-gray-200 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+      <!-- Gallery Info -->
+      <div>
+        <h3 class="font-display text-xl font-medium text-text mb-4">Caelis Galeria</h3>
+        <p class="text-sm text-secondary leading-relaxed">Contemporary Art Gallery<br>Shanghai, China</p>
+      </div>
+      
+      <!-- Hours -->
+      <div>
+        <h4 class="text-xs tracking-widest uppercase text-text mb-4">Hours</h4>
+        <p class="text-sm text-secondary leading-relaxed">Tuesday — Sunday<br>10:00 — 18:00<br>Closed Mondays</p>
+      </div>
+      
+      <!-- Social -->
+      <div>
+        <h4 class="text-xs tracking-widest uppercase text-text mb-4">Connect</h4>
+        <div class="flex space-x-4">
+          <a href="https://www.instagram.com/caelisgaleria" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-primary transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="text-secondary hover:text-primary transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-12 pt-8 border-t border-gray-200">
+      <p class="text-xs text-secondary">&copy; 2025 Caelis Galeria. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+  
+  <!-- Mobile menu script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuOverlay = document.getElementById('menu-overlay');
+      
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function() {
+          mobileMenu.classList.toggle('hidden');
+          menuOverlay.classList.toggle('hidden');
+          document.body.classList.toggle('overflow-hidden');
+        });
+        
+        menuOverlay.addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+          menuOverlay.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        });
+      }
+      
+      // Close mobile menu on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          mobileMenu.classList.add('hidden');
+          menuOverlay.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

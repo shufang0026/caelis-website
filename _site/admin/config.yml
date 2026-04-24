@@ -1,0 +1,77 @@
+backend:
+  name: github
+  branch: main
+
+media_folder: "src/assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+locale: "en"
+
+collections:
+  # Exhibitions
+  - name: "exhibitions"
+    label: "Exhibitions"
+    folder: "src/content/exhibitions"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Status", name: "status", widget: "select", options: ["current", "upcoming", "past"], default: "current" }
+      - { label: "Start Date", name: "startDate", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "End Date", name: "endDate", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "Artists", name: "artists", widget: "string", hint: "Comma-separated list" }
+      - { label: "Curator", name: "curator", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Cover Image", name: "cover", widget: "image", required: false }
+      - { label: "Hero Subtitle", name: "heroSubtitle", widget: "text", required: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Body Content", name: "body", widget: "markdown", required: false }
+      - label: "Artworks"
+        name: "artworks"
+        widget: "list"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Artist", name: "artist", widget: "string" }
+          - { label: "Year", name: "year", widget: "string" }
+          - { label: "Image", name: "image", widget: "image", required: false }
+
+  # Articles
+  - name: "articles"
+    label: "Articles"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Essay", "Artist Research", "Curatorial Text", "Interview", "Exhibition Review"] }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+      - { label: "Read Time", name: "readTime", widget: "string", hint: "e.g. 12 min read" }
+      - { label: "Cover Image", name: "cover", widget: "image", required: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # Site Settings
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Site Data"
+        name: "site"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Gallery Name", name: "gallery_name", widget: "string" }
+          - { label: "Gallery Display Name", name: "gallery_name_display", widget: "string", required: false }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - { label: "WeChat ID", name: "wechat", widget: "string", required: false }
+          - { label: "Address", name: "address", widget: "text" }
+          - { label: "Hours", name: "hours", widget: "string" }
+          - { label: "Mission Statement", name: "mission_statement", widget: "text" }
+          - { label: "Founded Year", name: "founded", widget: "string", required: false }

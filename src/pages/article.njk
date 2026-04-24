@@ -1,0 +1,44 @@
+---
+layout: base.njk
+permalink: /art-insight/{{ slug }}/
+title: "{{ title }}"
+---
+
+<article class="py-12 lg:py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <a href="/art-insight/" class="inline-flex items-center text-sm tracking-widest uppercase mb-12 text-secondary hover:text-text transition-colors group">
+      <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Back to Art Insight
+    </a>
+
+    <header class="mb-12">
+      <p class="text-xs tracking-widest uppercase mb-4 text-secondary">{{ category }}</p>
+      <h1 class="font-display text-3xl lg:text-4xl xl:text-5xl font-light leading-tight mb-6 text-text">{{ title }}</h1>
+      <div class="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-secondary">
+        <span>By {{ author }}</span>
+        <span>&middot;</span>
+        <span>{{ date | dateFormat }}</span>
+        <span>&middot;</span>
+        <span>{{ readTime }}</span>
+      </div>
+    </header>
+
+    <!-- Cover Image -->
+    {% if cover %}
+    <div class="aspect-[16/9] gradient-placeholder-1 mb-12 bg-cover bg-center" style="background-image: url({{ cover }})"></div>
+    {% endif %}
+
+    <!-- Article Content -->
+    <div class="prose max-w-none text-text leading-relaxed">
+      {{ content | safe }}
+    </div>
+
+    <!-- Related Exhibition -->
+    {% if relatedExhibition %}
+    <div class="mt-16 pt-8 border-t border-gray-200">
+      <p class="text-xs tracking-widest uppercase mb-4 text-secondary">Related Exhibition</p>
+      <a href="{{ relatedExhibition.url }}" class="font-display text-xl hover:underline text-text">{{ relatedExhibition.data.title }} &rarr;</a>
+    </div>
+    {% endif %}
+  </div>
+</article>

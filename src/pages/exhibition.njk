@@ -1,0 +1,70 @@
+---
+layout: base.njk
+permalink: /exhibitions/{{ slug }}/
+title: "{{ title }}"
+---
+
+<article class="py-12 lg:py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+    <a href="/exhibitions/" class="inline-flex items-center text-sm tracking-widest uppercase mb-12 text-secondary hover:text-text transition-colors group">
+      <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Back to Exhibitions
+    </a>
+
+    <header class="mb-12">
+      <p class="text-xs tracking-widest uppercase mb-4 text-secondary">{{ startDate | dateFormatShort }} — {{ endDate | dateFormatShort }}</p>
+      <h1 class="font-display text-4xl lg:text-5xl xl:text-6xl font-light mb-6 text-text">{{ title }}</h1>
+      <p class="text-lg text-secondary">{{ artists }}</p>
+    </header>
+
+    <!-- Main Image -->
+    <div class="aspect-[16/9] gradient-placeholder-1 mb-12 bg-cover bg-center"
+      {% if cover %}style="background-image: url({{ cover }})"{% endif %}></div>
+
+    <!-- Description + Details -->
+    <div class="grid lg:grid-cols-3 gap-12 mb-16">
+      <div class="lg:col-span-2">
+        <div class="prose max-w-none">
+          <p class="text-base leading-relaxed mb-6 text-text">{{ description }}</p>
+          {{ content | safe }}
+        </div>
+      </div>
+      <div>
+        <div class="sticky top-32">
+          <h3 class="text-xs tracking-widest uppercase mb-4 text-secondary">Exhibition Details</h3>
+          <dl class="space-y-4">
+            <div>
+              <dt class="text-xs uppercase mb-1 text-secondary">Dates</dt>
+              <dd class="text-sm text-text">{{ startDate | dateFormat }} — {{ endDate | dateFormat }}</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase mb-1 text-secondary">Location</dt>
+              <dd class="text-sm text-text">{{ location }}</dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase mb-1 text-secondary">Curated by</dt>
+              <dd class="text-sm text-text">{{ curator }}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- Artworks Grid -->
+    {% if artworks and artworks.length > 0 %}
+    <div>
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Selected Works</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for artwork in artworks %}
+        <div>
+          <div class="aspect-square gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-4 bg-cover bg-center"
+            {% if artwork.image %}style="background-image: url({{ artwork.image }})"{% endif %}></div>
+          <p class="text-sm font-medium text-text">{{ artwork.title }}</p>
+          <p class="text-xs text-secondary">{{ artwork.artist }}, {{ artwork.year }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</article>

@@ -1,0 +1,67 @@
+---
+layout: base.njk
+title: Exhibitions
+---
+
+<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16">
+      <h1 class="font-display text-4xl lg:text-5xl font-light mb-4 text-text">Exhibitions</h1>
+      <p class="text-base max-w-2xl text-secondary">Explore our current and past exhibitions, each offering unique perspectives on contemporary artistic practice.</p>
+    </div>
+
+    <!-- Current -->
+    {% if currentExhibitions.length > 0 %}
+    <div class="mb-20">
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Current</h2>
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        {% for exhibition in currentExhibitions %}
+        <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
+          <div class="aspect-[4/3] gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-6 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
+            {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
+          <p class="text-xs tracking-widest uppercase mb-2 text-secondary">{{ exhibition.data.startDate | dateFormatShort }} — {{ exhibition.data.endDate | dateFormatShort }}</p>
+          <h3 class="font-display text-xl lg:text-2xl font-light mb-3 text-text group-hover:text-primary transition-colors">{{ exhibition.data.title }}</h3>
+          <p class="text-sm text-secondary">{{ exhibition.data.artists }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Upcoming -->
+    {% if upcomingExhibitions.length > 0 %}
+    <div class="mb-20">
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Upcoming</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for exhibition in upcomingExhibitions %}
+        <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
+          <div class="aspect-[4/3] gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-6 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
+            {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
+          <p class="text-xs tracking-widest uppercase mb-2 text-secondary">{{ exhibition.data.startDate | dateFormatShort }} — {{ exhibition.data.endDate | dateFormatShort }}</p>
+          <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">{{ exhibition.data.title }}</h3>
+          <p class="text-sm text-secondary">{{ exhibition.data.artists }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Past -->
+    {% if pastExhibitions.length > 0 %}
+    <div>
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Past</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for exhibition in pastExhibitions %}
+        <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
+          <div class="aspect-[4/3] gradient-placeholder-{{ (loop.index % 4) + 1 }} mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+            {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
+          <p class="text-xs tracking-widest uppercase mb-2 text-secondary">{{ exhibition.data.startDate | dateFormatShort }} — {{ exhibition.data.endDate | dateFormatShort }}</p>
+          <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">{{ exhibition.data.title }}</h3>
+          <p class="text-sm text-secondary">{{ exhibition.data.artists }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
