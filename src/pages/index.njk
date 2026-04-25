@@ -94,7 +94,7 @@ permalink: "/"
 
     <!-- Collapsible form: hidden by default, shown after clicking Subscribe -->
     <div id="subscribe-form-wrapper" class="hidden mt-10">
-      <form action="#" method="POST" class="space-y-6" id="subscribe-form">
+      <form action="https://caelis-subscribe.shufang0026.workers.dev" method="POST" class="space-y-6" id="subscribe-form">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <input type="text" name="firstName" placeholder="First Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
           <input type="text" name="lastName" placeholder="Last Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
@@ -119,13 +119,48 @@ permalink: "/"
 (function() {
   var toggle = document.getElementById('subscribe-toggle');
   var wrapper = document.getElementById('subscribe-form-wrapper');
+  var form = document.getElementById('subscribe-form');
+  var message = document.getElementById('subscribe-message');
   if (!toggle || !wrapper) return;
+
   toggle.addEventListener('click', function() {
     wrapper.classList.remove('hidden');
     toggle.classList.add('hidden');
-    // Focus first input field for better UX
     var firstInput = wrapper.querySelector('input[name=firstName]');
     if (firstInput) firstInput.focus();
   });
+
+  // Handle form submission via fetch (no page reload)
+  if (form && message) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var submitBtn = form.querySelector('button[type=submit]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      try {
+        var resp = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+        });
+        var data = await resp.json();
+        if (resp.ok) {
+          message.textContent = data.message;
+          message.className = 'mt-6 text-sm text-green-600';
+          message.classList.remove('hidden');
+          form.reset();
+        } else {
+          message.textContent = data.error || 'Something went wrong. Please try again.';
+          message.className = 'mt-6 text-sm text-red-600';
+          message.classList.remove('hidden');
+        }
+      } catch (err) {
+        message.textContent = 'Network error. Please check your connection and try again.';
+        message.className = 'mt-6 text-sm text-red-600';
+        message.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+    });
+  }
 })();
 </script>

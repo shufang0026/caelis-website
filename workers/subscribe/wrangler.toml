@@ -1,0 +1,7 @@
+name = "caelis-subscribe"
+main = "index.js"
+compatibility_date = "2024-09-23"
+
+[[kv_namespaces]]
+binding = "SUBSCRIBERS"
+id = "393f3e8f879148a69d8aab3f33efd18e"
