@@ -90,20 +90,42 @@ permalink: "/"
 <!-- Newsletter Subscribe -->
 <section class="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-surface">
   <div class="max-w-2xl mx-auto">
-    <h2 class="font-display text-2xl lg:text-3xl font-light mb-3 text-text">Stay up-to-date on Caelis artists, exhibitions, and events.</h2>
-    <p class="text-sm text-secondary mb-10">Subscribe to our newsletter for the latest updates.</p>
-    <form action="#" method="POST" class="space-y-6" id="subscribe-form">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <input type="text" name="firstName" placeholder="First Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-        <input type="text" name="lastName" placeholder="Last Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-      </div>
-      <input type="email" name="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-      <input type="text" name="country" placeholder="Country" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-      <button type="submit" class="mt-4 inline-flex items-center text-sm tracking-widest uppercase text-text border-b border-text/50 pb-1 hover:border-text transition-colors cursor-pointer bg-transparent">
-        Subscribe
-        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </button>
-    </form>
-    <p id="subscribe-message" class="mt-6 text-sm hidden"></p>
+    <h2 class="font-display text-xl lg:text-2xl font-light mb-0 text-text leading-relaxed">Join our mailing list for updates about our artists, exhibitions, events, and more.</h2>
+
+    <!-- Collapsible form: hidden by default, shown after clicking Subscribe -->
+    <div id="subscribe-form-wrapper" class="hidden mt-10">
+      <form action="#" method="POST" class="space-y-6" id="subscribe-form">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <input type="text" name="firstName" placeholder="First Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
+          <input type="text" name="lastName" placeholder="Last Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
+        </div>
+        <input type="email" name="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
+        <input type="text" name="country" placeholder="Country" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
+        <button type="submit" class="mt-2 inline-flex items-center text-sm tracking-widest uppercase text-text border border-text/50 px-5 py-2 hover:bg-text hover:text-white transition-colors cursor-pointer">
+          Submit
+        </button>
+      </form>
+      <p id="subscribe-message" class="mt-6 text-sm hidden"></p>
+    </div>
+
+    <!-- Toggle button (visible when form is hidden) -->
+    <button type="button" id="subscribe-toggle" class="mt-8 inline-flex items-center text-sm tracking-widest uppercase text-text border border-gray-400 px-5 py-2.5 hover:border-text hover:bg-text hover:text-white transition-all duration-200 cursor-pointer">
+      Subscribe
+    </button>
   </div>
 </section>
+
+<script>
+(function() {
+  var toggle = document.getElementById('subscribe-toggle');
+  var wrapper = document.getElementById('subscribe-form-wrapper');
+  if (!toggle || !wrapper) return;
+  toggle.addEventListener('click', function() {
+    wrapper.classList.remove('hidden');
+    toggle.classList.add('hidden');
+    // Focus first input field for better UX
+    var firstInput = wrapper.querySelector('input[name=firstName]');
+    if (firstInput) firstInput.focus();
+  });
+})();
+</script>
