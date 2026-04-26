@@ -59,25 +59,41 @@ title: "{{ title }}"
         <!-- Sidebar (left) -->
         <aside class="lg:sticky lg:top-24 lg:self-start order-2 lg:order-1">
           <div class="pt-8 lg:pt-0">
+            {# Sidebar title varies by category #}
+            {% if category == "Art Fair" %}
             <p class="text-xs tracking-[0.2em] uppercase mb-6 text-secondary font-medium">Art Fair Details</p>
+            {% elif category == "Museum Exhibition" %}
+            <p class="text-xs tracking-[0.2em] uppercase mb-6 text-secondary font-medium">Exhibition Details</p>
+            {% else %}
+            <p class="text-xs tracking-[0.2em] uppercase mb-6 text-secondary font-medium">Event Details</p>
+            {% endif %}
             
             <div class="space-y-5">
+              {# Art Fair: show fairName, venue, booth, date #}
+              {% if category == "Art Fair" %}
               {% if fairName %}
               <div>
                 <p class="text-lg font-display text-text leading-snug">{{ fairName }}</p>
               </div>
               {% endif %}
-              
               {% if venue %}
               <div>
                 <p class="text-sm text-secondary leading-relaxed">{{ venue }}</p>
               </div>
               {% endif %}
-              
               {% if booth %}
               <div>
                 <p class="text-sm text-text font-medium">Booth {{ booth }}</p>
               </div>
+              {% endif %}
+              
+              {# Museum Exhibition / Event / Collaboration: show venue + date only #}
+              {% else %}
+              {% if venue %}
+              <div>
+                <p class="text-sm text-secondary leading-relaxed">{{ venue }}</p>
+              </div>
+              {% endif %}
               {% endif %}
               
               {% if date %}
@@ -132,6 +148,18 @@ title: "{{ title }}"
     </div>
   </div>
   {% endif %}
+
+  <!-- Inquiry CTA -->
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto py-12">
+      <div class="pt-8 border-t border-gray-200">
+        <p class="text-base sm:text-lg text-text leading-relaxed text-center">
+          To inquire about any of the artists or works featured here, please email us at
+          <a href="mailto:info@caelis.cn" class="font-medium underline hover:no-underline decoration-1 underline-offset-4">info@caelis.cn</a>.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- Related Exhibition -->
   {% if relatedExhibition %}
