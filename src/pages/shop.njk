@@ -125,7 +125,7 @@ permalink: "/shop/"
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
     <div class="p-8 lg:p-12 max-w-xl mx-auto">
-      <h2 class="font-display text-2xl lg:text-3xl font-light text-text mb-2">Inquire</h2>
+      <h2 id="inquire-heading" class="font-display text-2xl lg:text-3xl font-light text-text mb-2">Inquire</h2>
       <p id="inquire-item-name" class="text-sm text-secondary mb-8"></p>
       <form id="inquire-form" onsubmit="submitInquire(event)" class="space-y-5">
         <div>
@@ -150,7 +150,7 @@ permalink: "/shop/"
           <label class="block text-xs uppercase tracking-widest text-secondary mb-1.5">Message</label>
           <textarea name="message" rows="4" class="w-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none transition-colors resize-none"></textarea>
         </div>
-        <button type="submit" class="w-full bg-primary text-white py-3 px-6 font-body text-sm uppercase tracking-widest hover:bg-black transition-colors">Send Inquiry</button>
+        <button id="inquire-submit-btn" type="submit" class="w-full bg-primary text-white py-3 px-6 font-body text-sm uppercase tracking-widest hover:bg-black transition-colors">Send Inquiry</button>
       </form>
       <div id="inquire-success" class="hidden text-center py-12">
         <svg class="w-12 h-12 mx-auto text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/></svg>
@@ -207,7 +207,7 @@ permalink: "/shop/"
     } else {
       document.getElementById('detail-price').textContent = item.price;
     }
-    document.getElementById('inquire-btn-text').textContent = item.inquireOnly ? 'Inquire' : 'Purchase';
+    document.getElementById('inquire-btn-text').textContent = item.inquireOnly ? 'Inquire' : 'Order';
     document.getElementById('detail-modal').classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
   }
@@ -220,7 +220,10 @@ permalink: "/shop/"
 
   // Inquire modal
   function openInquire() {
+    var isInquire = currentItem.inquireOnly;
+    document.getElementById('inquire-heading').textContent = isInquire ? 'Inquire' : 'Place Order';
     document.getElementById('inquire-item-name').textContent = currentItem.title + ' — ' + currentItem.artist;
+    document.getElementById('inquire-submit-btn').textContent = isInquire ? 'Send Inquiry' : 'Place Order';
     document.getElementById('inquire-form').classList.remove('hidden');
     document.getElementById('inquire-success').classList.add('hidden');
     document.getElementById('inquire-modal').classList.remove('hidden');
