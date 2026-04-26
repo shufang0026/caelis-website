@@ -32,6 +32,20 @@ title: "{{ title }}"
       {{ content | safe }}
     </div>
 
+    <!-- Image Gallery -->
+    {% if gallery and gallery.length > 0 %}
+    <div class="mt-16 pt-8 border-t border-gray-200">
+      <p class="text-xs tracking-widest uppercase mb-8 text-secondary">Photo Gallery</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {% for item in gallery %}
+        <a href="{{ item.path }}" target="_blank" class="block aspect-square overflow-hidden rounded-sm hover:opacity-80 transition-opacity">
+          <img src="{{ item.path }}" alt="{{ item.caption or '' }}" class="w-full h-full object-cover" loading="lazy">
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     <!-- Related Exhibition -->
     {% if relatedExhibition %}
     <div class="mt-16 pt-8 border-t border-gray-200">
