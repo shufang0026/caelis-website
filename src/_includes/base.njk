@@ -20,9 +20,10 @@
           colors: {
             bg: '#FAFAFA',
             surface: '#FFFFFF',
-            text: '#1A1A1A',
-            primary: '#2C2C2C',
-            secondary: '#737373',
+            text: '#111111',
+            primary: '#000000',
+            secondary: '#444444',
+            muted: '#666666',
           },
           fontFamily: {
             display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -38,7 +39,7 @@
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background-color: #FAFAFA;
-      color: #1A1A1A;
+      color: #111111;
     }
     .font-display {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -58,8 +59,33 @@
       background: #FAFAFA;
     }
     ::-webkit-scrollbar-thumb {
-      background: #737373;
+      background: #444;
       border-radius: 3px;
+    }
+    
+    /* Ken Burns hero animation */
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .hero-ken-burns {
+      animation: kenBurns 20s ease-in-out alternate infinite;
+    }
+    
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Dark dramatic section — DZ style */
+    .dark-dramatic {
+      background: #000;
     }
     
     /* Hide scrollbar on mobile */
@@ -188,6 +214,22 @@
         });
       });
     })();
+  </script>
+  <!-- Scroll Reveal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reveals = document.querySelectorAll('.reveal');
+      if (!reveals.length) return;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    });
   </script>
 </body>
 </html>

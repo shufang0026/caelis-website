@@ -20,9 +20,10 @@
           colors: {
             bg: '#FAFAFA',
             surface: '#FFFFFF',
-            text: '#1A1A1A',
-            primary: '#2C2C2C',
-            secondary: '#737373',
+            text: '#111111',
+            primary: '#000000',
+            secondary: '#444444',
+            muted: '#666666',
           },
           fontFamily: {
             display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -38,7 +39,7 @@
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background-color: #FAFAFA;
-      color: #1A1A1A;
+      color: #111111;
     }
     .font-display {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -58,8 +59,33 @@
       background: #FAFAFA;
     }
     ::-webkit-scrollbar-thumb {
-      background: #737373;
+      background: #444;
       border-radius: 3px;
+    }
+    
+    /* Ken Burns hero animation */
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .hero-ken-burns {
+      animation: kenBurns 20s ease-in-out alternate infinite;
+    }
+    
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Dark dramatic section — DZ style */
+    .dark-dramatic {
+      background: #000;
     }
     
     /* Hide scrollbar on mobile */
@@ -104,7 +130,7 @@
 <body class="bg-bg font-body antialiased min-h-screen flex flex-col">
   
   <!-- Navigation -->
-<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
+<header class="bg-surface/95 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       
@@ -115,12 +141,12 @@
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
-        <a href="/exhibitions/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Exhibitions</a>
-        <a href="/art-insight/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Art Insight</a>
-        <a href="/shop/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Shop</a>
-        <a href="/social/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Social</a>
-        <a href="/about/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">About</a>
-        <a href="/admin/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm border border-gray-200 px-3 py-1.5 rounded hover:border-primary">Admin</a>
+        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Exhibitions</a>
+        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Art Insight</a>
+        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Shop</a>
+        <a href="/social/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Social</a>
+        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">About</a>
+        <a href="/admin/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase border border-gray-300 px-4 py-1.5 rounded hover:border-primary">Admin</a>
       </div>
       
       <!-- Mobile Menu Button -->
@@ -190,91 +216,114 @@
   
   <main class="flex-1">
     
-<!-- Hero Section -->
-<section class="relative h-[70vh] lg:h-[85vh] overflow-hidden bg-surface">
-  <div class="absolute inset-0 gradient-placeholder-1"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-  <div class="absolute bottom-0 left-0 right-0 p-8 lg:p-16">
-    <div class="max-w-7xl mx-auto">
-      <p class="text-white/80 text-xs tracking-widest uppercase mb-3">Current Exhibition</p>
-      
-      <h1 class="font-display text-4xl lg:text-6xl xl:text-7xl text-white font-light leading-tight mb-4">Caelis Galeria</h1>
-      <p class="text-white/90 text-sm lg:text-base max-w-xl mb-6">A premier contemporary art gallery in Shanghai, dedicated to showcasing innovative works from around the world.</p>
-      
+<!-- Hero Section — Full-screen cinematic -->
+<section class="relative h-screen overflow-hidden bg-black">
+  <div class="absolute inset-0 hero-ken-burns">
+    <div class="absolute inset-0 gradient-placeholder-1"></div>
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+  <div class="absolute inset-0 flex items-end">
+    <div class="w-full p-8 lg:p-16 pb-16 lg:pb-24">
+      <div class="max-w-7xl mx-auto">
+        <p class="text-white/70 text-[11px] tracking-[0.3em] uppercase mb-6 font-body">Current Exhibition</p>
+        
+        <h1 class="font-display text-5xl lg:text-7xl xl:text-8xl text-white font-light leading-[1.05] mb-6">Caelis Galeria</h1>
+        <p class="text-white/80 text-sm lg:text-base max-w-lg mb-8 leading-relaxed">A premier contemporary art gallery in Shanghai, dedicated to showcasing innovative works from around the world.</p>
+        
+      </div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <span class="text-white/40 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+    <div class="w-px h-8 bg-white/30"></div>
+  </div>
+</section>
+
+<!-- Introduction — Left-aligned, editorial -->
+<section class="py-24 lg:py-36 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto reveal">
+    <div class="max-w-2xl">
+      <h2 class="font-display text-4xl lg:text-5xl font-light mb-10 text-text leading-[1.15]">A Space for<br>Contemporary Dialogue</h2>
+      <p class="text-base lg:text-lg leading-[1.8] mb-6 text-secondary">Caelis Galeria is a contemporary art gallery based in Shanghai, dedicated to presenting thoughtful artistic practices and cross-cultural perspectives. We focus on contemporary visual expression, critical discourse, and experimental approaches within an international context.</p>
+      <p class="text-base lg:text-lg leading-[1.8] text-secondary">Through our curatorial program, we seek to create meaningful encounters between artworks, artists, and audiences—fostering conversations that transcend geographical and cultural boundaries.</p>
     </div>
   </div>
 </section>
 
-<!-- Introduction -->
-<section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="font-display text-3xl lg:text-4xl font-light mb-8 text-text">A Space for Contemporary Dialogue</h2>
-    <p class="text-base lg:text-lg leading-relaxed mb-6 text-secondary">Caelis Galeria is a contemporary art gallery based in Shanghai, dedicated to presenting thoughtful artistic practices and cross-cultural perspectives. We focus on contemporary visual expression, critical discourse, and experimental approaches within an international context.</p>
-    <p class="text-base lg:text-lg leading-relaxed text-secondary">Through our curatorial program, we seek to create meaningful encounters between artworks, artists, and audiences—fostering conversations that transcend geographical and cultural boundaries.</p>
+<!-- Dark Dramatic Section — David Zwirner style -->
+<section class="dark-dramatic py-28 lg:py-40 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto text-center reveal">
+    <p class="text-white/40 text-[11px] tracking-[0.3em] uppercase mb-8 font-body">Our Mission</p>
+    <blockquote class="font-display text-3xl lg:text-5xl xl:text-6xl text-white font-light leading-[1.15] italic">
+      "Art is not what you see, but what you make others see."
+    </blockquote>
+    <div class="mt-10 w-12 h-px bg-white/30 mx-auto"></div>
+    <p class="mt-10 text-white/50 text-sm tracking-[0.2em] uppercase">Edgar Degas</p>
   </div>
 </section>
 
-<!-- Current Exhibitions Preview -->
-<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-surface">
+<!-- Current Exhibitions Preview — Bolder cards -->
+<section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-end justify-between mb-12">
+    <div class="flex items-end justify-between mb-16 reveal">
       <div>
-        <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Now Showing</p>
-        <h2 class="font-display text-2xl lg:text-3xl font-light text-text">Current Exhibitions</h2>
+        <p class="text-[11px] tracking-[0.3em] uppercase mb-3 text-muted font-body">Now Showing</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-light text-text">Current Exhibitions</h2>
       </div>
-      <a href="/exhibitions/" class="hidden sm:flex items-center text-sm tracking-widest uppercase text-secondary hover:text-text transition-colors">
+      <a href="/exhibitions/" class="hidden sm:flex items-center text-[11px] tracking-[0.2em] uppercase text-text hover:text-primary transition-colors">
         View All
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
-    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+    <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
       
     </div>
   </div>
 </section>
 
-<!-- Art Insight Preview -->
-<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+<!-- Art Insight Preview — More editorial -->
+<section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-surface">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-end justify-between mb-12">
+    <div class="flex items-end justify-between mb-16 reveal">
       <div>
-        <p class="text-xs tracking-widest uppercase mb-2 text-secondary">From the Journal</p>
-        <h2 class="font-display text-2xl lg:text-3xl font-light text-text">Art Insight</h2>
+        <p class="text-[11px] tracking-[0.3em] uppercase mb-3 text-muted font-body">From the Journal</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-light text-text">Art Insight</h2>
       </div>
-      <a href="/art-insight/" class="hidden sm:flex items-center text-sm tracking-widest uppercase text-secondary hover:text-text transition-colors">
+      <a href="/art-insight/" class="hidden sm:flex items-center text-[11px] tracking-[0.2em] uppercase text-text hover:text-primary transition-colors">
         Read More
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
-    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-10">
       
     </div>
   </div>
 </section>
 
-<!-- Newsletter Subscribe -->
-<section class="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-surface">
-  <div class="max-w-2xl mx-auto">
-    <h2 class="font-display text-xl lg:text-2xl font-light mb-0 text-text leading-relaxed">Join our mailing list for updates about our artists, exhibitions, events, and more.</h2>
+<!-- Newsletter Subscribe — Clean DZ style -->
+<section class="py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl mx-auto reveal">
+    <h2 class="font-display text-2xl lg:text-3xl font-light mb-0 text-text leading-[1.4]">Join our mailing list for updates about our artists, exhibitions, events, and more.</h2>
 
-    <!-- Collapsible form: hidden by default, shown after clicking Subscribe -->
-    <div id="subscribe-form-wrapper" class="hidden mt-10">
-      <form action="https://caelis-subscribe.shufang0026.workers.dev" method="POST" class="space-y-6" id="subscribe-form">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <!-- Collapsible form -->
+    <div id="subscribe-form-wrapper" class="hidden mt-12">
+      <form action="https://caelis-subscribe.shufang0026.workers.dev" method="POST" class="space-y-8" id="subscribe-form">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <input type="text" name="firstName" placeholder="First Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
           <input type="text" name="lastName" placeholder="Last Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
         </div>
         <input type="email" name="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
         <input type="text" name="country" placeholder="Country" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-        <button type="submit" class="mt-2 inline-flex items-center text-sm tracking-widest uppercase text-text border border-text/50 px-5 py-2 hover:bg-text hover:text-white transition-colors cursor-pointer">
+        <button type="submit" class="mt-2 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-colors cursor-pointer">
           Submit
         </button>
       </form>
-      <p id="subscribe-message" class="mt-6 text-sm hidden"></p>
+      <p id="subscribe-message" class="mt-8 text-sm hidden"></p>
     </div>
 
-    <!-- Toggle button (visible when form is hidden) -->
-    <button type="button" id="subscribe-toggle" class="mt-8 inline-flex items-center text-sm tracking-widest uppercase text-text border border-gray-400 px-5 py-2.5 hover:border-text hover:bg-text hover:text-white transition-all duration-200 cursor-pointer">
+    <!-- Toggle button -->
+    <button type="button" id="subscribe-toggle" class="mt-10 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-all duration-200 cursor-pointer">
       Subscribe
     </button>
   </div>
@@ -295,7 +344,6 @@
     if (firstInput) firstInput.focus();
   });
 
-  // Handle form submission via fetch (no page reload)
   if (form && message) {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -310,17 +358,17 @@
         var data = await resp.json();
         if (resp.ok) {
           message.textContent = data.message;
-          message.className = 'mt-6 text-sm text-green-600';
+          message.className = 'mt-8 text-sm text-green-600';
           message.classList.remove('hidden');
           form.reset();
         } else {
           message.textContent = data.error || 'Something went wrong. Please try again.';
-          message.className = 'mt-6 text-sm text-red-600';
+          message.className = 'mt-8 text-sm text-red-600';
           message.classList.remove('hidden');
         }
       } catch (err) {
         message.textContent = 'Network error. Please check your connection and try again.';
-        message.className = 'mt-6 text-sm text-red-600';
+        message.className = 'mt-8 text-sm text-red-600';
         message.classList.remove('hidden');
       }
       submitBtn.disabled = false;
@@ -344,7 +392,7 @@
       
       <!-- Connect -->
       <div>
-        <h4 class="text-xs tracking-widest uppercase text-text mb-4">Connect</h4>
+        <h4 class="text-[11px] tracking-[0.25em] uppercase text-text mb-4 font-body">Connect</h4>
         <div class="flex flex-wrap gap-4">
           <a href="https://www.instagram.com/caelisgaleria" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-primary transition-colors" title="Instagram">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -446,6 +494,22 @@
         });
       });
     })();
+  </script>
+  <!-- Scroll Reveal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reveals = document.querySelectorAll('.reveal');
+      if (!reveals.length) return;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    });
   </script>
 </body>
 </html>

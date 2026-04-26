@@ -4,57 +4,82 @@ title: Home
 permalink: "/"
 ---
 
-<!-- Hero Section -->
-<section class="relative h-[70vh] lg:h-[85vh] overflow-hidden bg-surface">
-  <div class="absolute inset-0 gradient-placeholder-1"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-  <div class="absolute bottom-0 left-0 right-0 p-8 lg:p-16">
-    <div class="max-w-7xl mx-auto">
-      <p class="text-white/80 text-xs tracking-widest uppercase mb-3">Current Exhibition</p>
-      {% if currentExhibitions.length > 0 %}
-      <h1 class="font-display text-4xl lg:text-6xl xl:text-7xl text-white font-light leading-tight mb-4">{{ currentExhibitions[0].data.title }}</h1>
-      <p class="text-white/90 text-sm lg:text-base max-w-xl mb-6">{{ currentExhibitions[0].data.heroSubtitle }}</p>
-      <a href="{{ currentExhibitions[0].url }}" class="inline-flex items-center text-white text-sm tracking-widest uppercase border-b border-white/50 pb-1 hover:border-white transition-colors">
-        View Exhibition
-        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-      {% else %}
-      <h1 class="font-display text-4xl lg:text-6xl xl:text-7xl text-white font-light leading-tight mb-4">{{ site.gallery_name }}</h1>
-      <p class="text-white/90 text-sm lg:text-base max-w-xl mb-6">{{ site.description }}</p>
-      {% endif %}
+<!-- Hero Section — Full-screen cinematic -->
+<section class="relative h-screen overflow-hidden bg-black">
+  <div class="absolute inset-0 hero-ken-burns">
+    <div class="absolute inset-0 gradient-placeholder-1"></div>
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+  <div class="absolute inset-0 flex items-end">
+    <div class="w-full p-8 lg:p-16 pb-16 lg:pb-24">
+      <div class="max-w-7xl mx-auto">
+        <p class="text-white/70 text-[11px] tracking-[0.3em] uppercase mb-6 font-body">Current Exhibition</p>
+        {% if currentExhibitions.length > 0 %}
+        <h1 class="font-display text-5xl lg:text-7xl xl:text-8xl text-white font-light leading-[1.05] mb-6 max-w-4xl">{{ currentExhibitions[0].data.title }}</h1>
+        <p class="text-white/80 text-sm lg:text-base max-w-lg mb-8 leading-relaxed">{{ currentExhibitions[0].data.heroSubtitle }}</p>
+        <a href="{{ currentExhibitions[0].url }}" class="inline-flex items-center text-white text-[11px] tracking-[0.25em] uppercase border border-white/30 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300">
+          View Exhibition
+          <svg class="ml-3 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        {% else %}
+        <h1 class="font-display text-5xl lg:text-7xl xl:text-8xl text-white font-light leading-[1.05] mb-6">{{ site.gallery_name }}</h1>
+        <p class="text-white/80 text-sm lg:text-base max-w-lg mb-8 leading-relaxed">{{ site.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <span class="text-white/40 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+    <div class="w-px h-8 bg-white/30"></div>
+  </div>
+</section>
+
+<!-- Introduction — Left-aligned, editorial -->
+<section class="py-24 lg:py-36 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto reveal">
+    <div class="max-w-2xl">
+      <h2 class="font-display text-4xl lg:text-5xl font-light mb-10 text-text leading-[1.15]">A Space for<br>Contemporary Dialogue</h2>
+      <p class="text-base lg:text-lg leading-[1.8] mb-6 text-secondary">Caelis Galeria is a contemporary art gallery based in Shanghai, dedicated to presenting thoughtful artistic practices and cross-cultural perspectives. We focus on contemporary visual expression, critical discourse, and experimental approaches within an international context.</p>
+      <p class="text-base lg:text-lg leading-[1.8] text-secondary">Through our curatorial program, we seek to create meaningful encounters between artworks, artists, and audiences—fostering conversations that transcend geographical and cultural boundaries.</p>
     </div>
   </div>
 </section>
 
-<!-- Introduction -->
-<section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="font-display text-3xl lg:text-4xl font-light mb-8 text-text">A Space for Contemporary Dialogue</h2>
-    <p class="text-base lg:text-lg leading-relaxed mb-6 text-secondary">Caelis Galeria is a contemporary art gallery based in Shanghai, dedicated to presenting thoughtful artistic practices and cross-cultural perspectives. We focus on contemporary visual expression, critical discourse, and experimental approaches within an international context.</p>
-    <p class="text-base lg:text-lg leading-relaxed text-secondary">Through our curatorial program, we seek to create meaningful encounters between artworks, artists, and audiences—fostering conversations that transcend geographical and cultural boundaries.</p>
+<!-- Dark Dramatic Section — David Zwirner style -->
+<section class="dark-dramatic py-28 lg:py-40 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto text-center reveal">
+    <p class="text-white/40 text-[11px] tracking-[0.3em] uppercase mb-8 font-body">Our Mission</p>
+    <blockquote class="font-display text-3xl lg:text-5xl xl:text-6xl text-white font-light leading-[1.15] italic">
+      "Art is not what you see, but what you make others see."
+    </blockquote>
+    <div class="mt-10 w-12 h-px bg-white/30 mx-auto"></div>
+    <p class="mt-10 text-white/50 text-sm tracking-[0.2em] uppercase">Edgar Degas</p>
   </div>
 </section>
 
-<!-- Current Exhibitions Preview -->
-<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-surface">
+<!-- Current Exhibitions Preview — Bolder cards -->
+<section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-end justify-between mb-12">
+    <div class="flex items-end justify-between mb-16 reveal">
       <div>
-        <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Now Showing</p>
-        <h2 class="font-display text-2xl lg:text-3xl font-light text-text">Current Exhibitions</h2>
+        <p class="text-[11px] tracking-[0.3em] uppercase mb-3 text-muted font-body">Now Showing</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-light text-text">Current Exhibitions</h2>
       </div>
-      <a href="/exhibitions/" class="hidden sm:flex items-center text-sm tracking-widest uppercase text-secondary hover:text-text transition-colors">
+      <a href="/exhibitions/" class="hidden sm:flex items-center text-[11px] tracking-[0.2em] uppercase text-text hover:text-primary transition-colors">
         View All
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
-    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+    <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
       {% for exhibition in (currentExhibitions | limit(2)) %}
-      <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block">
-        <div class="aspect-[4/3] gradient-placeholder-{{ loop.index }} mb-6 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
-          {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
-        <p class="text-xs tracking-widest uppercase mb-2 text-secondary">{{ exhibition.data.startDate | dateFormatShort }} — {{ exhibition.data.endDate | dateFormatShort }}</p>
-        <h3 class="font-display text-xl lg:text-2xl font-light mb-3 text-text group-hover:text-primary transition-colors">{{ exhibition.data.title }}</h3>
+      <a href="{{ exhibition.url }}" class="exhibition-card group cursor-pointer block reveal">
+        <div class="aspect-[4/3] gradient-placeholder-{{ loop.index }} mb-8 bg-cover bg-center overflow-hidden">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            {% if exhibition.data.cover %}style="background-image: url({{ exhibition.data.cover }})"{% endif %}></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">{{ exhibition.data.startDate | dateFormatShort }} — {{ exhibition.data.endDate | dateFormatShort }}</p>
+        <h3 class="font-display text-2xl lg:text-3xl font-normal mb-3 text-text group-hover:text-primary transition-colors leading-tight">{{ exhibition.data.title }}</h3>
         <p class="text-sm text-secondary">{{ exhibition.data.artists }}</p>
       </a>
       {% endfor %}
@@ -62,24 +87,28 @@ permalink: "/"
   </div>
 </section>
 
-<!-- Art Insight Preview -->
-<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+<!-- Art Insight Preview — More editorial -->
+<section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-surface">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-end justify-between mb-12">
+    <div class="flex items-end justify-between mb-16 reveal">
       <div>
-        <p class="text-xs tracking-widest uppercase mb-2 text-secondary">From the Journal</p>
-        <h2 class="font-display text-2xl lg:text-3xl font-light text-text">Art Insight</h2>
+        <p class="text-[11px] tracking-[0.3em] uppercase mb-3 text-muted font-body">From the Journal</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-light text-text">Art Insight</h2>
       </div>
-      <a href="/art-insight/" class="hidden sm:flex items-center text-sm tracking-widest uppercase text-secondary hover:text-text transition-colors">
+      <a href="/art-insight/" class="hidden sm:flex items-center text-[11px] tracking-[0.2em] uppercase text-text hover:text-primary transition-colors">
         Read More
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
-    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-10">
       {% for article in (articles | limit(3)) %}
-      <a href="{{ article.url }}" class="blog-card p-6 bg-surface hover:bg-gray-50 transition-colors cursor-pointer block">
-        <p class="text-xs tracking-widest uppercase mb-4 text-secondary">{{ article.data.category }}</p>
-        <h3 class="font-display text-lg lg:text-xl font-light mb-4 leading-snug text-text">{{ article.data.title }}</h3>
+      <a href="{{ article.url }}" class="group cursor-pointer block reveal">
+        <div class="aspect-[3/2] gradient-placeholder-{{ loop.index }} mb-6 bg-cover bg-center overflow-hidden">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            {% if article.data.cover %}style="background-image: url({{ article.data.cover }})"{% endif %}></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">{{ article.data.category }}</p>
+        <h3 class="font-display text-xl lg:text-2xl font-normal mb-4 leading-snug text-text group-hover:text-primary transition-colors">{{ article.data.title }}</h3>
         <p class="text-sm text-secondary">{{ article.data.date | dateFormat }}</p>
       </a>
       {% endfor %}
@@ -87,29 +116,29 @@ permalink: "/"
   </div>
 </section>
 
-<!-- Newsletter Subscribe -->
-<section class="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-surface">
-  <div class="max-w-2xl mx-auto">
-    <h2 class="font-display text-xl lg:text-2xl font-light mb-0 text-text leading-relaxed">Join our mailing list for updates about our artists, exhibitions, events, and more.</h2>
+<!-- Newsletter Subscribe — Clean DZ style -->
+<section class="py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl mx-auto reveal">
+    <h2 class="font-display text-2xl lg:text-3xl font-light mb-0 text-text leading-[1.4]">Join our mailing list for updates about our artists, exhibitions, events, and more.</h2>
 
-    <!-- Collapsible form: hidden by default, shown after clicking Subscribe -->
-    <div id="subscribe-form-wrapper" class="hidden mt-10">
-      <form action="https://caelis-subscribe.shufang0026.workers.dev" method="POST" class="space-y-6" id="subscribe-form">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <!-- Collapsible form -->
+    <div id="subscribe-form-wrapper" class="hidden mt-12">
+      <form action="https://caelis-subscribe.shufang0026.workers.dev" method="POST" class="space-y-8" id="subscribe-form">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <input type="text" name="firstName" placeholder="First Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
           <input type="text" name="lastName" placeholder="Last Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
         </div>
         <input type="email" name="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
         <input type="text" name="country" placeholder="Country" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-        <button type="submit" class="mt-2 inline-flex items-center text-sm tracking-widest uppercase text-text border border-text/50 px-5 py-2 hover:bg-text hover:text-white transition-colors cursor-pointer">
+        <button type="submit" class="mt-2 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-colors cursor-pointer">
           Submit
         </button>
       </form>
-      <p id="subscribe-message" class="mt-6 text-sm hidden"></p>
+      <p id="subscribe-message" class="mt-8 text-sm hidden"></p>
     </div>
 
-    <!-- Toggle button (visible when form is hidden) -->
-    <button type="button" id="subscribe-toggle" class="mt-8 inline-flex items-center text-sm tracking-widest uppercase text-text border border-gray-400 px-5 py-2.5 hover:border-text hover:bg-text hover:text-white transition-all duration-200 cursor-pointer">
+    <!-- Toggle button -->
+    <button type="button" id="subscribe-toggle" class="mt-10 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-all duration-200 cursor-pointer">
       Subscribe
     </button>
   </div>
@@ -130,7 +159,6 @@ permalink: "/"
     if (firstInput) firstInput.focus();
   });
 
-  // Handle form submission via fetch (no page reload)
   if (form && message) {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -145,17 +173,17 @@ permalink: "/"
         var data = await resp.json();
         if (resp.ok) {
           message.textContent = data.message;
-          message.className = 'mt-6 text-sm text-green-600';
+          message.className = 'mt-8 text-sm text-green-600';
           message.classList.remove('hidden');
           form.reset();
         } else {
           message.textContent = data.error || 'Something went wrong. Please try again.';
-          message.className = 'mt-6 text-sm text-red-600';
+          message.className = 'mt-8 text-sm text-red-600';
           message.classList.remove('hidden');
         }
       } catch (err) {
         message.textContent = 'Network error. Please check your connection and try again.';
-        message.className = 'mt-6 text-sm text-red-600';
+        message.className = 'mt-8 text-sm text-red-600';
         message.classList.remove('hidden');
       }
       submitBtn.disabled = false;

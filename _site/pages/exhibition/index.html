@@ -20,9 +20,10 @@
           colors: {
             bg: '#FAFAFA',
             surface: '#FFFFFF',
-            text: '#1A1A1A',
-            primary: '#2C2C2C',
-            secondary: '#737373',
+            text: '#111111',
+            primary: '#000000',
+            secondary: '#444444',
+            muted: '#666666',
           },
           fontFamily: {
             display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -38,7 +39,7 @@
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background-color: #FAFAFA;
-      color: #1A1A1A;
+      color: #111111;
     }
     .font-display {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -58,8 +59,33 @@
       background: #FAFAFA;
     }
     ::-webkit-scrollbar-thumb {
-      background: #737373;
+      background: #444;
       border-radius: 3px;
+    }
+    
+    /* Ken Burns hero animation */
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .hero-ken-burns {
+      animation: kenBurns 20s ease-in-out alternate infinite;
+    }
+    
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Dark dramatic section — DZ style */
+    .dark-dramatic {
+      background: #000;
     }
     
     /* Hide scrollbar on mobile */
@@ -104,7 +130,7 @@
 <body class="bg-bg font-body antialiased min-h-screen flex flex-col">
   
   <!-- Navigation -->
-<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
+<header class="bg-surface/95 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       
@@ -115,12 +141,12 @@
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
-        <a href="/exhibitions/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Exhibitions</a>
-        <a href="/art-insight/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Art Insight</a>
-        <a href="/shop/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Shop</a>
-        <a href="/social/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">Social</a>
-        <a href="/about/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm">About</a>
-        <a href="/admin/" class="text-sm font-body font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-wide uppercase text-xs lg:text-sm border border-gray-200 px-3 py-1.5 rounded hover:border-primary">Admin</a>
+        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Exhibitions</a>
+        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Art Insight</a>
+        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Shop</a>
+        <a href="/social/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Social</a>
+        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">About</a>
+        <a href="/admin/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase border border-gray-300 px-4 py-1.5 rounded hover:border-primary">Admin</a>
       </div>
       
       <!-- Mobile Menu Button -->
@@ -355,7 +381,7 @@
       
       <!-- Connect -->
       <div>
-        <h4 class="text-xs tracking-widest uppercase text-text mb-4">Connect</h4>
+        <h4 class="text-[11px] tracking-[0.25em] uppercase text-text mb-4 font-body">Connect</h4>
         <div class="flex flex-wrap gap-4">
           <a href="https://www.instagram.com/caelisgaleria" target="_blank" rel="noopener noreferrer" class="text-secondary hover:text-primary transition-colors" title="Instagram">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -457,6 +483,22 @@
         });
       });
     })();
+  </script>
+  <!-- Scroll Reveal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var reveals = document.querySelectorAll('.reveal');
+      if (!reveals.length) return;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    });
   </script>
 </body>
 </html>
