@@ -4,11 +4,10 @@ title: "Reach Out — Jaime Sancorlo"
 permalink: "/exhibitions/jaime-sancorlo-online/"
 ---
 
-{% set artworks = [
+{% set largeWorks = [
   { "title": "Bearbecue", "year": "2022", "medium": "Oil on canvas", "dimensions": "73 × 100 cm", "image": "/images/artworks/jaime-sancorlo/bearbecue-73x100cm-2022.jpg" },
   { "title": "Color Exercise", "year": "2020", "medium": "Oil on canvas", "dimensions": "89 × 114 cm", "image": "/images/artworks/jaime-sancorlo/color-exercise-89x114cm-2020.jpg" },
   { "title": "Hail to the Bus Driver", "year": "2023", "medium": "Oil on canvas", "dimensions": "89 × 116 cm", "image": "/images/artworks/jaime-sancorlo/hail-to-the-bus-driver-89x116-2023.jpg" },
-  { "title": "Lying in Wait", "year": "2023", "medium": "Oil on canvas", "dimensions": "70 × 50 cm", "image": "/images/artworks/jaime-sancorlo/lying-in-wait-70x50cm-2023.jpg" },
   { "title": "No Parking", "year": "2023", "medium": "Oil on canvas", "dimensions": "100 × 81 cm", "image": "/images/artworks/jaime-sancorlo/no-parking-100x81cm-2023.jpg" },
   { "title": "Of Course You Realize This Means War!!", "year": "2023", "medium": "Oil on canvas", "dimensions": "73 × 100 cm", "image": "/images/artworks/jaime-sancorlo/of-course-you-realize-this-means-war-73x100cm-2023.jpg" },
   { "title": "On Ice", "year": "2023", "medium": "Oil on canvas", "dimensions": "89 × 130 cm", "image": "/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg" },
@@ -20,31 +19,30 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   { "title": "Yeah, But You Should See the Other Truck!", "year": "2023", "medium": "Oil on wood panel", "dimensions": "100 × 73 cm", "image": "/images/artworks/jaime-sancorlo/yeah-but-you-should-see-the-other-truck-100x73cm-2023.jpg" }
 ] %}
 
+{# Small works displayed as pairs #}
+{% set smallWorks = [
+  { "title": "Lying in Wait", "year": "2023", "medium": "Oil on canvas", "dimensions": "70 × 50 cm", "image": "/images/artworks/jaime-sancorlo/lying-in-wait-70x50cm-2023.jpg" }
+] %}
+
+{# Ordered sequence: interleave large works, insert small pair after index 2, insert text at positions #}
+{# Sequence: 0.Bearbecue, 1.Color Exercise, 2.Hail to Bus Driver, [PAIR: Lying in Wait + ...], 3.No Parking, 4.Means War, TEXT1, 5.On Ice, 6.Qué Será, 7.Reach Out, 8.Storyteller, TEXT2, 9.The Nap, 10.The Rescue, 11.Yeah But, TEXT3 #}
+
 <style>
   .page-wrap { max-width: 100% !important; padding: 0 !important; }
 
-  /* ── Hero ── */
+  /* ── Hero: title left, image right (Pace style) ── */
   .oe-hero {
-    position: relative;
-    height: 100vh;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    padding: 0 6vw;
+    gap: 3rem;
+  }
+  .oe-hero-left {
     display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-  }
-  .oe-hero-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    filter: brightness(0.55);
-  }
-  .oe-hero-content {
-    position: relative;
-    z-index: 2;
-    padding: 0 6vw 8vh;
-    width: 100%;
+    flex-direction: column;
+    justify-content: center;
   }
   .oe-hero-back {
     display: inline-flex;
@@ -53,12 +51,12 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     font-size: 10px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
+    color: #999;
     text-decoration: none;
-    margin-bottom: 6vh;
+    margin-bottom: 4rem;
     transition: color 0.2s;
   }
-  .oe-hero-back:hover { color: #fff; }
+  .oe-hero-back:hover { color: #111; }
   .oe-hero-back svg { margin-right: 8px; transition: transform 0.2s; }
   .oe-hero-back:hover svg { transform: translateX(-3px); }
 
@@ -67,34 +65,37 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     font-size: 10px;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
+    color: #999;
     margin-bottom: 1.5rem;
   }
   .oe-hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: clamp(3rem, 6vw, 5.5rem);
     font-weight: 300;
-    color: #fff;
+    color: #111;
     line-height: 0.95;
     letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
   }
   .oe-hero-artist {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 300;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 2rem;
+    color: #666;
   }
-  .oe-hero-meta {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+  .oe-hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  .oe-hero-right img {
+    max-height: 80vh;
+    max-width: 100%;
+    object-fit: contain;
   }
 
-  /* ── Artist + Essay section ── */
+  /* ── Artist + Essay ── */
   .oe-essay {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -103,180 +104,67 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     margin: 0 auto;
     padding: 10vh 6vw;
   }
-  .oe-artist-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .oe-artist-img {
-    width: 100%;
-    max-width: 280px;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-  }
-  .oe-artist-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: #111;
-  }
-  .oe-artist-bio {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    line-height: 1.8;
-    color: #666;
-    max-width: 320px;
-  }
-  .oe-essay-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    line-height: 1.9;
-    color: #444;
-    padding-top: 0.5rem;
-  }
+  .oe-artist-card { display: flex; flex-direction: column; gap: 1.5rem; }
+  .oe-artist-img { width: 100%; max-width: 280px; aspect-ratio: 3/4; object-fit: cover; }
+  .oe-artist-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: #111; }
+  .oe-artist-bio { font-family: 'Inter', sans-serif; font-size: 12px; line-height: 1.8; color: #666; max-width: 320px; }
+  .oe-essay-text { font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.9; color: #444; padding-top: 0.5rem; }
   .oe-essay-text p + p { margin-top: 1.2em; }
 
-  /* ── Artwork ── */
-  .oe-artwork {
-    padding: 6vh 6vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .oe-artwork-img-wrap {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    justify-content: center;
-  }
-  .oe-artwork-img {
-    max-width: 100%;
-    max-height: 78vh;
-    object-fit: contain;
-  }
-  .oe-artwork-info {
-    max-width: 900px;
-    width: 100%;
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-  .oe-artwork-details {
-    font-family: 'Inter', sans-serif;
-  }
-  .oe-artwork-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.125rem;
-    font-weight: 400;
-    color: #111;
-    font-style: italic;
-  }
-  .oe-artwork-spec {
-    font-size: 11px;
-    color: #888;
-    margin-top: 0.25rem;
-    letter-spacing: 0.03em;
-  }
-  .oe-artwork-inquire {
-    font-family: 'Inter', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #999;
-    text-decoration: none;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  /* ── Artwork (solo, large) ── */
+  .oe-artwork { padding: 6vh 6vw; display: flex; flex-direction: column; align-items: center; }
+  .oe-artwork-img-wrap { width: 100%; max-width: 900px; display: flex; justify-content: center; }
+  .oe-artwork-img { max-width: 100%; max-height: 78vh; object-fit: contain; }
+  .oe-artwork-info { max-width: 900px; width: 100%; margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: flex-end; }
+  .oe-artwork-details { font-family: 'Inter', sans-serif; }
+  .oe-artwork-title { font-family: 'Cormorant Garamond', serif; font-size: 1.125rem; font-weight: 400; color: #111; font-style: italic; }
+  .oe-artwork-spec { font-size: 11px; color: #888; margin-top: 0.25rem; letter-spacing: 0.03em; }
+  .oe-artwork-inquire { font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: #999; text-decoration: none; border-bottom: 1px solid #ccc; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .oe-artwork-inquire:hover { color: #333; border-color: #333; }
 
-  /* ── Text interlude ── */
-  .oe-text {
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 4vh 6vw;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    line-height: 1.9;
-    color: #555;
-    text-align: left;
-  }
+  /* ── Pair (two works side by side) ── */
+  .oe-pair { padding: 6vh 6vw; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; }
+  .oe-pair-item { display: flex; flex-direction: column; align-items: center; }
+  .oe-pair-img-wrap { width: 100%; display: flex; justify-content: center; }
+  .oe-pair-img { max-width: 100%; max-height: 65vh; object-fit: contain; }
+  .oe-pair-info { width: 100%; margin-top: 1rem; display: flex; justify-content: space-between; align-items: flex-end; }
+
+  /* ── Text ── */
+  .oe-text { max-width: 560px; margin: 0 auto; padding: 4vh 6vw; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.9; color: #555; text-align: left; }
   .oe-text p + p { margin-top: 1.2em; }
 
   /* ── Closing ── */
-  .oe-closing {
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 6vh 6vw 12vh;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    line-height: 1.9;
-    color: #555;
-    text-align: center;
-  }
-  .oe-closing a {
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #999;
-    text-decoration: none;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .oe-closing { max-width: 560px; margin: 0 auto; padding: 6vh 6vw 12vh; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.9; color: #555; text-align: center; }
+  .oe-closing a { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: #999; text-decoration: none; border-bottom: 1px solid #ccc; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .oe-closing a:hover { color: #333; border-color: #333; }
 
-  /* ── Separator ── */
-  .oe-sep {
-    width: 40px;
-    height: 1px;
-    background: #ddd;
-    margin: 0 auto;
-  }
+  .oe-sep { width: 40px; height: 1px; background: #ddd; margin: 0 auto; }
 
   /* ── Inquiry modal ── */
-  .inquiry-modal {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.6);
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .3s;
-  }
+  .inquiry-modal { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; }
   .inquiry-modal.open { opacity: 1; pointer-events: all; }
-  .inquiry-modal-box {
-    background: #fff;
-    width: 100%;
-    max-width: 420px;
-    padding: 2.5rem;
-  }
+  .inquiry-modal-box { background: #fff; width: 100%; max-width: 420px; padding: 2.5rem; }
 
-  /* ── Mobile ── */
   @media (max-width: 768px) {
-    .oe-hero { height: 80vh; }
-    .oe-hero-content { padding: 0 1.5rem 4rem; }
-    .oe-essay {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      padding: 6vh 1.5rem;
-    }
+    .oe-hero { grid-template-columns: 1fr; min-height: auto; padding: 8rem 1.5rem 2rem; gap: 2rem; }
+    .oe-hero-left { order: 1; }
+    .oe-hero-right { order: 2; height: auto; }
+    .oe-hero-right img { max-height: 60vh; }
+    .oe-hero-back { margin-bottom: 2rem; }
+    .oe-essay { grid-template-columns: 1fr; gap: 2.5rem; padding: 6vh 1.5rem; }
     .oe-artist-img { max-width: 180px; }
     .oe-artwork { padding: 4vh 1.5rem; }
     .oe-artwork-img { max-height: 60vh; }
     .oe-artwork-info { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .oe-pair { grid-template-columns: 1fr; gap: 4vh; padding: 4vh 1.5rem; }
     .oe-text { padding: 3vh 1.5rem; }
     .oe-closing { padding: 4vh 1.5rem 8vh; }
   }
 </style>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ═══════════════ HERO: title left, image right ═══════════════ -->
 <section class="oe-hero">
-  <img class="oe-hero-img" src="/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg" alt="Reach Out" />
-  <div class="oe-hero-content">
+  <div class="oe-hero-left">
     <a href="/exhibitions/" class="oe-hero-back">
       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
       Exhibitions
@@ -284,7 +172,9 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     <p class="oe-hero-label">Online Exhibition</p>
     <h1 class="oe-hero-title">Reach Out</h1>
     <p class="oe-hero-artist">Jaime Sancorlo</p>
-    <p class="oe-hero-meta">August 15 — September 28, 2023 &nbsp;·&nbsp; Caelis Galería, Shanghai</p>
+  </div>
+  <div class="oe-hero-right">
+    <img src="/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg" alt="On Ice" />
   </div>
 </section>
 
@@ -305,38 +195,139 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 
 <div class="oe-sep"></div>
 
-<!-- ═══════════════ ARTWORKS ═══════════════ -->
+<!-- ═══════════════ ARTWORKS (hand-sequenced for layout control) ═══════════════ -->
 
-{% for artwork in artworks %}
-
+{# 1. Bearbecue #}
 <div class="oe-artwork">
-  <div class="oe-artwork-img-wrap">
-    <img class="oe-artwork-img" src="{{ artwork.image }}" alt="{{ artwork.title }}" loading="lazy" />
-  </div>
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/bearbecue-73x100cm-2022.jpg" alt="Bearbecue" loading="lazy" /></div>
   <div class="oe-artwork-info">
-    <div class="oe-artwork-details">
-      <p class="oe-artwork-title">{{ artwork.title }}</p>
-      <p class="oe-artwork-spec">{{ artwork.year }} · {{ artwork.medium }} · {{ artwork.dimensions }}</p>
-    </div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('{{ artwork.title }}', '{{ artwork.year }}', '{{ artwork.medium }}', '{{ artwork.dimensions }}')">Inquire</a>
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Bearbecue</p><p class="oe-artwork-spec">2022 · Oil on canvas · 73 × 100 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Bearbecue', '2022', 'Oil on canvas', '73 × 100 cm')">Inquire</a>
   </div>
 </div>
 
-{% if loop.index0 === 4 %}
+{# 2. Color Exercise #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/color-exercise-89x114cm-2020.jpg" alt="Color Exercise" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Color Exercise</p><p class="oe-artwork-spec">2020 · Oil on canvas · 89 × 114 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Color Exercise', '2020', 'Oil on canvas', '89 × 114 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 3. Hail to the Bus Driver #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/hail-to-the-bus-driver-89x116-2023.jpg" alt="Hail to the Bus Driver" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Hail to the Bus Driver</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 116 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Hail to the Bus Driver', '2023', 'Oil on canvas', '89 × 116 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 4–5. PAIR: Lying in Wait (70×50, small) + The Nap (73×100, similar portrait proportions) #}
+<div class="oe-pair">
+  <div class="oe-pair-item">
+    <div class="oe-pair-img-wrap"><img class="oe-pair-img" src="/images/artworks/jaime-sancorlo/lying-in-wait-70x50cm-2023.jpg" alt="Lying in Wait" loading="lazy" /></div>
+    <div class="oe-pair-info">
+      <div class="oe-artwork-details"><p class="oe-artwork-title">Lying in Wait</p><p class="oe-artwork-spec">2023 · Oil on canvas · 70 × 50 cm</p></div>
+      <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Lying in Wait', '2023', 'Oil on canvas', '70 × 50 cm')">Inquire</a>
+    </div>
+  </div>
+  <div class="oe-pair-item">
+    <div class="oe-pair-img-wrap"><img class="oe-pair-img" src="/images/artworks/jaime-sancorlo/the-nap-73x100cm-2023.jpg" alt="The Nap" loading="lazy" /></div>
+    <div class="oe-pair-info">
+      <div class="oe-artwork-details"><p class="oe-artwork-title">The Nap</p><p class="oe-artwork-spec">2023 · Oil on canvas · 73 × 100 cm</p></div>
+      <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('The Nap', '2023', 'Oil on canvas', '73 × 100 cm')">Inquire</a>
+    </div>
+  </div>
+</div>
+
+{# 6. No Parking #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/no-parking-100x81cm-2023.jpg" alt="No Parking" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">No Parking</p><p class="oe-artwork-spec">2023 · Oil on canvas · 100 × 81 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('No Parking', '2023', 'Oil on canvas', '100 × 81 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 7. Of Course You Realize This Means War!! #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/of-course-you-realize-this-means-war-73x100cm-2023.jpg" alt="Of Course You Realize This Means War!!" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Of Course You Realize This Means War!!</p><p class="oe-artwork-spec">2023 · Oil on canvas · 73 × 100 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Of Course You Realize This Means War!!', '2023', 'Oil on canvas', '73 × 100 cm')">Inquire</a>
+  </div>
+</div>
+
+{# TEXT 1 #}
 <div class="oe-text">
   <p>Through his astute artistic prowess, Jaime skillfully transforms the language of photography into a hyperrealistic painting language, prompting profound questions about the interplay between reality and the influx of popular symbols in our collective memory. This artistic montage empowers viewers to naturally fill in the missing narrative pieces, eagerly unraveling the tales suspended within each frame.</p>
 </div>
-{% elif loop.index0 === 8 %}
+
+{# 8. On Ice #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg" alt="On Ice" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">On Ice</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 130 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('On Ice', '2023', 'Oil on canvas', '89 × 130 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 9. Qué Será Será #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/que-sera-sera-89x116cm-2023.jpg" alt="Qué Será Será" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Qué Será Será</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 116 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Qué Será Será', '2023', 'Oil on canvas', '89 × 116 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 10. Reach Out #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/reach-out-65x92cm-2023.jpg" alt="Reach Out" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Reach Out</p><p class="oe-artwork-spec">2023 · Oil on canvas · 65 × 92 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Reach Out', '2023', 'Oil on canvas', '65 × 92 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 11. Storyteller #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/storyteller-89x130cm-2023.jpg" alt="Storyteller" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Storyteller</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 130 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Storyteller', '2023', 'Oil on canvas', '89 × 130 cm')">Inquire</a>
+  </div>
+</div>
+
+{# TEXT 2 #}
 <div class="oe-text">
   <p>Behind the layers of historical fragments, Jaime Sancorlo pays tribute to the meticulous detailing of hyperrealism. At first glance, his artworks present an aged and somber black-and-white palette. Yet, beneath the surface, the coarse texture and sharp edges reveal a transformative process of selective treatment, transcending mere reproduction to become an embodiment of carefully chosen authenticity.</p>
 </div>
-{% elif loop.index0 === 11 %}
+
+{# 12. The Rescue #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/the-rescue-120x120-2023.jpg" alt="The Rescue" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">The Rescue</p><p class="oe-artwork-spec">2023 · Oil on canvas · 120 × 120 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('The Rescue', '2023', 'Oil on canvas', '120 × 120 cm')">Inquire</a>
+  </div>
+</div>
+
+{# 13. Yeah, But You Should See the Other Truck! #}
+<div class="oe-artwork">
+  <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/yeah-but-you-should-see-the-other-truck-100x73cm-2023.jpg" alt="Yeah, But You Should See the Other Truck!" loading="lazy" /></div>
+  <div class="oe-artwork-info">
+    <div class="oe-artwork-details"><p class="oe-artwork-title">Yeah, But You Should See the Other Truck!</p><p class="oe-artwork-spec">2023 · Oil on wood panel · 100 × 73 cm</p></div>
+    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Yeah, But You Should See the Other Truck!', '2023', 'Oil on wood panel', '100 × 73 cm')">Inquire</a>
+  </div>
+</div>
+
+{# TEXT 3 #}
 <div class="oe-text">
   <p>The personas encountered amidst these trying times are adorned with military signifiers, mirroring the somber aspects of adulthood. The acid-colored cartoon elements reference electronic games and American movies, pointing to a forgotten childhood, expressing the loss of innocence and contemplation of its reasons, and attempting to find a trace of a smile amidst the serious military environment.</p>
 </div>
-{% endif %}
-
-{% endfor %}
 
 <div class="oe-sep"></div>
 
