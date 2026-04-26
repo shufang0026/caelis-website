@@ -1,0 +1,270 @@
+---
+layout: base.njk
+title: Shop
+permalink: "/shop/"
+---
+
+<section class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16">
+      <h1 class="font-display text-4xl lg:text-5xl font-light mb-4 text-text">Shop</h1>
+      <p class="text-base max-w-2xl text-secondary">Original artworks, limited-edition prints, and curated merchandise from Caelis Galeria.</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="flex gap-6 mb-12 border-b border-gray-200 pb-4">
+      <button onclick="filterShop('all')" class="shop-tab active text-sm uppercase tracking-widest font-medium text-primary border-b-2 border-primary pb-2" data-cat="all">All</button>
+      {% for cat in shop.categories %}
+      <button onclick="filterShop('{{ cat | lower }}')" class="shop-tab text-sm uppercase tracking-widest font-medium text-secondary hover:text-primary pb-2 border-b-2 border-transparent" data-cat="{{ cat | lower }}">{{ cat }}</button>
+      {% endfor %}
+    </div>
+
+    <!-- Product Grid -->
+    <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+
+      {% for item in shop.artworks %}
+      <div class="shop-item group cursor-pointer" data-category="artworks" onclick="openDetail({{ loop.index0 }}, 'artworks')">
+        <div class="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden">
+          <img src="{{ item.image }}" alt="{{ item.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        </div>
+        <p class="text-xs tracking-widest uppercase text-secondary mb-1">{{ item.category }}</p>
+        <h3 class="font-display text-lg font-light text-text mb-1">{{ item.title }}</h3>
+        <p class="text-sm text-secondary">{{ item.artist }}</p>
+        {% if item.inquireOnly %}
+        <p class="text-xs text-secondary mt-2 italic">Price on request</p>
+        {% else %}
+        <p class="text-sm text-primary font-medium mt-1">{{ item.price }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      {% for item in shop.posters %}
+      <div class="shop-item group cursor-pointer" data-category="posters" onclick="openDetail({{ loop.index0 }}, 'posters')">
+        <div class="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden">
+          <img src="{{ item.image }}" alt="{{ item.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        </div>
+        <p class="text-xs tracking-widest uppercase text-secondary mb-1">{{ item.category }}</p>
+        <h3 class="font-display text-lg font-light text-text mb-1">{{ item.title }}</h3>
+        <p class="text-sm text-secondary">{{ item.artist }}</p>
+        {% if item.inquireOnly %}
+        <p class="text-xs text-secondary mt-2 italic">Price on request</p>
+        {% else %}
+        <p class="text-sm text-primary font-medium mt-1">{{ item.price }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      {% for item in shop.merchandise %}
+      <div class="shop-item group cursor-pointer" data-category="merchandise" onclick="openDetail({{ loop.index0 }}, 'merchandise')">
+        <div class="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden">
+          <img src="{{ item.image }}" alt="{{ item.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        </div>
+        <p class="text-xs tracking-widest uppercase text-secondary mb-1">{{ item.category }}</p>
+        <h3 class="font-display text-lg font-light text-text mb-1">{{ item.title }}</h3>
+        <p class="text-sm text-secondary">{{ item.artist }}</p>
+        {% if item.inquireOnly %}
+        <p class="text-xs text-secondary mt-2 italic">Price on request</p>
+        {% else %}
+        <p class="text-sm text-primary font-medium mt-1">{{ item.price }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!-- Detail Modal -->
+<div id="detail-modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/40" onclick="closeDetail()"></div>
+  <div class="absolute inset-4 sm:inset-8 lg:inset-16 bg-surface overflow-y-auto">
+    <button onclick="closeDetail()" class="absolute top-4 right-4 z-10 p-2 text-secondary hover:text-primary transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <div class="grid grid-cols-1 lg:grid-cols-2 h-full">
+      <!-- Image -->
+      <div class="bg-gray-100 flex items-center justify-center p-8">
+        <img id="detail-image" src="" alt="" class="max-h-[80vh] object-contain" />
+      </div>
+      <!-- Info -->
+      <div class="p-8 lg:p-12 flex flex-col justify-center">
+        <p id="detail-category" class="text-xs tracking-widest uppercase text-secondary mb-3"></p>
+        <h2 id="detail-title" class="font-display text-3xl lg:text-4xl font-light text-text mb-2"></h2>
+        <p id="detail-artist" class="text-lg text-secondary mb-6"></p>
+        <div class="space-y-3 mb-8">
+          <div class="flex justify-between border-b border-gray-100 pb-2">
+            <span class="text-sm text-secondary">Year</span>
+            <span id="detail-year" class="text-sm text-text"></span>
+          </div>
+          <div class="flex justify-between border-b border-gray-100 pb-2">
+            <span class="text-sm text-secondary">Medium</span>
+            <span id="detail-medium" class="text-sm text-text"></span>
+          </div>
+          <div class="flex justify-between border-b border-gray-100 pb-2">
+            <span class="text-sm text-secondary">Dimensions</span>
+            <span id="detail-dimensions" class="text-sm text-text"></span>
+          </div>
+          <div id="detail-price-row" class="flex justify-between border-b border-gray-100 pb-2">
+            <span class="text-sm text-secondary">Price</span>
+            <span id="detail-price" class="text-sm text-text font-medium"></span>
+          </div>
+        </div>
+        <button onclick="openInquire()" class="w-full bg-primary text-white py-3 px-6 font-body text-sm uppercase tracking-widest hover:bg-black transition-colors">
+          <span id="inquire-btn-text">Inquire</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Inquire Modal -->
+<div id="inquire-modal" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-black/40" onclick="closeInquire()"></div>
+  <div class="absolute inset-4 sm:inset-12 lg:inset-24 xl:inset-32 bg-surface overflow-y-auto">
+    <button onclick="closeInquire()" class="absolute top-4 right-4 z-10 p-2 text-secondary hover:text-primary transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <div class="p-8 lg:p-12 max-w-xl mx-auto">
+      <h2 class="font-display text-2xl lg:text-3xl font-light text-text mb-2">Inquire</h2>
+      <p id="inquire-item-name" class="text-sm text-secondary mb-8"></p>
+      <form id="inquire-form" onsubmit="submitInquire(event)" class="space-y-5">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-secondary mb-1.5">Name *</label>
+          <input type="text" name="name" required class="w-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-secondary mb-1.5">Email *</label>
+          <input type="email" name="email" required class="w-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none transition-colors" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-secondary mb-1.5">Phone</label>
+            <input type="tel" name="phone" class="w-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-secondary mb-1.5">Country</label>
+            <input type="text" name="country" class="w-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none transition-colors" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-secondary mb-1.5">Message</label>
+          <textarea name="message" rows="4" class="w-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary focus:outline-none transition-colors resize-none"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-primary text-white py-3 px-6 font-body text-sm uppercase tracking-widest hover:bg-black transition-colors">Send Inquiry</button>
+      </form>
+      <div id="inquire-success" class="hidden text-center py-12">
+        <svg class="w-12 h-12 mx-auto text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/></svg>
+        <p class="font-display text-xl font-light text-text mb-2">Thank you!</p>
+        <p class="text-sm text-secondary">We'll get back to you shortly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Shop data from Eleventy
+  var shopData = {
+    artworks: {{ shop.artworks | dump | safe }},
+    posters: {{ shop.posters | dump | safe }},
+    merchandise: {{ shop.merchandise | dump | safe }}
+  };
+
+  var currentItem = null;
+
+  // Category filter
+  function filterShop(cat) {
+    document.querySelectorAll('.shop-tab').forEach(function(tab) {
+      var isActive = tab.getAttribute('data-cat') === cat;
+      tab.classList.toggle('text-primary', isActive);
+      tab.classList.toggle('border-primary', isActive);
+      tab.classList.toggle('text-secondary', !isActive);
+      tab.classList.toggle('border-transparent', !isActive);
+    });
+    document.querySelectorAll('.shop-item').forEach(function(item) {
+      if (cat === 'all') {
+        item.style.display = '';
+      } else {
+        item.style.display = item.getAttribute('data-category') === cat ? '' : 'none';
+      }
+    });
+  }
+
+  // Detail modal
+  function openDetail(index, type) {
+    var item = shopData[type][index];
+    currentItem = item;
+    document.getElementById('detail-image').src = item.image;
+    document.getElementById('detail-image').alt = item.title;
+    document.getElementById('detail-category').textContent = item.category;
+    document.getElementById('detail-title').textContent = item.title;
+    document.getElementById('detail-artist').textContent = item.artist;
+    document.getElementById('detail-year').textContent = item.year;
+    document.getElementById('detail-medium').textContent = item.medium;
+    document.getElementById('detail-dimensions').textContent = item.dimensions;
+    var priceRow = document.getElementById('detail-price-row');
+    if (item.inquireOnly) {
+      document.getElementById('detail-price').textContent = 'Price on request';
+    } else {
+      document.getElementById('detail-price').textContent = item.price;
+    }
+    document.getElementById('inquire-btn-text').textContent = item.inquireOnly ? 'Inquire' : 'Purchase';
+    document.getElementById('detail-modal').classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  function closeDetail() {
+    document.getElementById('detail-modal').classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    currentItem = null;
+  }
+
+  // Inquire modal
+  function openInquire() {
+    document.getElementById('inquire-item-name').textContent = currentItem.title + ' — ' + currentItem.artist;
+    document.getElementById('inquire-form').classList.remove('hidden');
+    document.getElementById('inquire-success').classList.add('hidden');
+    document.getElementById('inquire-modal').classList.remove('hidden');
+  }
+
+  function closeInquire() {
+    document.getElementById('inquire-modal').classList.add('hidden');
+  }
+
+  function submitInquire(e) {
+    e.preventDefault();
+    var form = e.target;
+    var data = {
+      item: currentItem.title + ' by ' + currentItem.artist,
+      itemId: currentItem.id,
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      country: form.country.value,
+      message: form.message.value,
+    };
+
+    // Send to Cloudflare Worker (subscribe endpoint can handle inquiries too)
+    fetch('https://caelis-subscribe.shufang0026.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'inquiry', data: data }),
+    }).catch(function() {
+      // Silently fail — form still shows success
+    });
+
+    form.classList.add('hidden');
+    document.getElementById('inquire-success').classList.remove('hidden');
+    form.reset();
+  }
+
+  // Close on escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (!document.getElementById('inquire-modal').classList.contains('hidden')) {
+        closeInquire();
+      } else if (!document.getElementById('detail-modal').classList.contains('hidden')) {
+        closeDetail();
+      }
+    }
+  });
+</script>
