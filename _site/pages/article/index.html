@@ -208,15 +208,36 @@
   </div>
   
 
-  <!-- Content: Wider layout -->
-  <div class="px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto py-12 lg:py-16">
+  <!-- Content: Two-column layout with sidebar -->
+  <div class="px-4 sm:px-6 lg:px-8 xl:px-12">
+    <div class="max-w-7xl mx-auto py-12 lg:py-16">
       <!-- Meta bar (shown when hero exists) -->
       
 
-      <!-- Article body -->
-      <div class="prose max-w-none text-text leading-relaxed text-base lg:text-lg">
-        
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-16">
+        <!-- Main content -->
+        <div class="prose max-w-none text-text leading-relaxed text-base lg:text-lg">
+          
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+          <div class="border-t lg:border-t-0 lg:border-l border-gray-200 pt-8 lg:pt-0 lg:pl-8">
+            <p class="text-xs tracking-[0.2em] uppercase mb-6 text-secondary font-medium">Art Fair Details</p>
+            
+            <div class="space-y-5">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   </div>

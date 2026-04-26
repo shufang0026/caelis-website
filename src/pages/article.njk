@@ -41,9 +41,9 @@ title: "{{ title }}"
   </div>
   {% endif %}
 
-  <!-- Content: Wider layout -->
-  <div class="px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto py-12 lg:py-16">
+  <!-- Content: Two-column layout with sidebar -->
+  <div class="px-4 sm:px-6 lg:px-8 xl:px-12">
+    <div class="max-w-7xl mx-auto py-12 lg:py-16">
       <!-- Meta bar (shown when hero exists) -->
       {% if cover %}
       <div class="flex items-center flex-wrap gap-x-6 gap-y-2 text-sm text-secondary mb-12 pb-8 border-b border-gray-200">
@@ -55,9 +55,50 @@ title: "{{ title }}"
       </div>
       {% endif %}
 
-      <!-- Article body -->
-      <div class="prose max-w-none text-text leading-relaxed text-base lg:text-lg">
-        {{ content | safe }}
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-16">
+        <!-- Main content -->
+        <div class="prose max-w-none text-text leading-relaxed text-base lg:text-lg">
+          {{ content | safe }}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+          <div class="border-t lg:border-t-0 lg:border-l border-gray-200 pt-8 lg:pt-0 lg:pl-8">
+            <p class="text-xs tracking-[0.2em] uppercase mb-6 text-secondary font-medium">Art Fair Details</p>
+            
+            <div class="space-y-5">
+              {% if fairName %}
+              <div>
+                <p class="text-lg font-display text-text leading-snug">{{ fairName }}</p>
+              </div>
+              {% endif %}
+              
+              {% if venue %}
+              <div>
+                <p class="text-sm text-secondary leading-relaxed">{{ venue }}</p>
+              </div>
+              {% endif %}
+              
+              {% if booth %}
+              <div>
+                <p class="text-sm text-text font-medium">Booth {{ booth }}</p>
+              </div>
+              {% endif %}
+              
+              {% if date %}
+              <div>
+                <p class="text-sm text-secondary">{{ date | dateFormat }}</p>
+              </div>
+              {% endif %}
+              
+              {% if endDate %}
+              <div>
+                <p class="text-sm text-secondary">{{ endDate | dateFormat }}</p>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   </div>
