@@ -2,9 +2,8 @@ backend:
   name: github
   repo: shufang0026/caelis-website
   branch: main
-  base_url: https://caelis-oauth.shufang0026.workers.dev
-  # client_id and client_secret handled by OAuth proxy worker
-  # See: workers/oauth/ for the proxy implementation
+  client_id: Iv23liYxRKVrSWr0esX3
+  client_secret: a84a3ab21dbf64f393e81c9124effaf001dcdfce
   commit_messages:
     create: 'Create {{slug}}'
     update: 'Update {{slug}}'
