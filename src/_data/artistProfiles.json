@@ -1,5 +1,47 @@
 [
   {
+    "slug": "fanny-brodar",
+    "name": "Fanny Brodar",
+    "style": "Abstract Neo-Pop",
+    "photo": "/images/artists/fanny-brodar.png",
+    "bio": "Fanny Brodar is a Norwegian artist whose vibrant paintings blend abstract expressionism with neo-pop influences. Her work is characterized by vivid hues, playful characters, and a deep connection to childhood innocence and imagination. Working primarily with acrylics and oil sticks, Fanny creates rich textures and dynamic compositions that exude infectious vitality.\n\nInspired by the purity of her own childhood memories, the enchantment of beloved books, the allure of pop culture, and the profound psychology of color, Fanny achieves a harmonious equilibrium between contemporary aesthetics and timeless emotional resonance. Her art transcends surface-level amusement, delving into deeper themes related to the relationship between children and the world around them. Her work has been exhibited internationally, including solo exhibitions at Caelis Galería in Shanghai."
+  },
+  {
+    "slug": "fulvio-gonella",
+    "name": "Fulvio Gonella",
+    "style": "Contemporary Realism",
+    "photo": "/images/artists/fulvio-gonella.jpg",
+    "bio": "Fulvio Gonella is an Italian contemporary artist whose work explores the intersection of realism and emotional depth. With a keen eye for detail and a masterful command of his medium, Gonella creates works that invite viewers into contemplative spaces where the everyday becomes extraordinary.\n\nHis artistic practice is rooted in a deep appreciation for the traditions of Italian art while embracing contemporary sensibilities. Each piece reflects a careful balance between technical precision and expressive freedom, resulting in works that resonate with both visual beauty and intellectual curiosity."
+  },
+  {
+    "slug": "niall-campbell",
+    "name": "Niall Campbell",
+    "style": "Street Expressionism",
+    "photo": "/images/artists/niall-campbell.jpeg",
+    "bio": "Niall Campbell appropriates the language of street art and graffiti, creating works that are both improvisational and high-energy. Nevertheless, his brushwork is highly restrained; he has the ability to control the technique of spray painting and large strokes of acrylic graffiti, as well as the relationship between bright colors.\n\nThe language of street art is characteristically made up of clear symbols and written words meant to represent or tell a message to all viewers. Niall's works are direct, yet he also involves subversive elements to challenge set views. In his solo exhibition \"Symbiosis\" at Caelis Galería, he explored the patterns and survival of symbiotic systems in a changing world, building his own art world on canvas to inspire viewers to think alongside him."
+  },
+  {
+    "slug": "elang-sutajaya",
+    "name": "Elang Sutajaya",
+    "style": "Contemporary Expressionism",
+    "photo": "/images/artists/elang-sutajaya.jpeg",
+    "bio": "Elang Sutajaya is an Indonesian contemporary artist whose work is marked by a vivid use of color and a keen observation of everyday life. His paintings draw from personal experience, weaving together elements of daily life into compositions that are both intimate and expansive.\n\nSutajaya's distinctive approach bridges cultural traditions and contemporary expression, creating a personal visual language that speaks to universal human experiences. His solo exhibition \"Lift the Spirit\" at Caelis Galería showcased his vibrant body of work, reflecting his dynamic approach to contemporary painting and his ability to transform the ordinary into something extraordinary."
+  },
+  {
+    "slug": "juan-miguel-palacios",
+    "name": "Juan Miguel Palacios",
+    "style": "Abstract Contemplation",
+    "photo": "/images/artists/juan-miguel-palacios.jpg",
+    "bio": "Juan Miguel Palacios is a Spanish artist whose work contemplates the concept of materiality through abstract painting and cosmic forms. His emotionally charged and philosophically engaging practice invites viewers to explore the boundaries between presence and absence, the material and the immaterial.\n\nWorking with large-scale canvases, Palacios creates atmospheric compositions that seem to hover between states of being. His use of light, texture, and form evokes a sense of cosmic vastness while remaining deeply personal. His solo exhibition \"The Substance of Nothing\" at Caelis Galería exemplified his ability to transform philosophical inquiry into compelling visual experiences."
+  },
+  {
+    "slug": "oscar-llorens",
+    "name": "Óscar Llorens",
+    "style": "Nostalgic Pop",
+    "photo": "/images/artists/oscar-llorens.png",
+    "bio": "Óscar Llorens was born in 1975 in Madrid, Spain. He initially studied business administration and worked as an illustrator for various advertising companies and magazines. However, he felt a deep need to explore his creativity in a more personal way. Inspired by childhood nostalgia, Llorens began creating art that reflects his most profound memories, with colorful characters and everyday scenes that bring us closer to the most important years of our lives.\n\nUsing wood panel, cotton paper, pastels, and colored pencils, Llorens expresses these nostalgic feelings through soft, blurred, and warm textures. His lines are dreamlike, with faint borders, as if wiping away distant dreams. He believes childhood emotions are powerful enough to leave us breathless, and his work serves as a reminder of the joy, wonder, and vulnerability of our earliest years."
+  },
+  {
     "slug": "august-vilella",
     "name": "August Vilella",
     "style": "Intuitive Surrealism",
