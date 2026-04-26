@@ -46,6 +46,11 @@ module.exports = function (eleventyConfig) {
     return arr.find(item => item[key] === value) || null;
   });
 
+  eleventyConfig.addFilter("split", function (str, delimiter) {
+    if (!str) return [];
+    return str.split(delimiter);
+  });
+
   // Collections
   eleventyConfig.addCollection("exhibitions", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/content/exhibitions/*.md")

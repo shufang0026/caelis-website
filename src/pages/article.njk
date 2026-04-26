@@ -161,15 +161,82 @@ title: "{{ title }}"
     </div>
   </div>
 
-  <!-- Related Exhibition -->
-  {% if relatedExhibition %}
+  <!-- Related Content -->
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto py-12">
       <div class="pt-8 border-t border-gray-200">
-        <p class="text-xs tracking-widest uppercase mb-4 text-secondary">Related Exhibition</p>
-        <a href="{{ relatedExhibition.url }}" class="font-display text-xl hover:underline text-text">{{ relatedExhibition.data.title }} &rarr;</a>
+        <h2 class="text-xs tracking-widest uppercase mb-8 text-secondary">Related</h2>
+
+        {# Related Articles (same category, exclude current) #}
+        {% set relatedArticles = [] %}
+        {% for art in collections.articles %}
+          {% if art.url != page.url and art.data.category == category %}
+            {% if relatedArticles.length < 3 %}
+              {% set _ = relatedArticles.push(art) %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {# Related Exhibitions — simple title substring match, no deep nesting #}
+        {% set relatedExhibitions = [] %}
+        {% for ex in collections.exhibitions %}
+          {% if ex.data.artists and title and (ex.data.artists in title or title in ex.data.artists) %}
+            {% if relatedExhibitions.length < 3 %}
+              {% set _ = relatedExhibitions.push(ex) %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if relatedArticles.length > 0 or relatedExhibitions.length > 0 %}
+        <div class="space-y-10">
+
+          {# Related Articles #}
+          {% if relatedArticles.length > 0 %}
+          <div>
+            <p class="text-xs tracking-widest uppercase mb-4 text-secondary/70">Art Insight</p>
+            <div class="space-y-4">
+              {% for art in relatedArticles %}
+              <a href="{{ art.url }}" class="group flex items-start gap-4">
+                {% if art.data.cover %}
+                <div class="w-24 h-16 flex-shrink-0 bg-gray-100 overflow-hidden rounded-sm">
+                  <img src="{{ art.data.cover }}" alt="" class="w-full h-full object-cover" loading="lazy" />
+                </div>
+                {% endif %}
+                <div>
+                  <p class="text-sm font-display text-text group-hover:underline leading-snug">{{ art.data.title }}</p>
+                  <p class="text-xs text-secondary mt-1">{{ art.data.category }} &middot; {{ art.data.date | dateFormat }}</p>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          {# Related Exhibitions #}
+          {% if relatedExhibitions.length > 0 %}
+          <div>
+            <p class="text-xs tracking-widest uppercase mb-4 text-secondary/70">Exhibitions</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {% for ex in relatedExhibitions %}
+              <a href="{{ ex.url }}" class="group block">
+                {% if ex.data.cover %}
+                <div class="aspect-[16/9] bg-gray-100 overflow-hidden rounded-sm mb-3">
+                  <img src="{{ ex.data.cover }}" alt="{{ ex.data.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+                {% endif %}
+                <p class="text-sm font-display text-text group-hover:underline leading-snug">{{ ex.data.title }}</p>
+                <p class="text-xs text-secondary mt-1">{{ ex.data.artists }}</p>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+        {% else %}
+        <p class="text-sm text-secondary">Explore more on our <a href="/art-insight/" class="underline hover:no-underline">Art Insight</a> and <a href="/exhibitions/" class="underline hover:no-underline">Exhibitions</a> pages.</p>
+        {% endif %}
       </div>
     </div>
   </div>
-  {% endif %}
 </article>
