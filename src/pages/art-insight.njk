@@ -12,7 +12,7 @@ permalink: "/art-insight/"
     </div>
 
     <div class="space-y-0">
-      {% for article in articles %}
+      {% for article in collections.articles %}
       <a href="{{ article.url }}" class="blog-card flex flex-col md:flex-row md:items-start gap-4 md:gap-8 py-8 px-4 md:px-6 -mx-4 md:-mx-6 cursor-pointer border-b border-gray-200 hover:bg-gray-50 transition-colors">
         <div class="flex-1">
           <p class="text-xs tracking-widest uppercase mb-3 text-secondary">{{ article.data.category }}</p>
