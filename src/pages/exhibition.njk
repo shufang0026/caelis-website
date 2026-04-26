@@ -23,9 +23,10 @@ title: "{{ title }}"
     <!-- Description + Details -->
     <div class="grid lg:grid-cols-3 gap-12 mb-16">
       <div class="lg:col-span-2">
-        <div class="prose max-w-none">
-          <p class="text-base leading-relaxed mb-6 text-text">{{ description }}</p>
-          {{ content | safe }}
+        <div class="bg-[#F5F5F5] p-8 lg:p-12 -mx-4 sm:-mx-6 lg:-mx-8">
+          <div class="prose max-w-none">
+            {{ content | safe }}
+          </div>
         </div>
       </div>
       <div>
