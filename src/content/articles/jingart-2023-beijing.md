@@ -7,8 +7,21 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-06-01"
 readTime: "5 min read"
-cover: "/images/insight/jingart-2023/640-2.jpeg"
+cover: "/images/insight/jingart-2023/640.jpeg"
 excerpt: "Caelis Galería made its JINGART debut in June 2023 at the Beijing Exhibition Center, joining 54 galleries from 11 countries in a vibrant celebration of contemporary art."
+gallery:
+  - path: "/images/insight/jingart-2023/640-2.jpeg"
+    caption: "JINGART 2023 Booth"
+  - path: "/images/insight/jingart-2023/640-3.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/jingart-2023/640-4.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/jingart-2023/640-5.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/jingart-2023/640-6.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/jingart-2023/640-7.jpeg"
+    caption: "Exhibition view"
 ---
 
 Caelis Galería was honored to participate in JINGART 2023 Beijing, held from June 1–4 at the historic Beijing Exhibition Center. This marked the gallery's debut at one of China's most anticipated annual art fairs, joining a distinguished roster of 54 galleries from 11 countries and regions.

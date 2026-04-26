@@ -7,8 +7,17 @@ category: "Event"
 author: "Caelis Galería"
 date: "2023-09-21"
 readTime: "6 min read"
-cover: "/images/insight/5th-grand-canal-2023/640-2.jpeg"
+cover: "/images/insight/5th-grand-canal-2023/640.jpeg"
 excerpt: "Caelis Galería participated in the Fifth Grand Canal Cultural and Tourism Expo in Suzhou, presenting 22 works by influential Spanish artists at the Spanish Pavilion."
+gallery:
+  - path: "/images/insight/5th-grand-canal-2023/640-2.jpeg"
+    caption: "Spanish Pavilion at Grand Canal Expo"
+  - path: "/images/insight/5th-grand-canal-2023/640-3.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/5th-grand-canal-2023/640-4.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/5th-grand-canal-2023/640-5.jpeg"
+    caption: "Exhibition view"
 ---
 
 Coinciding with the 50th anniversary of the establishment of diplomatic relations between China and Spain, Caelis Galería, in cooperation with the Spanish Consulate in Shanghai and NOÉ BCN China, travelled to Suzhou from September 21st to 24th to take part in the Fifth Grand Canal Cultural and Tourism Expo, presenting 22 works by influential Spanish artists and contributing to the development of Spanish contemporary art in China.

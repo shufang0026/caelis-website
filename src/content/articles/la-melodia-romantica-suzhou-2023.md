@@ -9,6 +9,15 @@ date: "2023-09-20"
 readTime: "7 min read"
 cover: "/images/insight/iris-museum-2023/640-10.jpeg"
 excerpt: "Hong Art Museum and Caelis Galería jointly presented 'La Melodia Romántica - Spanish Young Artists Joint Exhibition' in Suzhou, celebrating the 50th anniversary of China-Spain diplomatic relations."
+gallery:
+  - path: "/images/insight/iris-museum-2023/640-2.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/iris-museum-2023/640-3.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/iris-museum-2023/640-4.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/iris-museum-2023/640-5.jpeg"
+    caption: "Exhibition view"
 ---
 
 At the occasion of the 50th anniversary of the establishment of diplomatic relations between China and Spain, the Hong Art Museum and Caelis Galería jointly presented the special exhibition "La Melodia Romántica - Spanish Young Artists Joint Exhibition," which officially opened on September 20, 2023.

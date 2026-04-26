@@ -7,8 +7,17 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-11-09"
 readTime: "4 min read"
-cover: "/images/insight/westbund-2023/640-2.jpeg"
+cover: "/images/insight/westbund-2023/640.jpeg"
 excerpt: "Caelis Galería participated in the 10th West Bund Art & Design Fair at booth B126, presenting works by Adam Handler, Arol, August Vilella, Debbie Reda, Jacob Vilató, Jaime Sancorlo, Juan Miguel Palacios, Vuitbits, and Xavi Carbonell."
+gallery:
+  - path: "/images/insight/westbund-2023/640-2.jpeg"
+    caption: "West Bund 2023 Booth B126"
+  - path: "/images/insight/westbund-2023/640-3.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/westbund-2023/640-4.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/westbund-2023/640-5.jpeg"
+    caption: "Exhibition view"
 ---
 
 Caelis Galería was on view at the 10th West Bund Art & Design Fair Shanghai 2023 at booth B126. We brought a selection of works by **Adam Handler**, **Arol**, **August Vilella**, **Debbie Reda**, **Jacob Vilató**, **Jaime Sancorlo**, **Juan Miguel Palacios**, **Vuitbits**, and **Xavi Carbonell**, presenting a visual feast of surrealism, pop art, and abstract expressionism.

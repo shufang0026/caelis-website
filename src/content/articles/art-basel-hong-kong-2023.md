@@ -7,8 +7,15 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-03-21"
 readTime: "4 min read"
-cover: "/images/insight/august-art-basel-hk-2023/640-2.jpeg"
+cover: "/images/insight/august-art-basel-hk-2023/640.jpeg"
 excerpt: "Caelis Galería's represented artist August Vilella exhibited 'You are my universe' at Art Basel Hong Kong 2023 in collaboration with Galeria Mayoral (Booth 3E04), receiving warm welcome from international collectors."
+gallery:
+  - path: "/images/insight/august-art-basel-hk-2023/640-2.jpeg"
+    caption: "August Vilella at Art Basel Hong Kong 2023"
+  - path: "/images/insight/august-art-basel-hk-2023/640-3.jpeg"
+    caption: "Exhibition view"
+  - path: "/images/insight/august-art-basel-hk-2023/640-4.jpeg"
+    caption: "Exhibition view"
 ---
 
 Caelis Galería's represented artist **August Vilella** (b. 1986) exhibited his latest artwork "You are my universe" at Art Basel Hong Kong 2023 and received a warm welcome from international collectors worldwide.
