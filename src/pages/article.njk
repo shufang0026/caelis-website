@@ -3,55 +3,110 @@ layout: base.njk
 title: "{{ title }}"
 ---
 
-<article class="py-12 lg:py-20 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-3xl mx-auto">
-    <a href="/art-insight/" class="inline-flex items-center text-sm tracking-widest uppercase mb-12 text-secondary hover:text-text transition-colors group">
-      <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
-      Back to Art Insight
-    </a>
-
-    <header class="mb-12">
+<article>
+  <!-- Hero: Full-width cover image with overlay -->
+  {% if cover %}
+  <div class="relative w-full h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-black overflow-hidden">
+    <img src="{{ cover }}" alt="{{ title }}" class="w-full h-full object-cover opacity-80" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 px-6 sm:px-10 lg:px-16 pb-10 sm:pb-14 lg:pb-16">
+      <a href="/art-insight/" class="inline-flex items-center text-xs tracking-widest uppercase mb-6 text-white/70 hover:text-white transition-colors group">
+        <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+        Art Insight
+      </a>
+      <p class="text-xs tracking-[0.2em] uppercase mb-3 text-white/60">{{ category }}</p>
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light leading-tight text-white mb-4">{{ title }}</h1>
+      <div class="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-white/60">
+        <span>{{ date | dateFormat }}</span>
+        {% if venue %}<span>&middot;</span><span>{{ venue }}</span>{% endif %}
+        {% if booth %}<span>&middot;</span><span>Booth {{ booth }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="pt-12 lg:pt-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <a href="/art-insight/" class="inline-flex items-center text-sm tracking-widest uppercase mb-12 text-secondary hover:text-text transition-colors group">
+        <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+        Art Insight
+      </a>
       <p class="text-xs tracking-widest uppercase mb-4 text-secondary">{{ category }}</p>
       <h1 class="font-display text-3xl lg:text-4xl xl:text-5xl font-light leading-tight mb-6 text-text">{{ title }}</h1>
       <div class="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-secondary">
         <span>By {{ author }}</span>
         <span>&middot;</span>
         <span>{{ date | dateFormat }}</span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Content: Wider layout -->
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto py-12 lg:py-16">
+      <!-- Meta bar (shown when hero exists) -->
+      {% if cover %}
+      <div class="flex items-center flex-wrap gap-x-6 gap-y-2 text-sm text-secondary mb-12 pb-8 border-b border-gray-200">
+        <span>By {{ author }}</span>
+        <span>&middot;</span>
+        <span>{{ date | dateFormat }}</span>
         <span>&middot;</span>
         <span>{{ readTime }}</span>
       </div>
-    </header>
+      {% endif %}
 
-    <!-- Cover Image -->
-    {% if cover %}
-    <div class="aspect-[16/9] gradient-placeholder-1 mb-12 bg-cover bg-center" style="background-image: url({{ cover }})"></div>
-    {% endif %}
-
-    <!-- Article Content -->
-    <div class="prose max-w-none text-text leading-relaxed">
-      {{ content | safe }}
-    </div>
-
-    <!-- Image Gallery -->
-    {% if gallery and gallery.length > 0 %}
-    <div class="mt-16 pt-8 border-t border-gray-200">
-      <p class="text-xs tracking-widest uppercase mb-8 text-secondary">On View</p>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {% for item in gallery %}
-        <a href="{{ item.path }}" target="_blank" class="block aspect-square overflow-hidden rounded-sm hover:opacity-80 transition-opacity">
-          <img src="{{ item.path }}" alt="{{ item.caption or '' }}" class="w-full h-full object-cover" loading="lazy">
-        </a>
-        {% endfor %}
+      <!-- Article body -->
+      <div class="prose max-w-none text-text leading-relaxed text-base lg:text-lg">
+        {{ content | safe }}
       </div>
     </div>
-    {% endif %}
-
-    <!-- Related Exhibition -->
-    {% if relatedExhibition %}
-    <div class="mt-16 pt-8 border-t border-gray-200">
-      <p class="text-xs tracking-widest uppercase mb-4 text-secondary">Related Exhibition</p>
-      <a href="{{ relatedExhibition.url }}" class="font-display text-xl hover:underline text-text">{{ relatedExhibition.data.title }} &rarr;</a>
-    </div>
-    {% endif %}
   </div>
+
+  <!-- On View: Full-width gallery carousel -->
+  {% if gallery and gallery.length > 0 %}
+  <div class="bg-neutral-950 py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-xs tracking-[0.2em] uppercase mb-8 text-white/50">On View</p>
+      <div id="gallery-carousel" class="relative overflow-hidden">
+        <div class="flex transition-transform duration-500 ease-out" id="gallery-track" style="width: {{ gallery.length * 100 }}%">
+          {% for item in gallery %}
+          <div class="flex-shrink-0 w-full" style="width: {{ 100 / gallery.length }}%">
+            <div class="bg-black overflow-hidden flex items-center justify-center min-h-[300px] max-h-[85vh]">
+              <img src="{{ item.path }}" alt="{{ item.caption or '' }}" class="max-w-full max-h-[85vh] object-contain" loading="lazy" />
+            </div>
+            {% if item.caption %}
+            <p class="text-xs text-white/40 mt-3 text-center">{{ item.caption }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if gallery.length > 1 %}
+        <button id="gallery-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all" aria-label="Previous">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="gallery-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all" aria-label="Next">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="flex justify-center gap-2 mt-4" id="gallery-dots">
+          {% for item in gallery %}
+          <button class="gallery-dot w-2 h-2 rounded-full transition-colors {{ 'bg-white' if loop.first else 'bg-white/30' }}" data-index="{{ loop.index0 }}" aria-label="Go to image {{ loop.index }}"></button>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Related Exhibition -->
+  {% if relatedExhibition %}
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto py-12">
+      <div class="pt-8 border-t border-gray-200">
+        <p class="text-xs tracking-widest uppercase mb-4 text-secondary">Related Exhibition</p>
+        <a href="{{ relatedExhibition.url }}" class="font-display text-xl hover:underline text-text">{{ relatedExhibition.data.title }} &rarr;</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </article>
