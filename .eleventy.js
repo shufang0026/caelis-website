@@ -8,13 +8,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("dateFormat", function (dateStr, format) {
     if (!dateStr) return "";
     const d = new Date(dateStr);
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const m = months[d.getMonth()];
+    const day = d.getDate();
+    const year = d.getFullYear();
     if (format === "MMM D") {
-      return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      return m + " " + day;
     }
     if (format === "D, YYYY") {
-      return d.toLocaleDateString("en-US", { day: "numeric", year: "numeric" });
+      return day + ", " + year;
     }
-    return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+    return m + " " + day + ", " + year;
   });
 
   eleventyConfig.addFilter("dateFormatShort", function (dateStr) {
