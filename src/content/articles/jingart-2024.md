@@ -7,7 +7,7 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2024-05-23"
 readTime: "6 min read"
-cover: ""
+cover: "/images/insight/jingart-2024/2024 JINGART SAVE THE DATE ____.jpg"
 excerpt: "Caelis Galería returned to JINGART Beijing 2024 at SKP-S, presenting works by August Vilella, Juan Miguel Palacios, Javi Caboné, Jaime Sangro, Arol, Cesc Abad, and Debbie Reda."
 ---
 

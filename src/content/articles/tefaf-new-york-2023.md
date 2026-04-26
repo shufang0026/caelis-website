@@ -7,7 +7,7 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-05-11"
 readTime: "5 min read"
-cover: ""
+cover: "/images/insight/august-tefaf-2023/640-2.jpeg"
 excerpt: "Caelis Galería's represented artist August Vilella exhibited his latest artwork 'The Poet Girl' at TEFAF New York 2023 in collaboration with Galeria Mayoral (Booth 309)."
 ---
 

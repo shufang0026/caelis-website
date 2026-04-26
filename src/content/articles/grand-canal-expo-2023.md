@@ -7,7 +7,7 @@ category: "Event"
 author: "Caelis Galería"
 date: "2023-09-21"
 readTime: "6 min read"
-cover: ""
+cover: "/images/insight/5th-grand-canal-2023/640-2.jpeg"
 excerpt: "Caelis Galería participated in the Fifth Grand Canal Cultural and Tourism Expo in Suzhou, presenting 22 works by influential Spanish artists at the Spanish Pavilion."
 ---
 

@@ -7,7 +7,7 @@ category: "Event"
 author: "Caelis Galería"
 date: "2024-05-18"
 readTime: "4 min read"
-cover: ""
+cover: "/images/insight/sniqus-sabadell-museum-2024/3aeb868b0d34e114a128120c381b0182.JPG"
 excerpt: "Caelis Galería, in collaboration with the Catalonia Foundation, opened 'SNIQUS – Forever Friends' at the Sabadell Contemporary Art Museum in Spain, a nostalgic journey through the artist's childhood."
 ---
 

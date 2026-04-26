@@ -7,7 +7,7 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-10-12"
 readTime: "3 min read"
-cover: ""
+cover: "/images/insight/t-art-con-2023/640-2.jpeg"
 excerpt: "Caelis Galería exhibited at T&ARTCON Shanghai 2023 at booth B23, presenting surrealist and pop artworks by Adam Handler, Arol, Debbie Reda, Fanny Brodar, Jaime Sancorlo, and Sniqus."
 ---
 

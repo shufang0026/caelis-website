@@ -7,7 +7,7 @@ category: "Event"
 author: "Caelis Galería"
 date: "2023-09-01"
 readTime: "5 min read"
-cover: ""
+cover: "/images/insight/august-casa-mila/640-2.jpeg"
 excerpt: "August Vilella's solo exhibition 'Unveiling the Eye' opened at La Pedrera - Casa Milà in Barcelona, showcasing the diverse subconscious universe revealed in his artworks."
 ---
 

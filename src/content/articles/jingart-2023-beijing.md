@@ -7,7 +7,7 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-06-01"
 readTime: "5 min read"
-cover: ""
+cover: "/images/insight/jingart-2023/640-2.jpeg"
 excerpt: "Caelis Galería made its JINGART debut in June 2023 at the Beijing Exhibition Center, joining 54 galleries from 11 countries in a vibrant celebration of contemporary art."
 ---
 

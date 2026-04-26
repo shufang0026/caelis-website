@@ -7,7 +7,7 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-11-09"
 readTime: "4 min read"
-cover: ""
+cover: "/images/insight/westbund-2023/640-2.jpeg"
 excerpt: "Caelis Galería participated in the 10th West Bund Art & Design Fair at booth B126, presenting works by Adam Handler, Arol, August Vilella, Debbie Reda, Jacob Vilató, Jaime Sancorlo, Juan Miguel Palacios, Vuitbits, and Xavi Carbonell."
 ---
 

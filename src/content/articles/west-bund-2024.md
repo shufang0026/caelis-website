@@ -7,7 +7,7 @@ category: "Art Fair"
 author: "Caelis Galería"
 date: "2023-11-07"
 readTime: "4 min read"
-cover: ""
+cover: "/images/insight/westbund-2024/IMG_6359.JPG"
 excerpt: "Caelis Galería participated in the West Bund Art & Design Fair Shanghai 2024 at booth 137, presenting contemporary surrealist and pop art works by nine Spanish artists."
 ---
 

@@ -7,7 +7,7 @@ category: "Event"
 author: "Caelis Galería"
 date: "2024-03-08"
 readTime: "8 min read"
-cover: ""
+cover: "/images/insight/adam-macau-show/IMG_9219.jpg"
 excerpt: "Artelli, Artoneers, and Caelis Galería presented 'Always Near You, Always,' a groundbreaking solo exhibition by New York-born artist Adam Handler in Macau, featuring over fifty new paintings."
 ---
 
