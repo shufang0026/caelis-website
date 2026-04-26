@@ -82,13 +82,7 @@ title: "{{ title }}"
               
               {% if date %}
               <div>
-                <p class="text-sm text-secondary">{{ date | dateFormat }}</p>
-              </div>
-              {% endif %}
-              
-              {% if endDate %}
-              <div>
-                <p class="text-sm text-secondary">{{ endDate | dateFormat }}</p>
+                <p class="text-sm text-secondary">{% if endDate %}{{ date | dateFormat("MMM D") }} – {{ endDate | dateFormat("D, YYYY") }}{% else %}{{ date | dateFormat }}{% endif %}</p>
               </div>
               {% endif %}
             </div>

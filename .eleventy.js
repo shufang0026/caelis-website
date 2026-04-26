@@ -5,9 +5,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownIt({ html: true, linkify: true, typographer: true }));
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
-  eleventyConfig.addFilter("dateFormat", function (dateStr) {
+  eleventyConfig.addFilter("dateFormat", function (dateStr, format) {
     if (!dateStr) return "";
-    return new Date(dateStr).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+    const d = new Date(dateStr);
+    if (format === "MMM D") {
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+    if (format === "D, YYYY") {
+      return d.toLocaleDateString("en-US", { day: "numeric", year: "numeric" });
+    }
+    return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   });
 
   eleventyConfig.addFilter("dateFormatShort", function (dateStr) {
