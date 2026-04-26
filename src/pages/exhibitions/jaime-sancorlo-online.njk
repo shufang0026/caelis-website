@@ -5,139 +5,74 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 ---
 
 {% set artworks = [
-  {
-    "title": "Bearbecue",
-    "year": "2022",
-    "medium": "Oil on canvas",
-    "dimensions": "73 × 100 cm",
-    "image": "/images/artworks/jaime-sancorlo/bearbecue-73x100cm-2022.jpg",
-    "available": true,
-    "layout": "right"
-  },
-  {
-    "title": "Color Exercise",
-    "year": "2020",
-    "medium": "Oil on canvas",
-    "dimensions": "89 × 114 cm",
-    "image": "/images/artworks/jaime-sancorlo/color-exercise-89x114cm-2020.jpg",
-    "available": true,
-    "layout": "left"
-  },
-  {
-    "title": "Hail to the Bus Driver",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "89 × 116 cm",
-    "image": "/images/artworks/jaime-sancorlo/hail-to-the-bus-driver-89x116-2023.jpg",
-    "available": true,
-    "layout": "center"
-  },
-  {
-    "title": "Lying in Wait",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "70 × 50 cm",
-    "image": "/images/artworks/jaime-sancorlo/lying-in-wait-70x50cm-2023.jpg",
-    "available": true,
-    "layout": "right"
-  },
-  {
-    "title": "No Parking",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "100 × 81 cm",
-    "image": "/images/artworks/jaime-sancorlo/no-parking-100x81cm-2023.jpg",
-    "available": true,
-    "layout": "left"
-  },
-  {
-    "title": "Of Course You Realize This Means War!!",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "73 × 100 cm",
-    "image": "/images/artworks/jaime-sancorlo/of-course-you-realize-this-means-war-73x100cm-2023.jpg",
-    "available": true,
-    "layout": "center"
-  },
-  {
-    "title": "On Ice",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "89 × 130 cm",
-    "image": "/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg",
-    "available": true,
-    "layout": "right"
-  },
-  {
-    "title": "Qué Será Será",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "89 × 116 cm",
-    "image": "/images/artworks/jaime-sancorlo/que-sera-sera-89x116cm-2023.jpg",
-    "available": true,
-    "layout": "left"
-  },
-  {
-    "title": "Reach Out",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "65 × 92 cm",
-    "image": "/images/artworks/jaime-sancorlo/reach-out-65x92cm-2023.jpg",
-    "available": true,
-    "layout": "center"
-  },
-  {
-    "title": "Storyteller",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "89 × 130 cm",
-    "image": "/images/artworks/jaime-sancorlo/storyteller-89x130cm-2023.jpg",
-    "available": true,
-    "layout": "right"
-  },
-  {
-    "title": "The Nap",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "73 × 100 cm",
-    "image": "/images/artworks/jaime-sancorlo/the-nap-73x100cm-2023.jpg",
-    "available": true,
-    "layout": "left"
-  },
-  {
-    "title": "The Rescue",
-    "year": "2023",
-    "medium": "Oil on canvas",
-    "dimensions": "120 × 120 cm",
-    "image": "/images/artworks/jaime-sancorlo/the-rescue-120x120-2023.jpg",
-    "available": true,
-    "layout": "center"
-  },
-  {
-    "title": "Yeah, But You Should See the Other Truck!",
-    "year": "2023",
-    "medium": "Oil on wood panel",
-    "dimensions": "100 × 73 cm",
-    "image": "/images/artworks/jaime-sancorlo/yeah-but-you-should-see-the-other-truck-100x73cm-2023.jpg",
-    "available": true,
-    "layout": "right"
-  }
+  { "title": "Bearbecue", "year": "2022", "medium": "Oil on canvas", "dimensions": "73 × 100 cm", "image": "/images/artworks/jaime-sancorlo/bearbecue-73x100cm-2022.jpg", "layout": "right" },
+  { "title": "Color Exercise", "year": "2020", "medium": "Oil on canvas", "dimensions": "89 × 114 cm", "image": "/images/artworks/jaime-sancorlo/color-exercise-89x114cm-2020.jpg", "layout": "left" },
+  { "title": "Hail to the Bus Driver", "year": "2023", "medium": "Oil on canvas", "dimensions": "89 × 116 cm", "image": "/images/artworks/jaime-sancorlo/hail-to-the-bus-driver-89x116-2023.jpg", "layout": "center" },
+  { "title": "Lying in Wait", "year": "2023", "medium": "Oil on canvas", "dimensions": "70 × 50 cm", "image": "/images/artworks/jaime-sancorlo/lying-in-wait-70x50cm-2023.jpg", "layout": "right" },
+  { "title": "No Parking", "year": "2023", "medium": "Oil on canvas", "dimensions": "100 × 81 cm", "image": "/images/artworks/jaime-sancorlo/no-parking-100x81cm-2023.jpg", "layout": "left" },
+  { "title": "Of Course You Realize This Means War!!", "year": "2023", "medium": "Oil on canvas", "dimensions": "73 × 100 cm", "image": "/images/artworks/jaime-sancorlo/of-course-you-realize-this-means-war-73x100cm-2023.jpg", "layout": "center" },
+  { "title": "On Ice", "year": "2023", "medium": "Oil on canvas", "dimensions": "89 × 130 cm", "image": "/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg", "layout": "right" },
+  { "title": "Qué Será Será", "year": "2023", "medium": "Oil on canvas", "dimensions": "89 × 116 cm", "image": "/images/artworks/jaime-sancorlo/que-sera-sera-89x116cm-2023.jpg", "layout": "left" },
+  { "title": "Reach Out", "year": "2023", "medium": "Oil on canvas", "dimensions": "65 × 92 cm", "image": "/images/artworks/jaime-sancorlo/reach-out-65x92cm-2023.jpg", "layout": "center" },
+  { "title": "Storyteller", "year": "2023", "medium": "Oil on canvas", "dimensions": "89 × 130 cm", "image": "/images/artworks/jaime-sancorlo/storyteller-89x130cm-2023.jpg", "layout": "right" },
+  { "title": "The Nap", "year": "2023", "medium": "Oil on canvas", "dimensions": "73 × 100 cm", "image": "/images/artworks/jaime-sancorlo/the-nap-73x100cm-2023.jpg", "layout": "left" },
+  { "title": "The Rescue", "year": "2023", "medium": "Oil on canvas", "dimensions": "120 × 120 cm", "image": "/images/artworks/jaime-sancorlo/the-rescue-120x120-2023.jpg", "layout": "center" },
+  { "title": "Yeah, But You Should See the Other Truck!", "year": "2023", "medium": "Oil on wood panel", "dimensions": "100 × 73 cm", "image": "/images/artworks/jaime-sancorlo/yeah-but-you-should-see-the-other-truck-100x73cm-2023.jpg", "layout": "right" }
 ] %}
 
 <style>
   .page-wrap { max-width: 100% !important; padding: 0 !important; }
 
-  /* ── Intro ── */
+  /* ── Intro with artist info ── */
   .ex-intro {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
     padding: 0 6vw;
-    position: relative;
   }
-  .ex-intro::after {
-    content: '';
+
+  .intro-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+  }
+  .intro-left { }
+  .intro-right { }
+
+  .intro-right .artist-photo {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+
+  .intro-right .artist-bio {
+    margin-top: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.75;
+    color: #666;
+    max-width: 360px;
+  }
+
+  .intro-right .artist-bio strong {
+    color: #333;
+    font-weight: 500;
+  }
+
+  .intro-meta-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #999;
+    margin-top: 2.5rem;
+  }
+
+  .intro-scroll-hint {
     position: absolute;
     bottom: 3rem;
     left: 50%;
@@ -152,91 +87,52 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     50% { opacity: 1 }
   }
 
-  /* ── Text interlude between artworks ── */
+  /* ── Text interlude ── */
   .ex-text {
-    max-width: 640px;
-    padding: 12vh 6vw;
+    max-width: 560px;
+    padding: 8vh 6vw;
   }
-  .ex-text.align-right {
-    margin-left: auto;
-  }
-  .ex-text.align-left {
-    margin-right: auto;
-  }
-  .ex-text.align-center {
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .ex-text.align-right { margin-left: auto; }
+  .ex-text.align-left { margin-right: auto; }
+  .ex-text.align-center { margin-left: auto; margin-right: auto; }
   .ex-text p {
     font-family: 'Inter', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.85;
-    color: #444;
+    color: #555;
   }
-  .ex-text p + p { margin-top: 1.25em; }
+  .ex-text p + p { margin-top: 1em; }
 
-  /* ── Artwork sections — staggered layouts ── */
+  /* ── Artwork sections ── */
   .artwork-section {
     min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
 
-  /* Center layout — full width, centered image */
-  .artwork-section.layout-center {
-    justify-content: center;
-  }
-  .artwork-section.layout-center .artwork-image {
-    max-width: 68vw;
-    max-height: 80vh;
-  }
+  .artwork-section.layout-center { justify-content: center; }
+  .artwork-section.layout-center .artwork-image { max-width: 68vw; max-height: 80vh; }
 
-  /* Left layout — image offset left, meta on right */
-  .artwork-section.layout-left {
-    justify-content: flex-start;
-    padding-left: 4vw;
-  }
-  .artwork-section.layout-left .artwork-image {
-    max-width: 52vw;
-    max-height: 80vh;
-  }
+  .artwork-section.layout-left { justify-content: flex-start; padding-left: 4vw; }
+  .artwork-section.layout-left .artwork-image { max-width: 52vw; max-height: 80vh; }
   .artwork-section.layout-left .artwork-meta {
-    left: auto;
-    right: 6vw;
-    top: 50%;
-    transform: translateY(-50%);
-    bottom: auto;
-    max-width: 280px;
+    left: auto; right: 6vw; top: 50%; transform: translateY(-50%); bottom: auto; max-width: 280px;
   }
 
-  /* Right layout — image offset right, meta on left */
-  .artwork-section.layout-right {
-    justify-content: flex-end;
-    padding-right: 4vw;
-  }
-  .artwork-section.layout-right .artwork-image {
-    max-width: 52vw;
-    max-height: 80vh;
-  }
+  .artwork-section.layout-right { justify-content: flex-end; padding-right: 4vw; }
+  .artwork-section.layout-right .artwork-image { max-width: 52vw; max-height: 80vh; }
   .artwork-section.layout-right .artwork-meta {
-    left: 6vw;
-    top: 50%;
-    transform: translateY(-50%);
-    bottom: auto;
-    max-width: 280px;
+    left: 6vw; top: 50%; transform: translateY(-50%); bottom: auto; max-width: 280px;
   }
 
   .artwork-image {
     object-fit: contain;
     transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
   }
-  .artwork-image:hover {
-    transform: scale(1.015);
-  }
+  .artwork-image:hover { transform: scale(1.015); }
 
-  /* ── Artwork meta ── */
   .artwork-meta {
     position: absolute;
     bottom: 3rem;
@@ -246,9 +142,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     z-index: 10;
   }
   .artwork-section:hover .artwork-meta,
-  .artwork-section.touch-device .artwork-meta {
-    opacity: 1;
-  }
+  .artwork-section.touch-device .artwork-meta { opacity: 1; }
 
   .artwork-counter {
     position: absolute;
@@ -263,7 +157,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 
   .inquire-link {
     display: inline-block;
-    margin-top: 1.2rem;
+    margin-top: 1rem;
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     letter-spacing: 0.25em;
@@ -320,6 +214,16 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 
   /* ── Mobile ── */
   @media (max-width: 768px) {
+    .intro-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .intro-right { text-align: center; }
+    .intro-right .artist-photo { max-width: 200px; margin: 0 auto; }
+    .intro-right .artist-bio { max-width: none; margin-left: auto; margin-right: auto; }
+    .ex-intro { min-height: auto; padding: 8rem 1.5rem 4rem; }
+    .ex-intro .intro-scroll-hint { display: none; }
+
     .artwork-section.layout-left,
     .artwork-section.layout-right,
     .artwork-section.layout-center {
@@ -328,25 +232,15 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
       padding-right: 0;
     }
     .artwork-section.layout-left .artwork-image,
-    .artwork-section.layout-right .artwork-image {
-      max-width: 88vw;
-    }
-    .artwork-section.layout-center .artwork-image {
-      max-width: 88vw;
-    }
+    .artwork-section.layout-right .artwork-image { max-width: 88vw; }
+    .artwork-section.layout-center .artwork-image { max-width: 88vw; }
     .artwork-section.layout-left .artwork-meta,
     .artwork-section.layout-right .artwork-meta {
-      left: 1.5rem;
-      right: 1.5rem;
-      top: auto;
-      bottom: 1.5rem;
-      transform: none;
-      max-width: none;
-      opacity: 1;
+      left: 1.5rem; right: 1.5rem; top: auto; bottom: 1.5rem;
+      transform: none; max-width: none; opacity: 1;
     }
     .artwork-meta { opacity: 1; }
-    .ex-text { padding: 6vh 1.5rem; }
-    .ex-intro { padding: 0 1.5rem; }
+    .ex-text { padding: 4vh 1.5rem; }
     .nav-dots { right: .75rem; gap: 6px; }
     .nav-dot { width: 5px; height: 5px; }
   }
@@ -373,233 +267,86 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 </style>
 
 <!-- ═══════════════ INTRO ═══════════════ -->
-<section class="ex-intro">
-  <a href="/exhibitions/" class="inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-secondary hover:text-text transition-colors group mb-16">
-    <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
-    Exhibitions
-  </a>
-
-  <div>
-    <p class="font-body text-[11px] tracking-[0.3em] uppercase text-secondary mb-6">Online Exhibition</p>
-    <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-text mb-4 leading-[0.95]">Reach Out</h1>
-    <p class="font-display text-2xl sm:text-3xl font-light text-secondary mb-10">Jaime Sancorlo</p>
-    <p class="font-body text-xs text-muted">August 15 — September 28, 2023 &nbsp;·&nbsp; Caelis Galería, Shanghai</p>
+<section class="ex-intro" style="position:relative;">
+  <div class="intro-inner">
+    <div class="intro-left">
+      <a href="/exhibitions/" class="inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-secondary hover:text-text transition-colors group mb-12">
+        <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+        Exhibitions
+      </a>
+      <p class="font-body text-[11px] tracking-[0.3em] uppercase text-secondary mb-5">Online Exhibition</p>
+      <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-light text-text mb-3 leading-[0.95]">Reach Out</h1>
+      <p class="font-display text-2xl sm:text-3xl font-light text-secondary mb-8">Jaime Sancorlo</p>
+      <p class="intro-meta-line">August 15 — September 28, 2023 &nbsp;·&nbsp; Caelis Galería, Shanghai</p>
+    </div>
+    <div class="intro-right">
+      <img class="artist-photo" src="/images/artists/jaime-sancorlo.jpeg" alt="Jaime Sancorlo" />
+      <div class="artist-bio">
+        <strong>Jaime Sancorlo</strong> (Madrid, 1980) began copying characters from films, comics, and cartoons at a very young age. He graduated in Fine Arts from the Complutense University of Madrid and trained at the Academy of Fine Arts in Warsaw on an Erasmus scholarship. In mid-2018, after attending a painting workshop by Alejandro Carpintero, he fell in love again with the practice of oil painting.<br><br>
+        Meticulous in his style, Sancorlo feels most comfortable with oil painting — he appreciates its long drying time, its versatility, and its ability to create both soft melts and razor-sharp edges. His work draws from historical black-and-white photographs, injecting playful cartoon elements to explore the absurdity of war and the loss of innocence.
+      </div>
+    </div>
   </div>
+  <div class="intro-scroll-hint"></div>
 </section>
 
 <!-- ═══════════════ TEXT 1 ═══════════════ -->
 <div class="ex-text align-right">
-  <p>Caelis Galería is delighted to present "Reach Out," a solo exhibition by Spanish artist Jaime Sancorlo. Born in Madrid in 1980, Sancorlo primarily focuses on exploring texture and expressing color. Drawing inspiration from historical black-and-white photographs from difficult periods, he injects a playful and witty touch of cartoon characters to create a juxtaposition of surreal, pop, and ironic elements.</p>
+  <p>Caelis Galería is delighted to present "Reach Out," a solo exhibition by Spanish artist Jaime Sancorlo. The exhibition showcases a series of oil paintings depicting the adult world as a playground of irony. Drawing inspiration from historical black-and-white photographs from difficult periods, he injects a playful and witty touch of cartoon characters to create a juxtaposition of surreal, pop, and ironic elements.</p>
 </div>
 
-<!-- ═══════════════ ARTWORK 1: Bearbecue ═══════════════ -->
-<section class="artwork-section layout-right" data-index="0">
-  <img class="artwork-image" src="{{ artworks[0].image }}" alt="{{ artworks[0].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[0].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[0].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[0].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[0].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[0].title }}', '{{ artworks[0].year }}', '{{ artworks[0].medium }}', '{{ artworks[0].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">1 / 13</div>
-</section>
+<!-- ═══════════════ ARTWORKS ═══════════════ -->
 
-<!-- ═══════════════ ARTWORK 2: Color Exercise ═══════════════ -->
-<section class="artwork-section layout-left" data-index="1">
-  <img class="artwork-image" src="{{ artworks[1].image }}" alt="{{ artworks[1].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[1].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[1].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[1].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[1].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[1].title }}', '{{ artworks[1].year }}', '{{ artworks[1].medium }}', '{{ artworks[1].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">2 / 13</div>
-</section>
-
-<!-- ═══════════════ TEXT 2 ═══════════════ -->
+{% for artwork in artworks %}
+{% if loop.index0 == 2 %}
+<!-- TEXT 2 after artwork 3 -->
 <div class="ex-text align-left">
   <p>The thirteen artworks presented in the exhibition evoke a serene and quiet wilderness, seemingly untouched by the smoke of war. Each canvas presents a unique theme — from leisure and practice to rescue and armistice — infusing the difficult times captured in the photographs with a soft touch of life and vibrancy.</p>
-  <p>Before settling on these themes, Jaime meticulously selected from an impressive array of images, choosing those that deeply resonated with his soul, expressing his contemplation of the cruelty and absurdity of war.</p>
 </div>
-
-<!-- ═══════════════ ARTWORK 3: Hail to the Bus Driver ═══════════════ -->
-<section class="artwork-section layout-center" data-index="2">
-  <img class="artwork-image" src="{{ artworks[2].image }}" alt="{{ artworks[2].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[2].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[2].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[2].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[2].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[2].title }}', '{{ artworks[2].year }}', '{{ artworks[2].medium }}', '{{ artworks[2].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">3 / 13</div>
-</section>
-
-<!-- ═══════════════ ARTWORK 4: Lying in Wait ═══════════════ -->
-<section class="artwork-section layout-right" data-index="3">
-  <img class="artwork-image" src="{{ artworks[3].image }}" alt="{{ artworks[3].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[3].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[3].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[3].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[3].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[3].title }}', '{{ artworks[3].year }}', '{{ artworks[3].medium }}', '{{ artworks[3].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">4 / 13</div>
-</section>
-
-<!-- ═══════════════ TEXT 3 ═══════════════ -->
+{% elif loop.index0 == 4 %}
+<!-- TEXT 3 after artwork 5 -->
 <div class="ex-text align-center">
   <p>Through his astute artistic prowess, Jaime skillfully transforms the language of photography into a hyperrealistic painting language, prompting profound questions about the interplay between reality and the influx of popular symbols in our collective memory. This artistic montage empowers viewers to naturally fill in the missing narrative pieces, eagerly unraveling the tales suspended within each frame.</p>
 </div>
-
-<!-- ═══════════════ ARTWORK 5: No Parking ═══════════════ -->
-<section class="artwork-section layout-left" data-index="4">
-  <img class="artwork-image" src="{{ artworks[4].image }}" alt="{{ artworks[4].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[4].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[4].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[4].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[4].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[4].title }}', '{{ artworks[4].year }}', '{{ artworks[4].medium }}', '{{ artworks[4].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">5 / 13</div>
-</section>
-
-<!-- ═══════════════ ARTWORK 6: Of Course You Realize... ═══════════════ -->
-<section class="artwork-section layout-center" data-index="5">
-  <img class="artwork-image" src="{{ artworks[5].image }}" alt="{{ artworks[5].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[5].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[5].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[5].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[5].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[5].title }}', '{{ artworks[5].year }}', '{{ artworks[5].medium }}', '{{ artworks[5].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">6 / 13</div>
-</section>
-
-<!-- ═══════════════ TEXT 4 ═══════════════ -->
+{% elif loop.index0 == 6 %}
+<!-- TEXT 4 after artwork 7 -->
 <div class="ex-text align-right">
-  <p>Behind the layers of historical fragments, Jaime Sancorlo pays tribute to the meticulous detailing of hyperrealism. At first glance, his artworks usually present an aged and somber black-and-white color palette. Yet, beneath the surface, the coarse texture and sharp edges reveal a transformative process of selective treatment, transcending mere reproduction to become an embodiment of carefully chosen authenticity.</p>
+  <p>Behind the layers of historical fragments, Jaime Sancorlo pays tribute to the meticulous detailing of hyperrealism. At first glance, his artworks present an aged and somber black-and-white palette. Yet, beneath the surface, the coarse texture and sharp edges reveal a transformative process of selective treatment, transcending mere reproduction to become an embodiment of carefully chosen authenticity.</p>
 </div>
-
-<!-- ═══════════════ ARTWORK 7: On Ice ═══════════════ -->
-<section class="artwork-section layout-right" data-index="6">
-  <img class="artwork-image" src="{{ artworks[6].image }}" alt="{{ artworks[6].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[6].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[6].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[6].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[6].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[6].title }}', '{{ artworks[6].year }}', '{{ artworks[6].medium }}', '{{ artworks[6].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">7 / 13</div>
-</section>
-
-<!-- ═══════════════ ARTWORK 8: Qué Será Será ═══════════════ -->
-<section class="artwork-section layout-left" data-index="7">
-  <img class="artwork-image" src="{{ artworks[7].image }}" alt="{{ artworks[7].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[7].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[7].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[7].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[7].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[7].title }}', '{{ artworks[7].year }}', '{{ artworks[7].medium }}', '{{ artworks[7].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">8 / 13</div>
-</section>
-
-<!-- ═══════════════ ARTWORK 9: Reach Out ═══════════════ -->
-<section class="artwork-section layout-center" data-index="8">
-  <img class="artwork-image" src="{{ artworks[8].image }}" alt="{{ artworks[8].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[8].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[8].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[8].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[8].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[8].title }}', '{{ artworks[8].year }}', '{{ artworks[8].medium }}', '{{ artworks[8].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">9 / 13</div>
-</section>
-
-<!-- ═══════════════ TEXT 5 ═══════════════ -->
+{% elif loop.index0 == 9 %}
+<!-- TEXT 5 after artwork 10 -->
 <div class="ex-text align-left">
-  <p>The Gestalt aesthetics offer an interpretative entry point to this phenomenon of ambiguity, where the stimulating patterns are "different from one's experience" yet "connected to it." This maximizes the triggering of perceptual exploration, as described by Gombrich as intertextuality. The "too close" experience brought by realism fosters a physiological sense of unfamiliarity, piecing together composite fragments of multi-sensory input.</p>
-</div>
-
-<!-- ═══════════════ ARTWORK 10: Storyteller ═══════════════ -->
-<section class="artwork-section layout-right" data-index="9">
-  <img class="artwork-image" src="{{ artworks[9].image }}" alt="{{ artworks[9].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[9].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[9].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[9].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[9].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[9].title }}', '{{ artworks[9].year }}', '{{ artworks[9].medium }}', '{{ artworks[9].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">10 / 13</div>
-</section>
-
-<!-- ═══════════════ ARTWORK 11: The Nap ═══════════════ -->
-<section class="artwork-section layout-left" data-index="10">
-  <img class="artwork-image" src="{{ artworks[10].image }}" alt="{{ artworks[10].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[10].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[10].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[10].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[10].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[10].title }}', '{{ artworks[10].year }}', '{{ artworks[10].medium }}', '{{ artworks[10].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">11 / 13</div>
-</section>
-
-<!-- ═══════════════ TEXT 6 ═══════════════ -->
-<div class="ex-text align-center">
   <p>The personas encountered amidst these trying times are adorned with military signifiers, mirroring the somber aspects of adulthood. The acid-colored cartoon elements reference electronic games and American movies, pointing to a forgotten childhood, expressing the loss of innocence and contemplation of its reasons, and attempting to find a trace of a smile amidst the serious military environment.</p>
 </div>
+{% endif %}
 
-<!-- ═══════════════ ARTWORK 12: The Rescue ═══════════════ -->
-<section class="artwork-section layout-center" data-index="11">
-  <img class="artwork-image" src="{{ artworks[11].image }}" alt="{{ artworks[11].title }}" loading="lazy" />
+<section class="artwork-section layout-{{ artwork.layout }}" data-index="{{ loop.index0 }}">
+  <img class="artwork-image" src="{{ artwork.image }}" alt="{{ artwork.title }}" loading="lazy" />
   <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[11].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[11].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[11].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[11].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[11].title }}', '{{ artworks[11].year }}', '{{ artworks[11].medium }}', '{{ artworks[11].dimensions }}')">Inquire</a>
+    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artwork.title }}</p>
+    <p class="font-body text-xs text-secondary mt-1">{{ artwork.year }}</p>
+    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artwork.medium }}</p>
+    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artwork.dimensions }}</p>
+    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artwork.title }}', '{{ artwork.year }}', '{{ artwork.medium }}', '{{ artwork.dimensions }}')">Inquire</a>
   </div>
-  <div class="artwork-counter">12 / 13</div>
+  <div class="artwork-counter">{{ loop.index }} / {{ artworks | length }}</div>
 </section>
 
-<!-- ═══════════════ ARTWORK 13: Yeah, But... ═══════════════ -->
-<section class="artwork-section layout-right" data-index="12">
-  <img class="artwork-image" src="{{ artworks[12].image }}" alt="{{ artworks[12].title }}" loading="lazy" />
-  <div class="artwork-meta">
-    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artworks[12].title }}</p>
-    <p class="font-body text-xs text-secondary mt-1">{{ artworks[12].year }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artworks[12].medium }}</p>
-    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artworks[12].dimensions }}</p>
-    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artworks[12].title }}', '{{ artworks[12].year }}', '{{ artworks[12].medium }}', '{{ artworks[12].dimensions }}')">Inquire</a>
-  </div>
-  <div class="artwork-counter">13 / 13</div>
-</section>
+{% endfor %}
 
-<!-- ═══════════════ CLOSING TEXT ═══════════════ -->
-<div class="ex-text align-center" style="padding-bottom: 15vh;">
+<!-- ═══════════════ CLOSING ═══════════════ -->
+<div class="ex-text align-center" style="padding-bottom: 12vh;">
   <p>Jaime's artistic craftsmanship, blending restrained and faithful depictions with humorous assemblages, extends an empathetic hand to the numerous harsh realities, encouraging viewers to strike a harmonious balance between introspection and distance. By embracing the past and present, we can build profound consensus, awakening a newfound depth within ourselves.</p>
-  <p class="mt-8">
+  <p class="mt-6">
     <a href="mailto:info@caelis.cn" class="inquire-link">Contact the gallery</a>
   </p>
 </div>
 
 <!-- ═══════════════ NAV DOTS ═══════════════ -->
 <div class="nav-dots" id="nav-dots">
-  <button class="nav-dot active" data-target="0" onclick="scrollToSection(0)" aria-label="Intro"></button>
+  <button class="nav-dot active" onclick="scrollToSection(0)" aria-label="Intro"></button>
   {% for artwork in artworks %}
-  <button class="nav-dot" data-target="{{ loop.index }}" onclick="scrollToSection({{ loop.index }})" aria-label="Artwork {{ loop.index }}"></button>
+  <button class="nav-dot" onclick="scrollToSection({{ loop.index }})" aria-label="{{ artwork.title }}"></button>
   {% endfor %}
 </div>
 
@@ -639,12 +386,10 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 </div>
 
 <script>
-  // Touch device detection
   if ('ontouchstart' in window) {
     document.querySelectorAll('.artwork-section').forEach(s => s.classList.add('touch-device'));
   }
 
-  // Scroll spy for nav dots
   const dots = document.querySelectorAll('.nav-dot');
   const backTop = document.getElementById('back-top');
   const allSections = document.querySelectorAll('.ex-intro, .artwork-section');
@@ -671,7 +416,6 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     }
   }
 
-  // Keyboard nav
   document.addEventListener('keydown', e => {
     if (document.getElementById('inquiry-modal').classList.contains('open')) return;
     const cur = [...dots].findIndex(d => d.classList.contains('active'));
@@ -684,7 +428,6 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     }
   });
 
-  // Inquiry
   function openInquiry(title, year, medium, dims) {
     document.getElementById('inquiry-artwork').value = `${title}, ${year}, ${medium}, ${dims}`;
     document.getElementById('inquiry-artwork-label').textContent = `${title}, ${year} · ${medium} · ${dims}`;
