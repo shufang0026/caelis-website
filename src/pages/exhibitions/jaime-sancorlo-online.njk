@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: "Jaime Sancorlo — Online Exhibition"
+title: "Reach Out — Jaime Sancorlo"
 permalink: "/exhibitions/jaime-sancorlo-online/"
 ---
 
@@ -112,300 +112,359 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 ] %}
 
 <style>
-  .artwork-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+  /* Hide default page padding */
+  .page-wrap { max-width: 100% !important; padding: 0 !important; }
+
+  /* Exhibition intro */
+  .exhibition-intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+    position: relative;
   }
-  .artwork-card {
-    cursor: pointer;
-    overflow: hidden;
-    background: #f5f5f5;
+  .exhibition-intro::after {
+    content: '';
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 48px;
+    background: #999;
+    animation: scrollHint 2s ease-in-out infinite;
   }
-  .artwork-card img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    display: block;
-  }
-  .artwork-card:hover img {
-    transform: scale(1.04);
-  }
-  .artwork-card-info {
-    padding: 1rem 0 0.5rem;
-    transition: opacity 0.2s;
-  }
-  .artwork-card:hover .artwork-card-info {
-    opacity: 0.7;
+  @keyframes scrollHint {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
   }
 
-  /* Lightbox */
-  #artwork-lightbox {
+  /* Full-screen artwork sections */
+  .artwork-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    scroll-snap-align: start;
+  }
+  .artwork-section .artwork-image {
+    max-width: 75vw;
+    max-height: 82vh;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .artwork-section .artwork-image:hover {
+    transform: scale(1.01);
+  }
+
+  /* Metadata overlay — bottom left, appears on hover or always visible */
+  .artwork-meta {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 3rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+  }
+  .artwork-section:hover .artwork-meta,
+  .artwork-section.touch-device .artwork-meta {
+    opacity: 1;
+  }
+
+  /* Artwork counter — bottom right */
+  .artwork-counter {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #999;
+    z-index: 10;
+  }
+
+  /* Navigation dots — right side */
+  .nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    border: none;
+    padding: 0;
+  }
+  .nav-dot.active {
+    background: #333;
+    transform: scale(1.4);
+  }
+  .nav-dot:hover {
+    background: #666;
+  }
+
+  /* Inquire button in meta */
+  .inquire-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #999;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+  .inquire-link:hover {
+    color: #333;
+    border-color: #333;
+  }
+
+  /* Back to top */
+  .back-top {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #999;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+    background: none;
+    border: none;
+  }
+  .back-top.visible { opacity: 1; }
+  .back-top:hover { color: #333; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .artwork-section .artwork-image {
+      max-width: 90vw;
+      max-height: 70vh;
+    }
+    .artwork-meta {
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      opacity: 1;
+    }
+    .artwork-counter {
+      bottom: 1.5rem;
+      right: 1.5rem;
+    }
+    .nav-dots {
+      right: 0.75rem;
+      gap: 6px;
+    }
+    .nav-dot {
+      width: 5px;
+      height: 5px;
+    }
+    .exhibition-intro {
+      padding: 0 1.5rem;
+    }
+  }
+
+  /* Inquiry form modal */
+  .inquiry-modal {
     position: fixed;
     inset: 0;
-    background: rgba(10, 10, 10, 0.97);
-    z-index: 9999;
+    background: rgba(0,0,0,0.5);
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s;
   }
-  #artwork-lightbox.active {
+  .inquiry-modal.open {
     opacity: 1;
     pointer-events: all;
   }
-  .lightbox-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .inquiry-modal-box {
+    background: #fff;
     width: 100%;
-    height: 100%;
-    padding: 2rem;
-    gap: 2rem;
-  }
-  .lightbox-image-wrap {
-    flex: 1;
-    max-width: calc(100% - 320px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
-  .lightbox-image-wrap img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-  .lightbox-info {
-    width: 280px;
-    flex-shrink: 0;
-    color: #fff;
-    padding: 1rem 0;
-  }
-  .lightbox-nav {
-    width: 48px;
-    height: 48px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50%;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, border-color 0.2s;
-    flex-shrink: 0;
-  }
-  .lightbox-nav:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.4);
-  }
-  .lightbox-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50%;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-    z-index: 10;
-  }
-  .lightbox-close:hover {
-    background: rgba(255,255,255,0.1);
-  }
-  @media (max-width: 768px) {
-    .lightbox-content {
-      flex-direction: column;
-      padding: 1rem;
-      gap: 1rem;
-    }
-    .lightbox-info {
-      width: 100%;
-      text-align: center;
-      order: 2;
-      padding: 0;
-    }
-    .lightbox-image-wrap {
-      max-width: 100%;
-      order: 1;
-      height: 60vh;
-    }
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 5;
-    }
-    #lightbox-prev { left: 0.5rem; }
-    #lightbox-next { right: 0.5rem; }
-    .artwork-grid {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 0.75rem;
-    }
+    max-width: 440px;
+    padding: 2.5rem;
   }
 </style>
 
-<!-- Exhibition Header -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-  <a href="/exhibitions/" class="inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-secondary hover:text-text transition-colors group mb-12">
+<!-- Exhibition Intro -->
+<section class="exhibition-intro">
+  <a href="/exhibitions/" class="inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-secondary hover:text-text transition-colors group mb-16">
     <svg class="mr-2 w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
     Exhibitions
   </a>
 
-  <div class="max-w-2xl">
-    <p class="text-[11px] tracking-[0.25em] uppercase text-secondary mb-4">Online Exhibition</p>
-    <h1 class="font-display text-4xl lg:text-5xl xl:text-6xl font-light text-text mb-4 leading-tight">Jaime Sancorlo</h1>
-    <p class="text-lg text-secondary">Madrid, 1980 —</p>
+  <div>
+    <p class="font-body text-[11px] tracking-[0.3em] uppercase text-secondary mb-6">Online Exhibition</p>
+    <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-text mb-6 leading-[0.95]">Reach Out</h1>
+    <p class="font-display text-2xl sm:text-3xl font-light text-secondary mb-8">Jaime Sancorlo</p>
+    <div class="max-w-md">
+      <p class="font-body text-sm text-secondary leading-relaxed">Madrid, 1980. Sancorlo's practice explores the tension between figuration and abstraction, drawing on cartoon imagery, urban motifs, and a vivid chromatic language that oscillates between playfulness and unease.</p>
+    </div>
+    <p class="font-body text-xs text-muted mt-6">August 22 — September 28, 2023</p>
   </div>
 </section>
 
-<!-- Artworks Grid -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-  <div class="artwork-grid">
-    {% for artwork in artworks %}
-    <div class="artwork-card group" data-index="{{ loop.index0 }}" onclick="openLightbox({{ loop.index0 }})">
-      <img src="{{ artwork.image }}" alt="{{ artwork.title }}" loading="lazy" />
-      <div class="artwork-card-info">
-        <p class="text-sm font-medium text-text leading-snug">{{ artwork.title }}</p>
-        <p class="text-xs text-secondary mt-0.5">{{ artwork.year }}</p>
-      </div>
-    </div>
-    {% endfor %}
+<!-- Full-screen Artworks -->
+{% for artwork in artworks %}
+<section class="artwork-section" data-index="{{ loop.index0 }}">
+  <img
+    class="artwork-image"
+    src="{{ artwork.image }}"
+    alt="{{ artwork.title }}, {{ artwork.year }}"
+    loading="lazy"
+    onclick="toggleMeta(this.parentElement)"
+  />
+  <div class="artwork-meta">
+    <p class="font-display text-xl sm:text-2xl font-light text-text leading-snug">{{ artwork.title }}</p>
+    <p class="font-body text-xs text-secondary mt-1">{{ artwork.year }}</p>
+    <p class="font-body text-[11px] tracking-[0.1em] text-muted mt-2">{{ artwork.medium }}</p>
+    <p class="font-body text-[11px] tracking-[0.1em] text-muted">{{ artwork.dimensions }}</p>
+    {% if artwork.available %}
+    <a href="#" class="inquire-link" onclick="event.preventDefault(); openInquiry('{{ artwork.title }}', '{{ artwork.year }}', '{{ artwork.medium }}', '{{ artwork.dimensions }}')">Inquire</a>
+    {% endif %}
   </div>
+  <div class="artwork-counter">{{ loop.index }} / {{ artworks | length }}</div>
 </section>
+{% endfor %}
 
-<!-- Lightbox -->
-<div id="artwork-lightbox" role="dialog" aria-modal="true" aria-label="Artwork detail">
-  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
-  </button>
-
-  <button id="lightbox-prev" class="lightbox-nav" onclick="prevArtwork(event)" aria-label="Previous">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
-  </button>
-
-  <div class="lightbox-content">
-    <div class="lightbox-image-wrap">
-      <img id="lightbox-img" src="" alt="" />
-    </div>
-    <div class="lightbox-info">
-      <p id="lightbox-title" class="font-display text-2xl font-light text-white mb-1 leading-snug"></p>
-      <p id="lightbox-year" class="text-sm text-gray-400 mb-4"></p>
-      <p id="lightbox-medium" class="text-xs text-gray-500 uppercase tracking-wider mb-1"></p>
-      <p id="lightbox-dimensions" class="text-xs text-gray-500 uppercase tracking-wider mb-8"></p>
-      <p class="text-[11px] tracking-[0.2em] uppercase text-gray-400 mb-2">Jaime Sancorlo</p>
-      <p class="text-[10px] text-gray-600">Caelis Galería, Shanghai</p>
-      <div class="mt-8">
-        <a id="lightbox-inquire" href="#" onclick="event.preventDefault(); document.getElementById('inquiry-form').classList.remove('hidden'); closeLightbox();" class="inline-block text-[11px] tracking-[0.2em] uppercase border border-gray-500 text-gray-300 px-6 py-2.5 hover:bg-white hover:text-black transition-colors">
-          Inquire
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <button id="lightbox-next" class="lightbox-nav" onclick="nextArtwork(event)" aria-label="Next">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
-  </button>
+<!-- Navigation Dots -->
+<div class="nav-dots" id="nav-dots">
+  <button class="nav-dot" data-target="0" onclick="scrollToSection(0)" aria-label="Intro"></button>
+  {% for artwork in artworks %}
+  <button class="nav-dot" data-target="{{ loop.index }}" onclick="scrollToSection({{ loop.index }})" aria-label="Artwork {{ loop.index }}"></button>
+  {% endfor %}
 </div>
 
-<!-- Hidden Inquiry Form -->
-<div id="inquiry-form" class="hidden fixed inset-0 bg-black/60 z-[10000] flex items-center justify-center p-4">
-  <div class="bg-white w-full max-w-md p-8 rounded-sm shadow-2xl">
+<!-- Back to Top -->
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+
+<!-- Inquiry Modal -->
+<div class="inquiry-modal" id="inquiry-modal" onclick="if(event.target===this)closeInquiry()">
+  <div class="inquiry-modal-box">
     <div class="flex items-center justify-between mb-6">
       <h3 class="font-display text-xl font-light text-text">Inquire</h3>
-      <button onclick="document.getElementById('inquiry-form').classList.add('hidden')" class="text-secondary hover:text-text">
+      <button onclick="closeInquiry()" class="text-secondary hover:text-text">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-    <form id="inquiry-form-el" onsubmit="submitInquiry(event)">
+    <p id="inquiry-artwork-label" class="font-body text-xs text-secondary mb-5"></p>
+    <form onsubmit="submitInquiry(event)">
       <input type="hidden" id="inquiry-artwork" name="artwork" value="" />
       <div class="space-y-4">
         <div>
-          <label class="block text-[11px] tracking-[0.15em] uppercase text-secondary mb-1">Full Name</label>
+          <label class="block font-body text-[10px] tracking-[0.15em] uppercase text-secondary mb-1">Full Name</label>
           <input type="text" name="name" required class="w-full border border-gray-300 px-3 py-2 text-sm text-text focus:outline-none focus:border-text transition-colors" />
         </div>
         <div>
-          <label class="block text-[11px] tracking-[0.15em] uppercase text-secondary mb-1">Email</label>
+          <label class="block font-body text-[10px] tracking-[0.15em] uppercase text-secondary mb-1">Email</label>
           <input type="email" name="email" required class="w-full border border-gray-300 px-3 py-2 text-sm text-text focus:outline-none focus:border-text transition-colors" />
         </div>
         <div>
-          <label class="block text-[11px] tracking-[0.15em] uppercase text-secondary mb-1">Message</label>
+          <label class="block font-body text-[10px] tracking-[0.15em] uppercase text-secondary mb-1">Message</label>
           <textarea name="message" rows="3" class="w-full border border-gray-300 px-3 py-2 text-sm text-text focus:outline-none focus:border-text transition-colors resize-none" placeholder="I would like to inquire about..."></textarea>
         </div>
-        <button type="submit" class="w-full bg-black text-white text-[11px] tracking-[0.2em] uppercase py-3 hover:bg-gray-800 transition-colors">
+        <button type="submit" class="w-full bg-black text-white font-body text-[11px] tracking-[0.2em] uppercase py-3 hover:bg-gray-800 transition-colors">
           Send Inquiry
         </button>
-        <p id="inquiry-success" class="hidden text-sm text-green-600 text-center mt-2">Thank you! We will be in touch shortly.</p>
+        <p id="inquiry-success" class="hidden font-body text-sm text-green-600 text-center">Thank you! We will be in touch.</p>
       </div>
     </form>
   </div>
 </div>
 
 <script>
-  const artworks = {{ artworks | dump | safe }};
-  let currentIndex = 0;
+  const sections = document.querySelectorAll('.artwork-section, .exhibition-intro');
+  const dots = document.querySelectorAll('.nav-dot');
+  const backTop = document.getElementById('back-top');
 
-  function openLightbox(index) {
-    currentIndex = index;
-    updateLightbox();
-    document.getElementById('artwork-lightbox').classList.add('active');
+  // Touch device: always show meta
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.artwork-section').forEach(s => s.classList.add('touch-device'));
+  }
+
+  // Scroll spy: update active dot
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = entry.target.classList.contains('exhibition-intro')
+          ? 0
+          : parseInt(entry.target.dataset.index) + 1;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        backTop.classList.toggle('visible', idx > 1);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Set first dot active
+  if (dots[0]) dots[0].classList.add('active');
+
+  function scrollToSection(idx) {
+    if (idx === 0) {
+      document.querySelector('.exhibition-intro').scrollIntoView({ behavior: 'smooth' });
+    } else {
+      document.querySelectorAll('.artwork-section')[idx - 1]?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Toggle meta on click (mobile)
+  function toggleMeta(section) {
+    const meta = section.querySelector('.artwork-meta');
+    if (meta) {
+      const isVisible = meta.style.opacity === '1';
+      meta.style.opacity = isVisible ? '' : '1';
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('inquiry-modal').classList.contains('open')) return;
+    const current = [...dots].findIndex(d => d.classList.contains('active'));
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      scrollToSection(Math.min(current + 1, dots.length - 1));
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      scrollToSection(Math.max(current - 1, 0));
+    }
+  });
+
+  // Inquiry form
+  function openInquiry(title, year, medium, dims) {
+    document.getElementById('inquiry-artwork').value = `${title}, ${year}, ${medium}, ${dims}`;
+    document.getElementById('inquiry-artwork-label').textContent = `${title}, ${year} · ${medium} · ${dims}`;
+    document.getElementById('inquiry-modal').classList.add('open');
     document.body.classList.add('overflow-hidden');
   }
 
-  function closeLightbox() {
-    document.getElementById('artwork-lightbox').classList.remove('active');
+  function closeInquiry() {
+    document.getElementById('inquiry-modal').classList.remove('open');
     document.body.classList.remove('overflow-hidden');
   }
-
-  function updateLightbox() {
-    const a = artworks[currentIndex];
-    document.getElementById('lightbox-img').src = a.image;
-    document.getElementById('lightbox-img').alt = a.title;
-    document.getElementById('lightbox-title').textContent = a.title;
-    document.getElementById('lightbox-year').textContent = a.year;
-    document.getElementById('lightbox-medium').textContent = a.medium;
-    document.getElementById('lightbox-dimensions').textContent = a.dimensions;
-    document.getElementById('lightbox-inquire').onclick = function(e) {
-      e.preventDefault();
-      document.getElementById('inquiry-artwork').value = a.title + ', ' + a.year + ', ' + a.medium + ', ' + a.dimensions;
-      document.getElementById('inquiry-form').classList.remove('hidden');
-      closeLightbox();
-    };
-  }
-
-  function prevArtwork(e) {
-    if (e) e.stopPropagation();
-    currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
-    updateLightbox();
-  }
-
-  function nextArtwork(e) {
-    if (e) e.stopPropagation();
-    currentIndex = (currentIndex + 1) % artworks.length;
-    updateLightbox();
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (!document.getElementById('artwork-lightbox').classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') prevArtwork();
-    if (e.key === 'ArrowRight') nextArtwork();
-  });
-
-  document.getElementById('artwork-lightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-  });
 
   async function submitInquiry(e) {
     e.preventDefault();
@@ -428,12 +487,12 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
         document.getElementById('inquiry-success').classList.remove('hidden');
         form.reset();
         setTimeout(() => {
-          document.getElementById('inquiry-form').classList.add('hidden');
+          closeInquiry();
           document.getElementById('inquiry-success').classList.add('hidden');
-        }, 3000);
+        }, 2500);
       }
     } catch(err) {
-      alert('Something went wrong. Please email us at info@caelis.cn');
+      alert('Something went wrong. Please email info@caelis.cn');
     }
   }
 </script>
