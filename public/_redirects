@@ -1,3 +1,3 @@
-# Admin routes - redirect to Worker
-/admin /admin/ 301
+# Admin routes - redirect all to Worker
+/admin https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
 /admin/* https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
