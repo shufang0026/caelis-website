@@ -1,3 +1,86 @@
+const ADMIN_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visitors Admin — Caelis Galeria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 360px; }
+    .login-box h1 { margin-bottom: 24px; font-size: 24px; color: #333; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: #666; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+    .btn { width: 100%; padding: 14px; background: #222; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    .btn:hover { background: #444; }
+    #dashboard { display: none; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .header h1 { font-size: 24px; color: #333; }
+    .logout-btn { padding: 8px 16px; background: #eee; color: #333; border: none; border-radius: 6px; cursor: pointer; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat-card .label { font-size: 14px; color: #888; margin-bottom: 4px; }
+    .stat-card .value { font-size: 32px; font-weight: 600; color: #222; }
+    .section { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .section-header { padding: 16px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .section-header h2 { font-size: 18px; color: #333; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 20px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+    th { background: #fafafa; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { font-size: 14px; color: #333; }
+    .mismatch { background: #fee; }
+    .spam-row { background: #fef0f0; }
+    .spam { color: #c00; }
+    .empty { padding: 40px; text-align: center; color: #888; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="login-screen">
+      <div class="login-box">
+        <h1>Caelis Visitors Admin</h1>
+        <form id="login-form">
+          <div class="form-group"><label>Username</label><input type="text" id="username" placeholder="admin" value="admin"></div>
+          <div class="form-group"><label>Password</label><input type="password" id="password" placeholder="Enter password"></div>
+          <button type="submit" class="btn">Sign In</button>
+        </form>
+      </div>
+    </div>
+    <div id="dashboard">
+      <div class="header"><h1>Visitors & Subscribers</h1><button class="logout-btn" onclick="logout()">Sign Out</button></div>
+      <div class="stats"><div class="stat-card"><div class="label">Total Visitors</div><div class="value" id="visitor-count">-</div></div><div class="stat-card"><div class="label">Newsletter</div><div class="value" id="subscriber-count">-</div></div></div>
+      <div class="section"><div class="section-header"><h2>Recent Visitors</h2></div><table><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Exhibition</th><th>Date</th></tr></thead><tbody id="visitors-table"></tbody></table></div>
+      <div class="section"><div class="section-header"><h2>Newsletter</h2></div><table><thead><tr><th>Email</th><th>Name</th><th>Country</th><th>Date</th></tr></thead><tbody id="newsletter-table"></tbody></table></div>
+    </div>
+  </div>
+  <script>
+    const WORKER_URL = location.origin;
+    const countryFlags = {'ES':'🇪🇸','CN':'🇨🇳','US':'🇺🇸','GB':'🇬🇧','FR':'🇫🇷','DE':'🇩🇪','IT':'🇮🇹','JP':'🇯🇵','KR':'🇰🇷','AU':'🇦🇺','CA':'🇨🇳','NL':'🇳🇱'};
+    function b64e(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function parseCreds() { try { return atob(localStorage.getItem('cg_creds')||'').split(':'); } catch(e) { return ['admin','']; } }
+    function doLogin(e) { e.preventDefault(); const user = document.getElementById('username').value||'admin'; const pass = document.getElementById('password').value; if(!pass) return alert('Password required'); localStorage.setItem('cg_creds', b64e(user+':'+pass)); location.reload(); }
+    function logout() { localStorage.removeItem('cg_creds'); location.reload(); }
+    async function apiCall(ep) { const res = await fetch(WORKER_URL+ep, {headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||'')}}); if(!res.ok) throw new Error(res.status); return res.json(); }
+    async function loadData() {
+      try {
+        const [v,n] = await Promise.all([apiCall('/visitors'),apiCall('/newsletter')]);
+        document.getElementById('visitor-count').textContent = v.total;
+        document.getElementById('subscriber-count').textContent = n.total;
+        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="5" class="empty">No visitors</td></tr>';
+        document.getElementById('newsletter-table').innerHTML = n.subscribers.length ? n.subscribers.map(x => '<tr class="'+(x.email.includes('@wshu')?'spam-row':'')+'"><td class="'+(x.email.includes('@wshu')?'spam':'')+'">'+x.email+'</td><td>'+x.firstName+' '+x.lastName+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+new Date(x.subscribedAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="4" class="empty">No subscribers</td></tr>';
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+      } catch(e) { if(e.message==='401'){alert('Invalid credentials');localStorage.removeItem('cg_creds');}else{alert('Error: '+e.message);} }
+    }
+    document.getElementById('login-form').addEventListener('submit',doLogin);
+    if(localStorage.getItem('cg_creds'))loadData();
+  </script>
+</body>
+</html>`;
+
 // ─── Basic Auth Validation ─────────────────────────────────
 async function validateBasicAuth(request, env) {
   const authHeader = request.headers.get("Authorization") || "";
@@ -38,11 +121,14 @@ export default {
 
     // GET: Visitors list (protected by API key)
     if (request.method === "GET") {
-      if (path === "/visitors") {
-        return handleVisitors(request, env);
+      if (path === "/visitors" || path === "/newsletter" || path === "/admin-panel") {
+        return new Response("Use POST or check API endpoints", { status: 405 });
       }
-      if (path === "/newsletter") {
-        return handleNewsletter(request, env);
+      // Serve admin panel HTML
+      if (path === "/panel" || path === "/admin") {
+        return new Response(ADMIN_HTML, {
+          headers: { "Content-Type": "text/html; charset=utf-8" }
+        });
       }
       return json({ error: "Not found" }, 404);
     }
