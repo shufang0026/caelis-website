@@ -73,9 +73,10 @@
 <div id="login">
   <h1>CAELIS GALERÍA</h1>
   <p>Visitor Management</p>
-  <input type="password" id="accessKey" placeholder="Access Key" autofocus />
+  <input type="text" id="username" placeholder="Username (default: admin)" />
+  <input type="password" id="accessKey" placeholder="Password" autofocus />
   <button onclick="doLogin()">Enter</button>
-  <div class="error" id="loginError">Invalid access key</div>
+  <div class="error" id="loginError">Invalid credentials</div>
 </div>
 
 <div class="container" id="dashboard" style="display:none;">
@@ -152,8 +153,8 @@
 </div>
 
 <script>
-const API = 'https://caelis-subscribe-production.shufang0026.workers.dev';
-let token = localStorage.getItem('cg_token') || '';
+const WORKER_URL = 'https://caelis-subscribe-production.shufang0026.workers.dev';
+let basicCreds = localStorage.getItem('cg_creds') || '';
 let visitors = [];
 
 const CN = {"AF":"Afghanistan","AL":"Albania","DZ":"Algeria","AD":"Andorra","AO":"Angola","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BT":"Bhutan","BO":"Bolivia","BA":"Bosnia","BW":"Botswana","BR":"Brazil","BN":"Brunei","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CV":"Cape Verde","CF":"CAR","TD":"Chad","CL":"Chile","CN":"China","CO":"Colombia","KM":"Comoros","CD":"Congo (DR)","CG":"Congo","CR":"Costa Rica","HR":"Croatia","CU":"Cuba","CY":"Cyprus","CZ":"Czechia","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Eq. Guinea","ER":"Eritrea","EE":"Estonia","ET":"Ethiopia","FJ":"Fiji","FI":"Finland","FR":"France","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GR":"Greece","GD":"Grenada","GT":"Guatemala","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran","IQ":"Iraq","IE":"Ireland","IL":"Israel","IT":"Italy","CI":"Ivory Coast","JM":"Jamaica","JP":"Japan","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KP":"N. Korea","KR":"S. Korea","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Laos","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MK":"N. Macedonia","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MR":"Mauritania","MU":"Mauritius","MX":"Mexico","MD":"Moldova","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NP":"Nepal","NL":"Netherlands","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NO":"Norway","OM":"Oman","PK":"Pakistan","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RO":"Romania","RU":"Russia","RW":"Rwanda","KN":"St Kitts","LC":"St Lucia","VC":"St Vincent","WS":"Samoa","SM":"San Marino","ST":"Sao Tome","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SK":"Slovakia","SI":"Slovenia","SO":"Somalia","ZA":"South Africa","SS":"S. Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SZ":"Eswatini","SE":"Sweden","CH":"Switzerland","SY":"Syria","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TO":"Tonga","TT":"Trinidad","TN":"Tunisia","TR":"Turkey","TM":"Turkmenistan","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"UAE","GB":"UK","US":"USA","UY":"Uruguay","UZ":"Uzbekistan","VE":"Venezuela","VN":"Vietnam","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe","EU":"Europe"};
@@ -168,31 +169,35 @@ function countryMatch(declared, ipCode) {
 }
 
 document.getElementById('accessKey').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-if (token) { doLogin(); }
+document.getElementById('username').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+if (basicCreds) { doLogin(); }
 
 function doLogin() {
-  token = document.getElementById('accessKey').value.trim() || token;
-  if (!token) return;
+  const username = document.getElementById('username').value.trim() || 'admin';
+  const password = document.getElementById('accessKey').value.trim();
+  if (!password) return;
+  basicCreds = btoa(username + ':' + password);
   document.getElementById('loginError').style.display = 'none';
   fetchVisitors();
 }
 
 function doLogout() {
-  token = ''; localStorage.removeItem('cg_token');
+  basicCreds = ''; localStorage.removeItem('cg_creds');
   visitors = [];
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('login').style.display = 'block';
+  document.getElementById('username').value = '';
   document.getElementById('accessKey').value = '';
 }
 
 async function fetchVisitors() {
-  if (!token) return;
+  if (!basicCreds) return;
   try {
-    const r = await fetch(API + '/visitors', { headers: { 'Authorization': 'Bearer ' + token } });
+    const r = await fetch(WORKER_URL + '/visitors', { headers: { 'Authorization': 'Basic ' + basicCreds } });
     if (r.status === 401) { document.getElementById('loginError').style.display = 'block'; document.getElementById('dashboard').style.display = 'none'; document.getElementById('login').style.display = 'block'; return; }
     const data = await r.json();
     visitors = data.visitors || [];
-    localStorage.setItem('cg_token', token);
+    localStorage.setItem('cg_creds', basicCreds);
     document.getElementById('login').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     renderStats(); renderTable();
@@ -275,9 +280,9 @@ function toggleView() {
 }
 
 async function fetchNewsletter() {
-  if (!token) return;
+  if (!basicCreds) return;
   try {
-    const r = await fetch(API + '/newsletter', { headers: { 'Authorization': 'Bearer ' + token } });
+    const r = await fetch(WORKER_URL + '/newsletter', { headers: { 'Authorization': 'Basic ' + basicCreds } });
     if (r.status === 401) { doLogout(); return; }
     const data = await r.json();
     newsletterSubs = data.subscribers || [];
