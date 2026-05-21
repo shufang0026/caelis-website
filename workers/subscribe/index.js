@@ -69,13 +69,13 @@ const ADMIN_HTML = `<!DOCTYPE html>
     async function deleteVisitor(email) {
       if(!confirm('Delete '+email+'?')) return;
       try {
-        await apiCall('/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
+        await apiCall('/admin/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
         loadData();
       } catch(e){ alert('Delete failed: '+e.message); }
     }
     async function loadData() {
       try {
-        const [v,n] = await Promise.all([apiCall('/visitors'),apiCall('/newsletter')]);
+        const [v,n] = await Promise.all([apiCall('/admin/visitors'),apiCall('/admin/newsletter')]);
         document.getElementById('visitor-count').textContent = v.total;
         document.getElementById('subscriber-count').textContent = n.total;
         document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del" onclick="deleteVisitor(\''+x.email+'\')">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
@@ -135,14 +135,14 @@ export default {
           headers: { "Content-Type": "text/html; charset=utf-8" }
         });
       }
-      // API endpoints
-      if (path === "/visitors") return handleVisitors(request, env);
-      if (path === "/newsletter") return handleNewsletter(request, env);
+      // API endpoints (both /visitors and /admin/visitors for compatibility)
+      if (path === "/visitors" || path === "/admin/visitors") return handleVisitors(request, env);
+      if (path === "/newsletter" || path === "/admin/newsletter") return handleNewsletter(request, env);
       return json({ error: "Not found" }, 404);
     }
 
-    // DELETE: Visitor
-    if (path === "/visitor" && request.method === "DELETE") {
+    // DELETE: Visitor (both /visitor and /admin/visitor for compatibility)
+    if ((path === "/visitor" || path === "/admin/visitor") && request.method === "DELETE") {
       const url = new URL(request.url);
       const email = url.searchParams.get("email");
       if (!email) return json({ error: "Email required" }, 400);
