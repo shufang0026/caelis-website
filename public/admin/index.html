@@ -2,89 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Visitors Admin — Caelis Galeria</title>
+  <title>Admin DEBUG — Caelis Galeria</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; min-height: 100vh; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    .login-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 360px; }
-    .login-box h1 { margin-bottom: 24px; font-size: 24px; color: #333; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: #666; }
-    .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-    .btn { width: 100%; padding: 14px; background: #222; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-    .btn:hover { background: #444; }
-    .btn-del { padding: 4px 8px; background: #ffebee; color: #c62828; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
-    .btn-del:hover { background: #ffcdd2; }
-    #dashboard { display: none; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .header h1 { font-size: 24px; color: #333; }
-    .logout-btn { padding: 8px 16px; background: #eee; color: #333; border: none; border-radius: 6px; cursor: pointer; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .stat-card .label { font-size: 14px; color: #888; margin-bottom: 4px; }
-    .stat-card .value { font-size: 32px; font-weight: 600; color: #222; }
-    .section { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
-    .section-header { padding: 16px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-    .section-header h2 { font-size: 18px; color: #333; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 12px 20px; text-align: left; border-bottom: 1px solid #f0f0f0; }
-    th { background: #fafafa; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
-    td { font-size: 14px; color: #333; }
-    .spam-row { background: #fef0f0; }
-    .spam { color: #c00; }
-    .empty { padding: 40px; text-align: center; color: #888; }
+    body { font-family: monospace; background: #1a1a1a; color: #0f0; padding: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #0f0; margin-bottom: 20px; }
+    .log { background: #000; padding: 20px; border: 1px solid #0f0; border-radius: 8px; margin-bottom: 20px; max-height: 400px; overflow-y: auto; }
+    .log-entry { margin-bottom: 8px; font-size: 13px; }
+    .log-entry.error { color: #f00; }
+    .log-entry.success { color: #0f0; }
+    .log-entry.info { color: #0ff; }
+    .data { background: #000; padding: 20px; border: 1px solid #0f0; border-radius: 8px; }
+    pre { white-space: pre-wrap; word-wrap: break-word; font-size: 12px; }
+    button { padding: 10px 20px; background: #0f0; color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 10px; }
+    button:hover { background: #0a0; }
+    .btn-danger { background: #f00; color: #fff; }
+    .btn-danger:hover { background: #a00; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="login-screen">
-      <div class="login-box">
-        <h1>Caelis Visitors Admin</h1>
-        <form id="login-form">
-          <div class="form-group"><label>Username</label><input type="text" id="username" placeholder="admin" value="admin"></div>
-          <div class="form-group"><label>Password</label><input type="password" id="password" placeholder="Enter password"></div>
-          <button type="submit" class="btn">Sign In</button>
-        </form>
-      </div>
-    </div>
-    <div id="dashboard">
-      <div class="header"><h1>Visitors & Subscribers</h1><button class="logout-btn" onclick="logout()">Sign Out</button></div>
-      <div class="stats"><div class="stat-card"><div class="label">Total Visitors</div><div class="value" id="visitor-count">-</div></div><div class="stat-card"><div class="label">Newsletter</div><div class="value" id="subscriber-count">-</div></div></div>
-      <div class="section"><div class="section-header"><h2>Recent Visitors</h2></div><table><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Exhibition</th><th>Date</th><th></th></tr></thead><tbody id="visitors-table"></tbody></table></div>
-      <div class="section"><div class="section-header"><h2>Newsletter</h2></div><table><thead><tr><th>Email</th><th>Name</th><th>Country</th><th>Date</th></tr></thead><tbody id="newsletter-table"></tbody></table></div>
+    <h1>🔧 Admin Panel DEBUG MODE</h1>
+    <button onclick="testAPI()">Test API</button>
+    <button onclick="testCORS()">Test CORS</button>
+    <button onclick="clearLog()" class="btn-danger">Clear Log</button>
+    <div class="log" id="log"></div>
+    <div class="data">
+      <h2>Raw API Response:</h2>
+      <pre id="data"></pre>
     </div>
   </div>
   <script>
-    const API_BASE = 'https://caelis-subscribe-production.shufang0026.workers.dev';
-    const countryFlags = {'ES':'🇪🇸','CN':'🇨🇳','US':'🇺🇸','GB':'🇬🇧','FR':'🇫🇷','DE':'🇩🇪','IT':'🇮🇹','JP':'🇯🇵','KR':'🇰🇷','AU':'🇦🇺','CA':'🇨🇦','NL':'🇳🇱'};
-    function b64e(str) { return btoa(unescape(encodeURIComponent(str))); }
-    function parseCreds() { try { return atob(localStorage.getItem('cg_creds')||'').split(':'); } catch(e) { return ['admin','']; } }
-    function doLogin(e) { e.preventDefault(); const user = document.getElementById('username').value||'admin'; const pass = document.getElementById('password').value; if(!pass) return alert('Password required'); localStorage.setItem('cg_creds', b64e(user+':'+pass)); location.reload(); }
-    function logout() { localStorage.removeItem('cg_creds'); location.reload(); }
-    async function apiCall(ep, opts={}) { const res = await fetch(API_BASE+ep, {...opts,headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||''),'Content-Type':'application/json'}}); if(!res.ok) throw new Error(res.status); return res.json(); }
-    async function deleteVisitor(email) {
-      if(!confirm('Delete '+email+'?')) return;
-      try {
-        await apiCall('/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
-        loadData();
-      } catch(e){ alert('Delete failed: '+e.message); }
+    const WORKER_URL = 'https://caelis-subscribe-production.shufang0026.workers.dev';
+    let logs = [];
+    function log(msg, type='info') {
+      const el = document.getElementById('log');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry ' + type;
+      entry.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+      el.appendChild(entry);
+      el.scrollTop = el.scrollHeight;
     }
-    async function loadData() {
-      try {
-        const [v,n] = await Promise.all([apiCall('/visitors'),apiCall('/newsletter')]);
-        document.getElementById('visitor-count').textContent = v.total;
-        document.getElementById('subscriber-count').textContent = n.total;
-        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del" onclick="deleteVisitor(\''+x.email+'\')">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
-        document.getElementById('newsletter-table').innerHTML = n.subscribers.length ? n.subscribers.map(x => '<tr class="'+(x.email.includes('@wshu')?'spam-row':'')+'"><td class="'+(x.email.includes('@wshu')?'spam':'')+'">'+x.email+'</td><td>'+x.firstName+' '+x.lastName+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+new Date(x.subscribedAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="4" class="empty">No subscribers</td></tr>';
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-      } catch(e) { if(e.message==='401'){alert('Invalid credentials');localStorage.removeItem('cg_creds');}else{alert('Error: '+e.message);} }
+    function clearLog() {
+      document.getElementById('log').innerHTML = '';
+      document.getElementById('data').textContent = '';
     }
-    document.getElementById('login-form').addEventListener('submit',doLogin);
-    if(localStorage.getItem('cg_creds'))loadData();
+    async function testAPI() {
+      log('Starting API test...', 'info');
+      const creds = btoa('admin:caelis-2026-admin');
+      log('Auth header: Basic ' + creds.substring(0, 20) + '...', 'info');
+      // Test /visitors
+      log('Fetching ' + WORKER_URL + '/visitors...', 'info');
+      try {
+        const res = await fetch(WORKER_URL + '/visitors', {
+          headers: { 'Authorization': 'Basic ' + creds, 'Content-Type': 'application/json' }
+        });
+        log('Response status: ' + res.status, res.ok ? 'success' : 'error');
+        log('Response Content-Type: ' + res.headers.get('Content-Type'), 'info');
+        const text = await res.text();
+        log('Response length: ' + text.length + ' bytes', 'info');
+        log('First 200 chars: ' + text.substring(0, 200), 'info');
+        if (text.trim().startsWith('{')) {
+          const data = JSON.parse(text);
+          log('✅ JSON parsed! Total visitors: ' + data.total, 'success');
+          document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+        } else {
+          log('❌ Response is NOT JSON! Showing first 500 chars:', 'error');
+          log(text.substring(0, 500), 'error');
+        }
+      } catch(e) {
+        log('❌ Fetch error: ' + e.message, 'error');
+        if (e.message.includes('CORS')) {
+          log('💡 This is a CORS error! Worker needs CORS headers.', 'error');
+        }
+      }
+    }
+    async function testCORS() {
+      log('Testing CORS...', 'info');
+      log('Sending OPTIONS preflight request...', 'info');
+      try {
+        const res = await fetch(WORKER_URL + '/visitors', { method: 'OPTIONS' });
+        log('OPTIONS response status: ' + res.status, res.ok ? 'success' : 'error');
+        log('Access-Control-Allow-Origin: ' + res.headers.get('Access-Control-Allow-Origin'), 'info');
+        if (res.headers.get('Access-Control-Allow-Origin') === '*') {
+          log('✅ CORS is enabled!', 'success');
+        } else {
+          log('❌ CORS NOT enabled! Worker needs to add CORS headers.', 'error');
+        }
+      } catch(e) {
+        log('❌ CORS test error: ' + e.message, 'error');
+      }
+    }
+    log('Debug panel loaded. Click "Test API" to start.', 'info');
   </script>
 </body>
 </html>
