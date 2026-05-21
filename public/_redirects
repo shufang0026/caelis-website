@@ -1,3 +1,8 @@
 # Admin routes - redirect all to Worker
 /admin https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
 /admin/* https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
+
+# API routes - proxy to Worker
+/visitors https://caelis-subscribe-production.shufang0026.workers.dev/visitors 200
+/newsletter https://caelis-subscribe-production.shufang0026.workers.dev/newsletter 200
+/visitor https://caelis-subscribe-production.shufang0026.workers.dev/visitor 200
