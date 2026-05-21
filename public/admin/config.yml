@@ -2,15 +2,16 @@ backend:
   name: github
   repo: shufang0026/caelis-website
   branch: main
-  client_id: Iv23liYxRKVrSWr0esX3
-  client_secret: a84a3ab21dbf64f393e81c9124effaf001dcdfce
+  base_url: "https://caelis-decap-oauth.shufang0026.workers.dev"
+  auth_endpoint: "/auth"
+  client_id: "0v23liRfFoGVL000n01g"
+  client_secret: "7693a67f326fad4d177b02733aea5a5d9626d380"
   commit_messages:
     create: 'Create {{slug}}'
     update: 'Update {{slug}}'
     delete: 'Delete {{slug}}'
     uploadMedia: 'Upload "{{path}}"'
     deleteMedia: 'Delete "{{path}}"'
-
 
 media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
