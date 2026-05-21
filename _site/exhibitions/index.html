@@ -144,89 +144,102 @@
 <body class="bg-bg font-body antialiased min-h-screen flex flex-col">
   
   <!-- Navigation -->
-<header class="bg-surface/95 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
+<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      
+    <div class="flex items-center justify-between h-16 sm:h-[72px]">
+
       <!-- Logo -->
-      <a href="/" class="flex items-center">
-        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary">Caelis Galeria</span>
+      <a href="/" class="flex-shrink-0">
+        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary whitespace-nowrap">Caelis Galeria</span>
       </a>
-      
+
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
-        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Exhibitions</a>
-        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Online Exhibition</a>
-        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Art Insight</a>
-        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Shop</a>
-        <a href="/social/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Social</a>
-        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">About</a>
-        <a href="/admin/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase border border-gray-300 px-4 py-1.5 rounded hover:border-primary">Admin</a>
+      <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Online</a>
+        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Art Insight</a>
+        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Shop</a>
+        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">About</a>
       </div>
-      
+
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+      <button id="mobile-menu-btn" type="button" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Menu" aria-expanded="false">
+        <svg id="icon-ham" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-x" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
   </nav>
 </header>
 
-<!-- Mobile Menu Overlay -->
-<div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden transition-opacity" aria-hidden="true"></div>
-
-<!-- Mobile Menu Panel -->
-<div id="mobile-menu" class="fixed top-0 right-0 w-72 h-full bg-surface z-50 shadow-2xl transform transition-transform duration-300 hidden">
-  <div class="p-6">
-    <div class="flex items-center justify-between mb-8">
-      <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
-      <button id="mobile-menu-close" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+<!-- Mobile Menu: always in DOM, hidden off-screen -->
+<div id="mm-root" class="fixed inset-0 z-[99999] hidden" aria-hidden="true">
+  <!-- Backdrop -->
+  <div id="mm-backdrop" class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300"></div>
+  <!-- Panel: starts off-screen right -->
+  <div id="mm-panel" class="absolute top-0 right-0 w-72 h-full bg-white shadow-2xl" style="transform:translateX(100%);transition:transform .3s ease-out;">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
+        <button id="mm-close" type="button" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-1">
+        <a href="/exhibitions/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Online</a>
+        <a href="/art-insight/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Art Insight</a>
+        <a href="/shop/"             class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Shop</a>
+        <a href="/about/"            class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">About</a>
+      </nav>
     </div>
-    <nav class="flex flex-col space-y-4">
-      <a href="/exhibitions/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Exhibitions</a>
-      <a href="/exhibitions/jaime-sancorlo-online/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Online Exhibition</a>
-      <a href="/art-insight/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Art Insight</a>
-      <a href="/shop/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Shop</a>
-      <a href="/social/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Social</a>
-      <a href="/about/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">About</a>
-      <a href="/admin/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 mt-2">Admin</a>
-    </nav>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const closeBtn = document.getElementById('mobile-menu-close');
-    const menuOverlay = document.getElementById('menu-overlay');
-    
-    function openMenu() {
-      mobileMenu.classList.remove('hidden');
-      menuOverlay.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-    }
-    
-    function closeMenu() {
-      mobileMenu.classList.add('hidden');
-      menuOverlay.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    }
-    
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
-    
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeMenu();
-    });
-  });
+(function(){
+  var root  = document.getElementById('mm-root');
+  var panel = document.getElementById('mm-panel');
+  var bd    = document.getElementById('mm-backdrop');
+  var btn   = document.getElementById('mobile-menu-btn');
+  var iconH = document.getElementById('icon-ham');
+  var iconX = document.getElementById('icon-x');
+  var close = document.getElementById('mm-close');
+  var open  = false;
+
+  function show(){
+    open = true;
+    root.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+    iconH.classList.add('hidden');
+    iconX.classList.remove('hidden');
+    // force reflow, then slide in
+    void panel.offsetWidth;
+    panel.style.transform = 'translateX(0)';
+    bd.classList.remove('opacity-0');
+    bd.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hide(){
+    open = false;
+    panel.style.transform = 'translateX(100%)';
+    bd.classList.remove('opacity-100');
+    bd.classList.add('opacity-0');
+    btn.setAttribute('aria-expanded','false');
+    iconH.classList.remove('hidden');
+    iconX.classList.add('hidden');
+    document.body.style.overflow = '';
+    setTimeout(function(){ root.classList.add('hidden'); }, 320);
+  }
+
+  btn.addEventListener('click', function(){ open ? hide() : show(); });
+  close.addEventListener('click', hide);
+  bd.addEventListener('click', hide);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&open) hide(); });
+
+  var links = document.querySelectorAll('.mm-link');
+  for(var i=0;i<links.length;i++) links[i].addEventListener('click', hide);
+})();
 </script>
 
   
@@ -242,6 +255,21 @@
 
     <!-- Current -->
     
+    <div class="mb-20">
+      <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Current</h2>
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        
+        <a href="/exhibitions/august-vilella-shenzhen/" class="exhibition-card group cursor-pointer block">
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
+            style="background-image: url(/images/artworks/august-vilella-shenzhen/640-1.webp)"></div>
+          <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Mar 2026 — Jun 2026</p>
+          <h3 class="font-display text-xl lg:text-2xl font-light mb-3 text-text group-hover:text-primary transition-colors">Between Universe and Forest</h3>
+          <p class="text-sm text-secondary">August Vilella</p>
+        </a>
+        
+      </div>
+    </div>
+    
 
     <!-- Upcoming -->
     
@@ -252,8 +280,16 @@
       <h2 class="text-xs tracking-widest uppercase mb-8 pb-4 border-b border-gray-200 text-secondary">Past</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <a href="/exhibitions/nostalgy/" class="exhibition-card group cursor-pointer block">
+        <a href="/exhibitions/tang-project-sep/" class="exhibition-card group cursor-pointer block">
           <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+            style="background-image: url(/images/exhibitions/tang-project-sep/640-3.webp)"></div>
+          <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Sep 2025 — Sep 2025</p>
+          <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Territories of the Imaginal</h3>
+          <p class="text-sm text-secondary">Jordi Díaz Alamà · Marcos Lozano · Juan de la Rica · Alejandro Pasquale</p>
+        </a>
+        
+        <a href="/exhibitions/nostalgy/" class="exhibition-card group cursor-pointer block">
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/nostalgy/oscar-cover.png)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">May 2024 — Sep 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Nostalgy</h3>
@@ -261,7 +297,7 @@
         </a>
         
         <a href="/exhibitions/the-substance-of-nothing/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/juan-miguel-palacios/640.webp)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">May 2024 — Sep 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">The Substance of Nothing</h3>
@@ -269,7 +305,7 @@
         </a>
         
         <a href="/exhibitions/whispers-of-color/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/fanny-brodar/a-summer-day.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Feb 2024 — Apr 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Whispers of Color</h3>
@@ -277,7 +313,7 @@
         </a>
         
         <a href="/exhibitions/minimalist-odyssey/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/tocinor/tocinor-01.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Feb 2024 — Apr 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Minimalist Odyssey</h3>
@@ -285,7 +321,7 @@
         </a>
         
         <a href="/exhibitions/musing-by-the-riverbank-2/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/musing-by-the-riverbank-2/cover.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Nov 2023 — Jan 2024</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Musing by the Riverbank 2</h3>
@@ -293,7 +329,7 @@
         </a>
         
         <a href="/exhibitions/musing-by-the-riverbank/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/musing-by-the-riverbank/cover.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Sep 2023 — Oct 2023</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Musing by the Riverbank</h3>
@@ -301,7 +337,7 @@
         </a>
         
         <a href="/exhibitions/lift-the-spirit/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/lift-the-spirit/cover.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jun 2023 — Jul 2023</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Lift the Spirit</h3>
@@ -309,7 +345,7 @@
         </a>
         
         <a href="/exhibitions/sneakers-by-sniqus/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/sneakers-by-sniqus/cover.png)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">May 2023 — Jul 2023</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Sneakers by Sniqus</h3>
@@ -317,7 +353,7 @@
         </a>
         
         <a href="/exhibitions/pink-punk-mood/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/pink-punk-mood/cover.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Mar 2023 — Apr 2023</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Pink Punk Mood</h3>
@@ -325,7 +361,7 @@
         </a>
         
         <a href="/exhibitions/her-universe/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/her-universe/cover.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Mar 2023 — Apr 2023</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Her Universe</h3>
@@ -333,7 +369,7 @@
         </a>
         
         <a href="/exhibitions/nightlight-shadows/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/nightlight-shadows/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Dec 2022 — Feb 2023</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Nightlight Shadows</h3>
@@ -341,7 +377,7 @@
         </a>
         
         <a href="/exhibitions/eden-garden/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/eden-garden/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Nov 2022 — Dec 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Eden Garden</h3>
@@ -349,7 +385,7 @@
         </a>
         
         <a href="/exhibitions/jurassic-friends/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/jurassic-friends/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Nov 2022 — Dec 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Jurassic Friends</h3>
@@ -357,7 +393,7 @@
         </a>
         
         <a href="/exhibitions/symbiosis/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/symbiosis/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Oct 2022 — Nov 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Symbiosis</h3>
@@ -365,7 +401,7 @@
         </a>
         
         <a href="/exhibitions/the-arrival/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/the-arrival/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Oct 2022 — Nov 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">The Arrival</h3>
@@ -373,7 +409,7 @@
         </a>
         
         <a href="/exhibitions/autumn-symphony/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/autumn-symphony/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Sep 2022 — Oct 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Autumn Symphony</h3>
@@ -381,7 +417,7 @@
         </a>
         
         <a href="/exhibitions/red-girl/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/red-girl/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Sep 2022 — Oct 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Red Girl</h3>
@@ -389,7 +425,7 @@
         </a>
         
         <a href="/exhibitions/synonyms/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/synonyms/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Aug 2022 — Sep 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Synonyms</h3>
@@ -397,7 +433,7 @@
         </a>
         
         <a href="/exhibitions/parallel-universe/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/parallel-universe/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Aug 2022 — Sep 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Parallel Universe</h3>
@@ -405,7 +441,7 @@
         </a>
         
         <a href="/exhibitions/dream-hunter/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/dream-hunter/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jul 2022 — Aug 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Dream Hunter</h3>
@@ -413,7 +449,7 @@
         </a>
         
         <a href="/exhibitions/anything/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/anything/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jul 2022 — Aug 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Anything</h3>
@@ -421,7 +457,7 @@
         </a>
         
         <a href="/exhibitions/alpha/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/alpha/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jun 2022 — Jul 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Alpha</h3>
@@ -429,7 +465,7 @@
         </a>
         
         <a href="/exhibitions/ode-to-joy/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-4 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/ode-to-joy/640.jpeg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jun 2022 — Jul 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Ode to Joy</h3>
@@ -437,7 +473,7 @@
         </a>
         
         <a href="/exhibitions/new-hope/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-1 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/new-hope/IMG_3352.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jan 2022 — Feb 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">New Hope</h3>
@@ -445,7 +481,7 @@
         </a>
         
         <a href="/exhibitions/show-must-go-on/" class="exhibition-card group cursor-pointer block">
-          <div class="aspect-[4/3] gradient-placeholder-2 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
+          <div class="aspect-[4/3] gradient-placeholder-3 mb-6 bg-cover bg-center opacity-80 transition-transform duration-500 group-hover:scale-[1.02]"
             style="background-image: url(/images/exhibitions/show-must-go-on/IMG_3356.jpg)"></div>
           <p class="text-xs tracking-widest uppercase mb-2 text-secondary">Jan 2022 — Feb 2022</p>
           <h3 class="font-display text-lg lg:text-xl font-light mb-2 text-text group-hover:text-primary transition-colors">Show Must Go On</h3>

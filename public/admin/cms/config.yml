@@ -1,0 +1,68 @@
+backend:
+  name: github
+  repo: shufang0026/caelis-website
+  branch: main
+  base_url: https://caelis-decap-oauth.shufang0026.workers.dev
+  auth_endpoint: auth
+
+
+media_folder: src/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: exhibitions
+    label: Exhibitions
+    folder: src/content/exhibitions
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Layout, name: layout, widget: hidden, default: "../pages/exhibition.njk" }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Permalink, name: permalink, widget: string }
+      - { label: Status, name: status, widget: select, options: [current, upcoming, past] }
+      - { label: Title, name: title, widget: string }
+      - { label: Artists, name: artists, widget: string }
+      - { label: Artist Slug, name: artistSlug, widget: string, required: false }
+      - { label: Start Date, name: startDate, widget: datetime }
+      - { label: End Date, name: endDate, widget: datetime }
+      - { label: Curator, name: curator, widget: string, required: false }
+      - { label: Location, name: location, widget: string, required: false }
+      - { label: Cover, name: cover, widget: image, required: false }
+      - { label: Video, name: video, widget: string, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Path, name: path, widget: image }
+          - { label: Caption, name: caption, widget: string }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: articles
+    label: Art Insight
+    folder: src/content/articles
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Layout, name: layout, widget: hidden, default: "../pages/article.njk" }
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Permalink, name: permalink, widget: string }
+      - { label: Category, name: category, widget: select, options: ["Art Fair", "Exhibition Review", "Artist Spotlight", "Gallery News"] }
+      - { label: Author, name: author, widget: string }
+      - { label: Date, name: date, widget: datetime }
+      - { label: End Date, name: endDate, widget: string, required: false }
+      - { label: Read Time, name: readTime, widget: string, required: false }
+      - { label: Cover, name: cover, widget: image, required: false }
+      - { label: Excerpt, name: excerpt, widget: text, required: false }
+      - { label: Fair Name, name: fairName, widget: string, required: false }
+      - { label: Venue, name: venue, widget: string, required: false }
+      - { label: Booth, name: booth, widget: string, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Path, name: path, widget: image }
+          - { label: Caption, name: caption, widget: string }
+      - { label: Body, name: body, widget: markdown, required: false }

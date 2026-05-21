@@ -1,85 +1,98 @@
 <!-- Navigation -->
-<header class="bg-surface/95 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
+<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      
+    <div class="flex items-center justify-between h-16 sm:h-[72px]">
+
       <!-- Logo -->
-      <a href="/" class="flex items-center">
-        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary">{{ site.gallery_name }}</span>
+      <a href="/" class="flex-shrink-0">
+        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary whitespace-nowrap">{{ site.gallery_name }}</span>
       </a>
-      
+
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
-        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Exhibitions</a>
-        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Online Exhibition</a>
-        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Art Insight</a>
-        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Shop</a>
-        <a href="/social/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Social</a>
-        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">About</a>
-        <a href="/admin/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase border border-gray-300 px-4 py-1.5 rounded hover:border-primary">Admin</a>
+      <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Online</a>
+        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Art Insight</a>
+        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Shop</a>
+        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">About</a>
       </div>
-      
+
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+      <button id="mobile-menu-btn" type="button" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Menu" aria-expanded="false">
+        <svg id="icon-ham" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-x" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
   </nav>
 </header>
 
-<!-- Mobile Menu Overlay -->
-<div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden transition-opacity" aria-hidden="true"></div>
-
-<!-- Mobile Menu Panel -->
-<div id="mobile-menu" class="fixed top-0 right-0 w-72 h-full bg-surface z-50 shadow-2xl transform transition-transform duration-300 hidden">
-  <div class="p-6">
-    <div class="flex items-center justify-between mb-8">
-      <span class="font-display text-xl font-medium text-primary">{{ site.gallery_name }}</span>
-      <button id="mobile-menu-close" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+<!-- Mobile Menu: always in DOM, hidden off-screen -->
+<div id="mm-root" class="fixed inset-0 z-[99999] hidden" aria-hidden="true">
+  <!-- Backdrop -->
+  <div id="mm-backdrop" class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300"></div>
+  <!-- Panel: starts off-screen right -->
+  <div id="mm-panel" class="absolute top-0 right-0 w-72 h-full bg-white shadow-2xl" style="transform:translateX(100%);transition:transform .3s ease-out;">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-display text-xl font-medium text-primary">{{ site.gallery_name }}</span>
+        <button id="mm-close" type="button" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-1">
+        <a href="/exhibitions/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Online</a>
+        <a href="/art-insight/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Art Insight</a>
+        <a href="/shop/"             class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Shop</a>
+        <a href="/about/"            class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">About</a>
+      </nav>
     </div>
-    <nav class="flex flex-col space-y-4">
-      <a href="/exhibitions/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Exhibitions</a>
-      <a href="/exhibitions/jaime-sancorlo-online/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Online Exhibition</a>
-      <a href="/art-insight/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Art Insight</a>
-      <a href="/shop/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Shop</a>
-      <a href="/social/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Social</a>
-      <a href="/about/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">About</a>
-      <a href="/admin/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 mt-2">Admin</a>
-    </nav>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const closeBtn = document.getElementById('mobile-menu-close');
-    const menuOverlay = document.getElementById('menu-overlay');
-    
-    function openMenu() {
-      mobileMenu.classList.remove('hidden');
-      menuOverlay.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-    }
-    
-    function closeMenu() {
-      mobileMenu.classList.add('hidden');
-      menuOverlay.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    }
-    
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
-    
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeMenu();
-    });
-  });
+(function(){
+  var root  = document.getElementById('mm-root');
+  var panel = document.getElementById('mm-panel');
+  var bd    = document.getElementById('mm-backdrop');
+  var btn   = document.getElementById('mobile-menu-btn');
+  var iconH = document.getElementById('icon-ham');
+  var iconX = document.getElementById('icon-x');
+  var close = document.getElementById('mm-close');
+  var open  = false;
+
+  function show(){
+    open = true;
+    root.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+    iconH.classList.add('hidden');
+    iconX.classList.remove('hidden');
+    // force reflow, then slide in
+    void panel.offsetWidth;
+    panel.style.transform = 'translateX(0)';
+    bd.classList.remove('opacity-0');
+    bd.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hide(){
+    open = false;
+    panel.style.transform = 'translateX(100%)';
+    bd.classList.remove('opacity-100');
+    bd.classList.add('opacity-0');
+    btn.setAttribute('aria-expanded','false');
+    iconH.classList.remove('hidden');
+    iconX.classList.add('hidden');
+    document.body.style.overflow = '';
+    setTimeout(function(){ root.classList.add('hidden'); }, 320);
+  }
+
+  btn.addEventListener('click', function(){ open ? hide() : show(); });
+  close.addEventListener('click', hide);
+  bd.addEventListener('click', hide);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&open) hide(); });
+
+  var links = document.querySelectorAll('.mm-link');
+  for(var i=0;i<links.length;i++) links[i].addEventListener('click', hide);
+})();
 </script>

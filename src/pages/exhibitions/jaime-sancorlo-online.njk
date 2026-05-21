@@ -28,7 +28,209 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 {# Sequence: 0.Bearbecue, 1.Color Exercise, 2.Hail to Bus Driver, [PAIR: Lying in Wait + ...], 3.No Parking, 4.Means War, TEXT1, 5.On Ice, 6.Qué Será, 7.Reach Out, 8.Storyteller, TEXT2, 9.The Nap, 10.The Rescue, 11.Yeah But, TEXT3 #}
 
 <style>
-  .page-wrap { max-width: 100% !important; padding: 0 !important; }
+  
+  /* ── Visitor Gate Overlay ── */
+  .visitor-gate {
+    position: fixed;
+    inset: 0;
+    background: #faf9f7;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    overflow-y: auto;
+  }
+  .visitor-gate.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .visitor-gate-inner {
+    width: 100%;
+    max-width: 520px;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .visitor-gate-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #111;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+  .visitor-gate-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 300;
+    color: #111;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .visitor-gate-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #999;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .visitor-gate-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .vg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .vg-field label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .vg-field input[type="text"],
+  .vg-field input[type="email"],
+  .vg-field select,
+  .vg-field textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #111;
+    background: transparent;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .vg-field input:focus,
+  .vg-field select:focus,
+  .vg-field textarea:focus {
+    border-bottom-color: #111;
+  }
+  .vg-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    padding-right: 20px;
+  }
+  .vg-field textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  .vg-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .vg-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+  }
+  .vg-check input {
+    margin-top: 2px;
+    accent-color: #111;
+  }
+  .vg-check span {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #666;
+  }
+  .vg-check strong {
+    color: #111;
+    font-weight: 500;
+  }
+  .vg-submit {
+    width: 100%;
+    background: #111;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 14px;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+  }
+  .vg-submit:hover { background: #333; }
+  .vg-submit:disabled { background: #ccc; cursor: not-allowed; }
+  .vg-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .vg-success.show { display: block; }
+  .vg-success-icon {
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid #16a34a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: #16a34a;
+  }
+  .vg-success h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #111;
+    margin-bottom: 0.5rem;
+  }
+  .vg-success p {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+  .vg-error {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #dc2626;
+    text-align: center;
+    display: none;
+  }
+  .vg-error.show { display: block; }
+  .vg-divider {
+    width: 30px;
+    height: 1px;
+    background: #ddd;
+    margin: 1rem auto;
+  }
+  .vg-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .vg-note a { color: #666; text-decoration: underline; }
+  @media (max-width: 768px) {
+    .visitor-gate-inner { padding: 2rem 1.5rem; }
+    .vg-field-row { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+.page-wrap { max-width: 100% !important; padding: 0 !important; }
 
   /* ── Hero: title left, image right (Pace style) ── */
   .oe-hero {
@@ -162,6 +364,127 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   }
 </style>
 
+<!-- ═══════════════ VISITOR GATE OVERLAY ═══════════════ -->
+<div class="visitor-gate" id="visitor-gate">
+  <div class="visitor-gate-inner">
+    <div class="visitor-gate-logo">Caelis Galería</div>
+    <h2 class="visitor-gate-title">Reach Out</h2>
+    <p class="visitor-gate-subtitle">Jaime Sancorlo — Online Exhibition</p>
+
+    <form class="visitor-gate-form" id="visitor-form" onsubmit="submitVisitor(event)">
+      <div class="vg-field-row">
+        <div class="vg-field">
+          <label for="vg-firstName">First Name *</label>
+          <input type="text" id="vg-firstName" name="firstName" required placeholder="Your first name" />
+        </div>
+        <div class="vg-field">
+          <label for="vg-lastName">Last Name *</label>
+          <input type="text" id="vg-lastName" name="lastName" required placeholder="Your last name" />
+        </div>
+      </div>
+
+      <div class="vg-field">
+        <label for="vg-email">Email *</label>
+        <input type="email" id="vg-email" name="email" required placeholder="your@email.com" />
+      </div>
+
+      <div class="vg-field">
+        <label for="vg-country">Country / Region</label>
+        <select id="vg-country" name="country">
+          <option value="">Select your country</option>
+          <option value="CN">China</option>
+          <option value="ES">Spain</option>
+          <option value="US">United States</option>
+          <option value="GB">United Kingdom</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+          <option value="IT">Italy</option>
+          <option value="JP">Japan</option>
+          <option value="KR">South Korea</option>
+          <option value="SG">Singapore</option>
+          <option value="HK">Hong Kong</option>
+          <option value="TW">Taiwan</option>
+          <option value="AU">Australia</option>
+          <option value="CA">Canada</option>
+          <option value="NL">Netherlands</option>
+          <option value="BE">Belgium</option>
+          <option value="CH">Switzerland</option>
+          <option value="AT">Austria</option>
+          <option value="SE">Sweden</option>
+          <option value="NO">Norway</option>
+          <option value="DK">Denmark</option>
+          <option value="FI">Finland</option>
+          <option value="PT">Portugal</option>
+          <option value="MX">Mexico</option>
+          <option value="BR">Brazil</option>
+          <option value="AR">Argentina</option>
+          <option value="AE">UAE</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+
+      <div class="vg-field">
+        <label for="vg-role">I am a...</label>
+        <select id="vg-role" name="role">
+          <option value="">Select your role</option>
+          <option value="collector">Art Collector</option>
+          <option value="curator">Curator / Museum Professional</option>
+          <option value="interior_designer">Interior Designer</option>
+          <option value="art_advisor">Art Advisor</option>
+          <option value="journalist">Art Journalist / Critic</option>
+          <option value="artist">Artist</option>
+          <option value="student">Art Student</option>
+          <option value="enthusiast">Art Enthusiast</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="vg-field">
+        <label for="vg-source">How did you hear about Caelis?</label>
+        <select id="vg-source" name="source">
+          <option value="">Select an option</option>
+          <option value="instagram">Instagram</option>
+          <option value="wechat">WeChat</option>
+          <option value="xiaohongshu">Xiaohongshu</option>
+          <option value="artnet">Artnet / Artsy</option>
+          <option value="art_fair">Art Fair</option>
+          <option value="friend">Friend / Colleague</option>
+          <option value="search">Google Search</option>
+          <option value="press">Press / Media</option>
+          <option value="email">Email Newsletter</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="vg-field">
+        <label for="vg-notes">Notes (optional)</label>
+        <textarea id="vg-notes" name="notes" placeholder="Tell us what you're looking for, or any questions..."></textarea>
+      </div>
+
+      <label class="vg-check">
+        <input type="checkbox" id="vg-newsletter" name="wantsNewsletter" value="true" />
+        <span>I would like to receive exhibition updates, artist news, and event invitations from <strong>Caelis Galería</strong>.</span>
+      </label>
+
+      <button type="submit" class="vg-submit" id="vg-submit">Enter Exhibition</button>
+      <p class="vg-error" id="vg-error"></p>
+    </form>
+
+    <div class="vg-success" id="vg-success">
+      <div class="vg-success-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3>Welcome</h3>
+      <p>You now have access to the exhibition.<br>Enjoy exploring Jaime Sancorlo's work.</p>
+    </div>
+
+    <div class="vg-divider"></div>
+    <p class="vg-note">Your information is kept confidential and used solely by Caelis Galería.<br>By entering, you agree to our <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
+  </div>
+</div>
+
+
+
 <!-- ═══════════════ HERO: title left, image right ═══════════════ -->
 <section class="oe-hero">
   <div class="oe-hero-left">
@@ -202,7 +525,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/bearbecue-73x100cm-2022.jpg" alt="Bearbecue" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Bearbecue</p><p class="oe-artwork-spec">2022 · Oil on canvas · 73 × 100 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Bearbecue', '2022', 'Oil on canvas', '73 × 100 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Bearbecue%20(2022,%20Oil%20on%20canvas,%2073%20×%20100%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -211,7 +534,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/color-exercise-89x114cm-2020.jpg" alt="Color Exercise" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Color Exercise</p><p class="oe-artwork-spec">2020 · Oil on canvas · 89 × 114 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Color Exercise', '2020', 'Oil on canvas', '89 × 114 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Color%20Exercise%20(2020,%20Oil%20on%20canvas,%2089%20×%20114%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -220,7 +543,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/hail-to-the-bus-driver-89x116-2023.jpg" alt="Hail to the Bus Driver" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Hail to the Bus Driver</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 116 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Hail to the Bus Driver', '2023', 'Oil on canvas', '89 × 116 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Hail%20to%20the%20Bus%20Driver%20(2023,%20Oil%20on%20canvas,%2089%20×%20116%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -230,14 +553,14 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     <div class="oe-pair-img-wrap"><img class="oe-pair-img" src="/images/artworks/jaime-sancorlo/lying-in-wait-70x50cm-2023.jpg" alt="Lying in Wait" loading="lazy" /></div>
     <div class="oe-pair-info">
       <div class="oe-artwork-details"><p class="oe-artwork-title">Lying in Wait</p><p class="oe-artwork-spec">2023 · Oil on canvas · 70 × 50 cm</p></div>
-      <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Lying in Wait', '2023', 'Oil on canvas', '70 × 50 cm')">Inquire</a>
+      <a href="mailto:info@caelis.cn?subject=Inquiry:%20Lying%20in%20Wait%20(2023,%20Oil%20on%20canvas,%2070%20×%2050%20cm)" class="oe-artwork-inquire">Inquire</a>
     </div>
   </div>
   <div class="oe-pair-item">
     <div class="oe-pair-img-wrap"><img class="oe-pair-img" src="/images/artworks/jaime-sancorlo/the-nap-73x100cm-2023.jpg" alt="The Nap" loading="lazy" /></div>
     <div class="oe-pair-info">
       <div class="oe-artwork-details"><p class="oe-artwork-title">The Nap</p><p class="oe-artwork-spec">2023 · Oil on canvas · 73 × 100 cm</p></div>
-      <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('The Nap', '2023', 'Oil on canvas', '73 × 100 cm')">Inquire</a>
+      <a href="mailto:info@caelis.cn?subject=Inquiry:%20The%20Nap%20(2023,%20Oil%20on%20canvas,%2073%20×%20100%20cm)" class="oe-artwork-inquire">Inquire</a>
     </div>
   </div>
 </div>
@@ -247,7 +570,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/no-parking-100x81cm-2023.jpg" alt="No Parking" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">No Parking</p><p class="oe-artwork-spec">2023 · Oil on canvas · 100 × 81 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('No Parking', '2023', 'Oil on canvas', '100 × 81 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20No%20Parking%20(2023,%20Oil%20on%20canvas,%20100%20×%2081%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -256,7 +579,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/of-course-you-realize-this-means-war-73x100cm-2023.jpg" alt="Of Course You Realize This Means War!!" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Of Course You Realize This Means War!!</p><p class="oe-artwork-spec">2023 · Oil on canvas · 73 × 100 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Of Course You Realize This Means War!!', '2023', 'Oil on canvas', '73 × 100 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Of%20Course%20You%20Realize%20This%20Means%20War%21%21%20(2023,%20Oil%20on%20canvas,%2073%20×%20100%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -270,7 +593,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg" alt="On Ice" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">On Ice</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 130 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('On Ice', '2023', 'Oil on canvas', '89 × 130 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20On%20Ice%20(2023,%20Oil%20on%20canvas,%2089%20×%20130%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -279,7 +602,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/que-sera-sera-89x116cm-2023.jpg" alt="Qué Será Será" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Qué Será Será</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 116 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Qué Será Será', '2023', 'Oil on canvas', '89 × 116 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Qué%20Será%20Será%20(2023,%20Oil%20on%20canvas,%2089%20×%20116%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -288,7 +611,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/reach-out-65x92cm-2023.jpg" alt="Reach Out" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Reach Out</p><p class="oe-artwork-spec">2023 · Oil on canvas · 65 × 92 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Reach Out', '2023', 'Oil on canvas', '65 × 92 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Reach%20Out%20(2023,%20Oil%20on%20canvas,%2065%20×%2092%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -297,7 +620,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/storyteller-89x130cm-2023.jpg" alt="Storyteller" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Storyteller</p><p class="oe-artwork-spec">2023 · Oil on canvas · 89 × 130 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Storyteller', '2023', 'Oil on canvas', '89 × 130 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Storyteller%20(2023,%20Oil%20on%20canvas,%2089%20×%20130%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -311,7 +634,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/the-rescue-120x120-2023.jpg" alt="The Rescue" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">The Rescue</p><p class="oe-artwork-spec">2023 · Oil on canvas · 120 × 120 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('The Rescue', '2023', 'Oil on canvas', '120 × 120 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20The%20Rescue%20(2023,%20Oil%20on%20canvas,%20120%20×%20120%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -320,7 +643,7 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <div class="oe-artwork-img-wrap"><img class="oe-artwork-img" src="/images/artworks/jaime-sancorlo/yeah-but-you-should-see-the-other-truck-100x73cm-2023.jpg" alt="Yeah, But You Should See the Other Truck!" loading="lazy" /></div>
   <div class="oe-artwork-info">
     <div class="oe-artwork-details"><p class="oe-artwork-title">Yeah, But You Should See the Other Truck!</p><p class="oe-artwork-spec">2023 · Oil on wood panel · 100 × 73 cm</p></div>
-    <a href="#" class="oe-artwork-inquire" onclick="event.preventDefault(); openInquiry('Yeah, But You Should See the Other Truck!', '2023', 'Oil on wood panel', '100 × 73 cm')">Inquire</a>
+    <a href="mailto:info@caelis.cn?subject=Inquiry:%20Yeah,%20But%20You%20Should%20See%20the%20Other%20Truck%21%20(2023,%20Oil%20on%20wood%20panel,%20100%20×%2073%20cm)" class="oe-artwork-inquire">Inquire</a>
   </div>
 </div>
 
@@ -337,71 +660,93 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
   <p style="margin-top: 2rem;"><a href="mailto:info@caelis.cn">Contact the gallery</a></p>
 </div>
 
-<!-- ═══════════════ INQUIRY MODAL ═══════════════ -->
-<div class="inquiry-modal" id="inquiry-modal" onclick="if(event.target===this)closeInquiry()">
-  <div class="inquiry-modal-box">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#111;">Inquire</h3>
-      <button onclick="closeInquiry()" style="color:#999;background:none;border:none;cursor:pointer;">
-        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <p id="inquiry-artwork-label" style="font-family:'Inter',sans-serif;font-size:11px;color:#888;margin-bottom:1.25rem;"></p>
-    <form onsubmit="submitInquiry(event)">
-      <input type="hidden" id="inquiry-artwork" name="artwork" value="" />
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div>
-          <label style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#999;margin-bottom:4px;">Full Name</label>
-          <input type="text" name="name" required style="width:100%;border:none;border-bottom:1px solid #ddd;padding:6px 0;font-size:13px;color:#111;outline:none;" />
-        </div>
-        <div>
-          <label style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#999;margin-bottom:4px;">Email</label>
-          <input type="email" name="email" required style="width:100%;border:none;border-bottom:1px solid #ddd;padding:6px 0;font-size:13px;color:#111;outline:none;" />
-        </div>
-        <div>
-          <label style="display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#999;margin-bottom:4px;">Message</label>
-          <textarea name="message" rows="3" style="width:100%;border:none;border-bottom:1px solid #ddd;padding:6px 0;font-size:13px;color:#111;outline:none;resize:none;" placeholder="I would like to inquire about..."></textarea>
-        </div>
-        <button type="submit" style="width:100%;background:#111;color:#fff;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;padding:12px;border:none;cursor:pointer;margin-top:0.5rem;">Send Inquiry</button>
-        <p id="inquiry-success" style="display:none;font-family:'Inter',sans-serif;font-size:12px;color:#16a34a;text-align:center;margin-top:0.5rem;">Thank you! We will be in touch.</p>
-      </div>
-    </form>
-  </div>
-</div>
 
+
+<!-- Visitor Gate Logic -->
 <script>
-  function openInquiry(title, year, medium, dims) {
-    document.getElementById('inquiry-artwork').value = title + ', ' + year + ', ' + medium + ', ' + dims;
-    document.getElementById('inquiry-artwork-label').textContent = title + ', ' + year + ' · ' + medium + ' · ' + dims;
-    document.getElementById('inquiry-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeInquiry() {
-    document.getElementById('inquiry-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  async function submitInquiry(e) {
-    e.preventDefault();
-    var form = e.target;
-    var data = {
-      type: 'inquiry',
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value,
-      artwork: document.getElementById('inquiry-artwork').value,
-      source: 'jaime-sancorlo-online'
-    };
+(function() {
+  var gate = document.getElementById('visitor-gate');
+  var form = document.getElementById('visitor-form');
+  var success = document.getElementById('vg-success');
+  var error = document.getElementById('vg-error');
+  var submitBtn = document.getElementById('vg-submit');
+
+  // Check if user already has access (7 days)
+  var accessData = localStorage.getItem('caelis_exhibition_access');
+  if (accessData) {
     try {
-      var res = await fetch('https://caelis-subscribe.shufang0026.workers.dev/inquiry', {
+      var data = JSON.parse(accessData);
+      var expiry = new Date(data.expiresAt);
+      if (expiry > new Date()) {
+        gate.classList.add('hidden');
+        return;
+      }
+    } catch(e) {}
+  }
+
+  window.submitVisitor = async function(e) {
+    e.preventDefault();
+    error.classList.remove('show');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Please wait...';
+
+    var interests = [];
+    var interestSelect = document.getElementById('vg-interests');
+    if (interestSelect) {
+      for (var i = 0; i < interestSelect.options.length; i++) {
+        if (interestSelect.options[i].selected) {
+          interests.push(interestSelect.options[i].value);
+        }
+      }
+    }
+
+    var payload = {
+      firstName: document.getElementById('vg-firstName').value.trim(),
+      lastName: document.getElementById('vg-lastName').value.trim(),
+      email: document.getElementById('vg-email').value.trim(),
+      country: document.getElementById('vg-country').value,
+      role: document.getElementById('vg-role').value,
+      interests: interests,
+      source: document.getElementById('vg-source').value,
+      notes: document.getElementById('vg-notes').value.trim(),
+      wantsNewsletter: document.getElementById('vg-newsletter').checked,
+      exhibition: 'jaime-sancorlo-reach-out'
+    };
+
+    try {
+      var res = await fetch('https://caelis-subscribe-production.shufang0026.workers.dev/visitor', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ data: payload })
       });
+      var result = await res.json();
+
       if (res.ok) {
-        document.getElementById('inquiry-success').style.display = 'block';
-        form.reset();
-        setTimeout(function() { closeInquiry(); document.getElementById('inquiry-success').style.display = 'none'; }, 2500);
+        var expires = new Date();
+        expires.setDate(expires.getDate() + 7);
+        localStorage.setItem('caelis_exhibition_access', JSON.stringify({
+          email: payload.email,
+          exhibition: payload.exhibition,
+          expiresAt: expires.toISOString()
+        }));
+
+        form.style.display = 'none';
+        success.classList.add('show');
+        setTimeout(function() {
+          gate.classList.add('hidden');
+        }, 2000);
+      } else {
+        error.textContent = result.error || 'Something went wrong. Please try again.';
+        error.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enter Exhibition';
       }
-    } catch(err) { alert('Something went wrong. Please email info@caelis.cn'); }
-  }
+    } catch(err) {
+      error.textContent = 'Network error. Please check your connection and try again.';
+      error.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enter Exhibition';
+    }
+  };
+})();
 </script>

@@ -144,89 +144,102 @@
 <body class="bg-bg font-body antialiased min-h-screen flex flex-col">
   
   <!-- Navigation -->
-<header class="bg-surface/95 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
+<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      
+    <div class="flex items-center justify-between h-16 sm:h-[72px]">
+
       <!-- Logo -->
-      <a href="/" class="flex items-center">
-        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary">Caelis Galeria</span>
+      <a href="/" class="flex-shrink-0">
+        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary whitespace-nowrap">Caelis Galeria</span>
       </a>
-      
+
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
-        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Exhibitions</a>
-        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Online Exhibition</a>
-        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Art Insight</a>
-        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Shop</a>
-        <a href="/social/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Social</a>
-        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">About</a>
-        <a href="/admin/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase border border-gray-300 px-4 py-1.5 rounded hover:border-primary">Admin</a>
+      <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Online</a>
+        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Art Insight</a>
+        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Shop</a>
+        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">About</a>
       </div>
-      
+
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+      <button id="mobile-menu-btn" type="button" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Menu" aria-expanded="false">
+        <svg id="icon-ham" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-x" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
   </nav>
 </header>
 
-<!-- Mobile Menu Overlay -->
-<div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden transition-opacity" aria-hidden="true"></div>
-
-<!-- Mobile Menu Panel -->
-<div id="mobile-menu" class="fixed top-0 right-0 w-72 h-full bg-surface z-50 shadow-2xl transform transition-transform duration-300 hidden">
-  <div class="p-6">
-    <div class="flex items-center justify-between mb-8">
-      <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
-      <button id="mobile-menu-close" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+<!-- Mobile Menu: always in DOM, hidden off-screen -->
+<div id="mm-root" class="fixed inset-0 z-[99999] hidden" aria-hidden="true">
+  <!-- Backdrop -->
+  <div id="mm-backdrop" class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300"></div>
+  <!-- Panel: starts off-screen right -->
+  <div id="mm-panel" class="absolute top-0 right-0 w-72 h-full bg-white shadow-2xl" style="transform:translateX(100%);transition:transform .3s ease-out;">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
+        <button id="mm-close" type="button" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-1">
+        <a href="/exhibitions/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Online</a>
+        <a href="/art-insight/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Art Insight</a>
+        <a href="/shop/"             class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Shop</a>
+        <a href="/about/"            class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">About</a>
+      </nav>
     </div>
-    <nav class="flex flex-col space-y-4">
-      <a href="/exhibitions/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Exhibitions</a>
-      <a href="/exhibitions/jaime-sancorlo-online/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Online Exhibition</a>
-      <a href="/art-insight/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Art Insight</a>
-      <a href="/shop/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Shop</a>
-      <a href="/social/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Social</a>
-      <a href="/about/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">About</a>
-      <a href="/admin/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 mt-2">Admin</a>
-    </nav>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const closeBtn = document.getElementById('mobile-menu-close');
-    const menuOverlay = document.getElementById('menu-overlay');
-    
-    function openMenu() {
-      mobileMenu.classList.remove('hidden');
-      menuOverlay.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-    }
-    
-    function closeMenu() {
-      mobileMenu.classList.add('hidden');
-      menuOverlay.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    }
-    
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
-    
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeMenu();
-    });
-  });
+(function(){
+  var root  = document.getElementById('mm-root');
+  var panel = document.getElementById('mm-panel');
+  var bd    = document.getElementById('mm-backdrop');
+  var btn   = document.getElementById('mobile-menu-btn');
+  var iconH = document.getElementById('icon-ham');
+  var iconX = document.getElementById('icon-x');
+  var close = document.getElementById('mm-close');
+  var open  = false;
+
+  function show(){
+    open = true;
+    root.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+    iconH.classList.add('hidden');
+    iconX.classList.remove('hidden');
+    // force reflow, then slide in
+    void panel.offsetWidth;
+    panel.style.transform = 'translateX(0)';
+    bd.classList.remove('opacity-0');
+    bd.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hide(){
+    open = false;
+    panel.style.transform = 'translateX(100%)';
+    bd.classList.remove('opacity-100');
+    bd.classList.add('opacity-0');
+    btn.setAttribute('aria-expanded','false');
+    iconH.classList.remove('hidden');
+    iconX.classList.add('hidden');
+    document.body.style.overflow = '';
+    setTimeout(function(){ root.classList.add('hidden'); }, 320);
+  }
+
+  btn.addEventListener('click', function(){ open ? hide() : show(); });
+  close.addEventListener('click', hide);
+  bd.addEventListener('click', hide);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&open) hide(); });
+
+  var links = document.querySelectorAll('.mm-link');
+  for(var i=0;i<links.length;i++) links[i].addEventListener('click', hide);
+})();
 </script>
 
   
@@ -241,6 +254,28 @@
 
     <div class="space-y-0">
       
+      <a href="/art-insight/santa-fe-artfair-2025/" class="blog-card flex flex-col md:flex-row md:items-start gap-4 md:gap-8 py-8 px-4 md:px-6 -mx-4 md:-mx-6 cursor-pointer border-b border-gray-200 hover:bg-gray-50 transition-colors">
+        <div class="flex-1">
+          <p class="text-xs tracking-widest uppercase mb-3 text-secondary">Art Fair</p>
+          <h2 class="font-display text-xl lg:text-2xl font-light mb-3 text-text">Santa Fe Art Fair 2025</h2>
+          <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galeria makes its debut at Santa Fe Art Fair with Spanish artists August Vilella (Booth B101) and Eva Armisén (Booth B302), presenting dreamlike worlds that transcend cultural boundaries.</p>
+          <p class="text-xs text-secondary">By Caelis Galeria &middot; Jul 11, 2025 &middot; 4 min read</p>
+        </div>
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
+          style="background-image: url(/images/insight/santa-fe-artfair-2025/0af31facb913cf6639db88191acfa178.jpg)"></div>
+      </a>
+      
+      <a href="/art-insight/la-art-show-2025/" class="blog-card flex flex-col md:flex-row md:items-start gap-4 md:gap-8 py-8 px-4 md:px-6 -mx-4 md:-mx-6 cursor-pointer border-b border-gray-200 hover:bg-gray-50 transition-colors">
+        <div class="flex-1">
+          <p class="text-xs tracking-widest uppercase mb-3 text-secondary">Art Fair</p>
+          <h2 class="font-display text-xl lg:text-2xl font-light mb-3 text-text">L.A. Art Show 2025</h2>
+          <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galeria presents a curated selection of hyperrealist and primitivist works by seven Spanish artists at Booth 705, L.A. Art Show 2025.</p>
+          <p class="text-xs text-secondary">By Caelis Galeria &middot; Feb 19, 2025 &middot; 4 min read</p>
+        </div>
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
+          style="background-image: url(/images/insight/la-art-show-2025/640.webp)"></div>
+      </a>
+      
       <a href="/art-insight/west-bund-2024/" class="blog-card flex flex-col md:flex-row md:items-start gap-4 md:gap-8 py-8 px-4 md:px-6 -mx-4 md:-mx-6 cursor-pointer border-b border-gray-200 hover:bg-gray-50 transition-colors">
         <div class="flex-1">
           <p class="text-xs tracking-widest uppercase mb-3 text-secondary">Art Fair</p>
@@ -248,7 +283,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería participated in the West Bund Art &amp; Design Fair Shanghai 2024 at booth 137, presenting contemporary surrealist and pop art works by nine Spanish artists.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Nov 7, 2024 &middot; 4 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-4 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/westbund-2024/IMG_6359.JPG)"></div>
       </a>
       
@@ -259,7 +294,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería returned to JINGART Beijing 2024 at SKP-S, presenting works by August Vilella, Juan Miguel Palacios, Javi Caboné, Jaime Sangro, Arol, Cesc Abad, and Debbie Reda.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; May 23, 2024 &middot; 5 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-1 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/jingart-2024-onview/640.webp)"></div>
       </a>
       
@@ -270,7 +305,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería, in collaboration with the Catalonia Foundation, opened &#39;SNIQUS – Forever Friends&#39; at the Sabadell Contemporary Art Museum in Spain, a nostalgic journey through the artist&#39;s childhood.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; May 18, 2024 &middot; 4 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-4 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/sniqus-sabadell-museum-2024-onview/IMG_9210.JPG)"></div>
       </a>
       
@@ -281,7 +316,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Artelli, Artoneers, and Caelis Galería presented &#39;Always Near You, Always,&#39; a groundbreaking solo exhibition by New York-born artist Adam Handler in Macau, featuring over fifty new paintings.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Mar 8, 2024 &middot; 8 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-1 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/adam-macau-show-onview/IMG_9219.jpg)"></div>
       </a>
       
@@ -292,7 +327,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería participated in the 10th West Bund Art &amp; Design Fair at booth B126, presenting works by Adam Handler, Arol, August Vilella, Debbie Reda, Jacob Vilató, Jaime Sancorlo, Juan Miguel Palacios, Vuitbits, and Xavi Carbonell.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Nov 9, 2023 &middot; 4 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-4 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/westbund-2023/640.jpeg)"></div>
       </a>
       
@@ -303,7 +338,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería exhibited at T&amp;ARTCON Shanghai 2023 at booth B23, presenting surrealist and pop artworks by Adam Handler, Arol, Debbie Reda, Fanny Brodar, Jaime Sancorlo, and Sniqus.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Oct 12, 2023 &middot; 3 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-1 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/t-art-con-2023/640.jpeg)"></div>
       </a>
       
@@ -314,7 +349,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería participated in the Fifth Grand Canal Cultural and Tourism Expo in Suzhou, presenting 22 works by influential Spanish artists at the Spanish Pavilion.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Sep 21, 2023 &middot; 6 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-4 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/5th-grand-canal-2023/640.jpeg)"></div>
       </a>
       
@@ -325,7 +360,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Hong Art Museum and Caelis Galería jointly presented &#39;La Melodia Romántica - Spanish Young Artists Joint Exhibition&#39; in Suzhou, celebrating the 50th anniversary of China-Spain diplomatic relations.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Sep 20, 2023 &middot; 7 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-1 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/iris-museum-2023/640-10.jpeg)"></div>
       </a>
       
@@ -336,7 +371,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">August Vilella&#39;s solo exhibition &#39;Unveiling the Eye&#39; opened at La Pedrera - Casa Milà in Barcelona, showcasing the diverse subconscious universe revealed in his artworks.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Sep 1, 2023 &middot; 5 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-4 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/august-casa-mila/640.jpeg)"></div>
       </a>
       
@@ -347,7 +382,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería made its JINGART debut in June 2023 at the Beijing Exhibition Center, joining 54 galleries from 11 countries in a vibrant celebration of contemporary art.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Jun 1, 2023 &middot; 5 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-1 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/jingart-2023/640.jpeg)"></div>
       </a>
       
@@ -358,7 +393,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería&#39;s represented artist August Vilella exhibited his latest artwork &#39;The Poet Girl&#39; at TEFAF New York 2023 in collaboration with Galeria Mayoral (Booth 309).</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; May 11, 2023 &middot; 5 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-4 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-2 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/august-tefaf-2023/640.jpeg)"></div>
       </a>
       
@@ -369,7 +404,7 @@
           <p class="text-sm leading-relaxed mb-4 text-secondary">Caelis Galería&#39;s represented artist August Vilella exhibited &#39;You are my universe&#39; at Art Basel Hong Kong 2023 in collaboration with Galeria Mayoral (Booth 3E04), receiving warm welcome from international collectors.</p>
           <p class="text-xs text-secondary">By Caelis Galería &middot; Mar 21, 2023 &middot; 4 min read</p>
         </div>
-        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-1 flex-shrink-0 bg-cover bg-center"
+        <div class="w-full md:w-48 aspect-[4/3] gradient-placeholder-3 flex-shrink-0 bg-cover bg-center"
           style="background-image: url(/images/insight/august-art-basel-hk-2023/640.jpeg)"></div>
       </a>
       

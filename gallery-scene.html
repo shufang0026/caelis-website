@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery Scene - Jaime Sancorlo On Ice</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    width: 1920px;
+    height: 1280px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .gallery {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
+    perspective: 1200px;
+    overflow: hidden;
+  }
+
+  /* Ceiling with track lights */
+  .ceiling {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+    border-bottom: 1px solid #ddd;
+  }
+  .track-light {
+    position: absolute;
+    top: 10px;
+    width: 40px;
+    height: 25px;
+    background: #ccc;
+    border-radius: 3px 3px 8px 8px;
+  }
+  .track-light::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background: rgba(255,255,200,0.15);
+  }
+  .light-cone {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 120px solid transparent;
+    border-right: 120px solid transparent;
+    border-top: 400px solid rgba(255,255,220,0.04);
+    pointer-events: none;
+  }
+
+  /* Floor */
+  .floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 420px;
+    background: linear-gradient(180deg, #c4bfb8 0%, #b5afa6 50%, #a8a29a 100%);
+    transform-origin: bottom center;
+    transform: perspective(800px) rotateX(20deg);
+  }
+  .floor-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(160,155,145,0.3);
+  }
+
+  /* Back wall */
+  .wall-back {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 420px;
+    background: linear-gradient(180deg, #fafafa 0%, #f2f2f2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Side walls for depth */
+  .wall-left {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 280px;
+    bottom: 420px;
+    background: linear-gradient(90deg, #eaeaea 0%, #f4f4f4 100%);
+    transform-origin: left center;
+    transform: perspective(600px) rotateY(15deg);
+  }
+  .wall-right {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 280px;
+    bottom: 420px;
+    background: linear-gradient(-90deg, #eaeaea 0%, #f4f4f4 100%);
+    transform-origin: right center;
+    transform: perspective(600px) rotateY(-15deg);
+  }
+
+  /* Artwork frame on back wall */
+  .artwork-container {
+    position: relative;
+    /* 89x130cm ratio ≈ 0.684 */
+    width: min(520px, 45vh);
+    aspect-ratio: 89 / 130;
+    box-shadow: 
+      0 2px 20px rgba(0,0,0,0.12),
+      0 8px 60px rgba(0,0,0,0.08),
+      inset 0 0 0 8px #1a1a1a,
+      inset 0 0 0 10px #333;
+    transform: translateY(20px);
+  }
+  .artwork-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Person silhouette - blurred motion effect like reference */
+  .person {
+    position: absolute;
+    bottom: 380px;
+    left: 38%;
+    width: 70px;
+    height: 190px;
+    filter: blur(1.5px);
+    opacity: 0.25;
+    z-index: 5;
+  }
+  .person-head {
+    width: 28px;
+    height: 32px;
+    background: #222;
+    border-radius: 50% 50% 45% 45%;
+    margin: 0 auto 4px;
+  }
+  .person-body {
+    width: 34px;
+    height: 90px;
+    background: #222;
+    border-radius: 16px 16px 4px 4px;
+    margin: 0 auto;
+  }
+  .person-legs {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .leg {
+    width: 13px;
+    height: 65px;
+    background: #222;
+    border-radius: 4px 4px 2px 2px;
+    transform-origin: top center;
+  }
+  .leg-left { transform: rotate(8deg); }
+  .leg-right { transform: rotate(-5deg); }
+
+  /* Person shadow on floor */
+  .person-shadow {
+    position: absolute;
+    bottom: 360px;
+    left: 36%;
+    width: 90px;
+    height: 25px;
+    background: radial-gradient(ellipse, rgba(80,75,68,0.35) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(4px);
+    z-index: 4;
+  }
+
+  /* Ambient light spot under artwork */
+  .artwork-glow {
+    position: absolute;
+    bottom: 430px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(255,255,230,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(8px);
+  }
+
+  /* Subtle ambient particles / dust */
+  .dust {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255,255,255,0.3);
+  }
+</style>
+</head>
+<body>
+<div class="gallery">
+  <!-- Ceiling -->
+  <div class="ceiling">
+    <div class="track-light" style="left: 300px;"><div class="light-cone"></div></div>
+    <div class="track-light" style="left: 700px;"><div class="light-cone"></div></div>
+    <div class="track-light" style="left: 1100px;"><div class="light-cone"></div></div>
+    <div class="track-light" style="left: 1500px;"><div class="light-cone"></div></div>
+  </div>
+
+  <!-- Side walls -->
+  <div class="wall-left"></div>
+  <div class="wall-right"></div>
+
+  <!-- Back wall with artwork -->
+  <div class="wall-back">
+    <div class="artwork-container">
+      <img class="artwork-img" src="/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg" alt="On Ice by Jaime Sancorlo" />
+    </div>
+  </div>
+
+  <!-- Floor -->
+  <div class="floor">
+    <div class="floor-line" style="top: 20%"></div>
+    <div class="floor-line" style="top: 40%"></div>
+    <div class="floor-line" style="top: 60%"></div>
+    <div class="floor-line" style="top: 80%"></div>
+  </div>
+
+  <!-- Light glow under artwork -->
+  <div class="artwork-glow"></div>
+
+  <!-- Person shadow -->
+  <div class="person-shadow"></div>
+
+  <!-- Person silhouette (blurred, looking at artwork) -->
+  <div class="person">
+    <div class="person-head"></div>
+    <div class="person-body"></div>
+    <div class="person-legs">
+      <div class="leg leg-left"></div>
+      <div class="leg leg-right"></div>
+    </div>
+  </div>
+
+  <!-- Dust particles -->
+  <div class="dust" style="top: 200px; left: 400px;"></div>
+  <div class="dust" style="top: 350px; left: 800px; opacity: 0.2;"></div>
+  <div class="dust" style="top: 280px; left: 1300px; opacity: 0.3;"></div>
+  <div class="dust" style="top: 450px; left: 600px; opacity: 0.15;"></div>
+  <div class="dust" style="top: 520px; left: 1100px; opacity: 0.25;"></div>
+</div>
+</body>
+</html>

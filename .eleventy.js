@@ -84,7 +84,10 @@ module.exports = function (eleventyConfig) {
   // Passthrough copies
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/assets/images");
-  eleventyConfig.addPassthroughCopy({ "public": "/" });
+  // Copy public folder but exclude admin (we handle admin via src/pages/admin/)
+  eleventyConfig.addPassthroughCopy({ "public": "/" }, {
+    filter: (path) => !path.startsWith("admin/") || path.startsWith("admin/cms/")
+  });
 
   // Override permalinks for markdown content files to get clean URLs
   eleventyConfig.addExtension("md", {

@@ -1,0 +1,11 @@
+#:schema node_modules/wrangler/config-schema.json
+
+# Decap CMS OAuth Proxy Worker
+compatibility_date = "2025-11-17"
+main = "index.ts"
+name = "caelis-decap-oauth"
+
+# GitHub OAuth App credentials (secrets already set via wrangler secret put)
+
+[vars]
+GITHUB_REPO_PRIVATE = "0"  # Set to "1" if your repo is private

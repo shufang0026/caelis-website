@@ -19,6 +19,14 @@ permalink: "/shop/"
       {% endfor %}
     </div>
 
+    <!-- Empty State -->
+    {% if shop.artworks.length == 0 and shop.posters.length == 0 and shop.merchandise.length == 0 %}
+    <div class="text-center py-24">
+      <p class="font-display text-2xl font-light text-secondary mb-4">Coming Soon</p>
+      <p class="text-sm text-secondary">Our curated selection will be available here shortly.</p>
+    </div>
+    {% endif %}
+
     <!-- Product Grid -->
     <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
 

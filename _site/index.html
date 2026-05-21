@@ -144,135 +144,180 @@
 <body class="bg-bg font-body antialiased min-h-screen flex flex-col">
   
   <!-- Navigation -->
-<header class="bg-surface/95 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
+<header class="bg-surface border-b border-gray-100 sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      
+    <div class="flex items-center justify-between h-16 sm:h-[72px]">
+
       <!-- Logo -->
-      <a href="/" class="flex items-center">
-        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary">Caelis Galeria</span>
+      <a href="/" class="flex-shrink-0">
+        <span class="font-display text-xl sm:text-2xl font-medium tracking-wide text-primary whitespace-nowrap">Caelis Galeria</span>
       </a>
-      
+
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-8 lg:space-x-12">
-        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Exhibitions</a>
-        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Online Exhibition</a>
-        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Art Insight</a>
-        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Shop</a>
-        <a href="/social/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">Social</a>
-        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase">About</a>
-        <a href="/admin/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.2em] uppercase border border-gray-300 px-4 py-1.5 rounded hover:border-primary">Admin</a>
+      <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+        <a href="/exhibitions/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Online</a>
+        <a href="/art-insight/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Art Insight</a>
+        <a href="/shop/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">Shop</a>
+        <a href="/about/" class="font-body text-[11px] font-medium text-secondary hover:text-primary transition-colors duration-200 tracking-[0.18em] uppercase">About</a>
       </div>
-      
+
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+      <button id="mobile-menu-btn" type="button" class="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Menu" aria-expanded="false">
+        <svg id="icon-ham" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-x" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
   </nav>
 </header>
 
-<!-- Mobile Menu Overlay -->
-<div id="menu-overlay" class="fixed inset-0 bg-black/30 z-40 hidden transition-opacity" aria-hidden="true"></div>
-
-<!-- Mobile Menu Panel -->
-<div id="mobile-menu" class="fixed top-0 right-0 w-72 h-full bg-surface z-50 shadow-2xl transform transition-transform duration-300 hidden">
-  <div class="p-6">
-    <div class="flex items-center justify-between mb-8">
-      <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
-      <button id="mobile-menu-close" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+<!-- Mobile Menu: always in DOM, hidden off-screen -->
+<div id="mm-root" class="fixed inset-0 z-[99999] hidden" aria-hidden="true">
+  <!-- Backdrop -->
+  <div id="mm-backdrop" class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300"></div>
+  <!-- Panel: starts off-screen right -->
+  <div id="mm-panel" class="absolute top-0 right-0 w-72 h-full bg-white shadow-2xl" style="transform:translateX(100%);transition:transform .3s ease-out;">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-display text-xl font-medium text-primary">Caelis Galeria</span>
+        <button id="mm-close" type="button" class="p-2 -mr-2 text-secondary hover:text-primary transition-colors" aria-label="Close menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-1">
+        <a href="/exhibitions/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Exhibitions</a>
+        <a href="/exhibitions/jaime-sancorlo-online/" class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Online</a>
+        <a href="/art-insight/"      class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Art Insight</a>
+        <a href="/shop/"             class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">Shop</a>
+        <a href="/about/"            class="mm-link text-base font-body font-medium text-secondary hover:text-primary transition-colors py-3 border-b border-gray-100">About</a>
+      </nav>
     </div>
-    <nav class="flex flex-col space-y-4">
-      <a href="/exhibitions/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Exhibitions</a>
-      <a href="/exhibitions/jaime-sancorlo-online/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Online Exhibition</a>
-      <a href="/art-insight/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Art Insight</a>
-      <a href="/shop/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Shop</a>
-      <a href="/social/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">Social</a>
-      <a href="/about/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 border-b border-gray-100">About</a>
-      <a href="/admin/" class="text-base font-body font-medium text-secondary hover:text-primary transition-colors py-2 mt-2">Admin</a>
-    </nav>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const closeBtn = document.getElementById('mobile-menu-close');
-    const menuOverlay = document.getElementById('menu-overlay');
-    
-    function openMenu() {
-      mobileMenu.classList.remove('hidden');
-      menuOverlay.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-    }
-    
-    function closeMenu() {
-      mobileMenu.classList.add('hidden');
-      menuOverlay.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    }
-    
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
-    
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeMenu();
-    });
-  });
+(function(){
+  var root  = document.getElementById('mm-root');
+  var panel = document.getElementById('mm-panel');
+  var bd    = document.getElementById('mm-backdrop');
+  var btn   = document.getElementById('mobile-menu-btn');
+  var iconH = document.getElementById('icon-ham');
+  var iconX = document.getElementById('icon-x');
+  var close = document.getElementById('mm-close');
+  var open  = false;
+
+  function show(){
+    open = true;
+    root.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+    iconH.classList.add('hidden');
+    iconX.classList.remove('hidden');
+    // force reflow, then slide in
+    void panel.offsetWidth;
+    panel.style.transform = 'translateX(0)';
+    bd.classList.remove('opacity-0');
+    bd.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hide(){
+    open = false;
+    panel.style.transform = 'translateX(100%)';
+    bd.classList.remove('opacity-100');
+    bd.classList.add('opacity-0');
+    btn.setAttribute('aria-expanded','false');
+    iconH.classList.remove('hidden');
+    iconX.classList.add('hidden');
+    document.body.style.overflow = '';
+    setTimeout(function(){ root.classList.add('hidden'); }, 320);
+  }
+
+  btn.addEventListener('click', function(){ open ? hide() : show(); });
+  close.addEventListener('click', hide);
+  bd.addEventListener('click', hide);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&open) hide(); });
+
+  var links = document.querySelectorAll('.mm-link');
+  for(var i=0;i<links.length;i++) links[i].addEventListener('click', hide);
+})();
 </script>
 
   
   <main class="flex-1">
     
-<!-- Hero Section — Full-screen cinematic -->
-<section class="relative h-screen overflow-hidden bg-black">
-  <div class="absolute inset-0 hero-ken-burns">
-    <div class="absolute inset-0 gradient-placeholder-1"></div>
+<!-- Hero — Pace style fullscreen slideshow -->
+<section class="relative h-screen overflow-hidden bg-black" id="hero-slideshow">
+  <!-- Slides -->
+  <div class="absolute inset-0">
+    <!-- Slide 1: August Vilella (VIDEO) -->
+    <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out" data-index="0" data-has-video="true">
+      <a href="/exhibitions/august-vilella-shenzhen/" class="block w-full h-full cursor-pointer relative">
+        <!-- Video background -->
+        <video
+          id="hero-video-0"
+          class="absolute inset-0 w-full h-full object-cover"
+          src="/images/exhibitions/august-vilella-shenzhen/event-video.mp4"
+          autoplay muted loop playsinline
+          poster="/images/artworks/august-vilella-shenzhen/640-1.webp"
+        ></video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 lg:p-16 pb-16 lg:pb-24">
+          <div class="max-w-7xl mx-auto">
+            <p class="text-white/50 text-[10px] tracking-[0.3em] uppercase mb-4 font-body">Shenzhen</p>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-7xl text-white font-light leading-[1.1] mb-3">Between Universe and Forest</h2>
+            <p class="text-white/60 text-base lg:text-lg font-body">August Vilella</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Slide 2: Jaime Sancorlo Online -->
+    <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out pointer-events-none" data-index="1">
+      <a href="/exhibitions/jaime-sancorlo-online/" class="block w-full h-full cursor-pointer">
+        <div class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url(/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg)"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 lg:p-16 pb-16 lg:pb-24">
+          <div class="max-w-7xl mx-auto">
+            <p class="text-white/50 text-[10px] tracking-[0.3em] uppercase mb-4 font-body">Online Exhibition</p>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-7xl text-white font-light leading-[1.1] mb-3">Reach Out</h2>
+            <p class="text-white/60 text-base lg:text-lg font-body">Jaime Sancorlo</p>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-  <div class="absolute inset-0 flex items-end">
-    <div class="w-full p-8 lg:p-16 pb-16 lg:pb-24">
-      <div class="max-w-7xl mx-auto">
-        <p class="text-white/70 text-[11px] tracking-[0.3em] uppercase mb-6 font-body">Current Exhibition</p>
-        
-        <h1 class="font-display text-5xl lg:text-7xl xl:text-8xl text-white font-light leading-[1.05] mb-6">Caelis Galeria</h1>
-        <p class="text-white/80 text-sm lg:text-base max-w-lg mb-8 leading-relaxed">A premier contemporary art gallery in Shanghai, dedicated to showcasing innovative works from around the world.</p>
-        
+
+  <!-- Controls: Sound + Play/Pause + Progress bars (Pace style) -->
+  <div class="absolute bottom-8 left-8 lg:bottom-12 lg:left-16 z-20 flex items-center gap-4">
+    <!-- Sound toggle -->
+    <button id="hero-sound-btn" class="w-11 h-11 flex items-center justify-center border border-white/40 hover:border-white/80 hover:bg-white/10 transition-all" aria-label="Unmute video">
+      <svg id="hero-icon-muted" class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l-3 2.25v3l3 2.25V8.25z"/><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg id="hero-icon-unmuted" class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l-3 2.25v3l3 2.25V8.25z"/></svg>
+    </button>
+
+    <!-- Play / Pause button -->
+    <button id="hero-play-btn" class="w-11 h-11 flex items-center justify-center border border-white/40 hover:border-white/80 hover:bg-white/10 transition-all group" aria-label="Play slideshow">
+      <svg id="hero-icon-play" class="w-4 h-4 text-white hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="hero-icon-pause" class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
+    <!-- Progress bars -->
+    <div id="hero-progress" class="flex items-center gap-2.5">
+      <div class="progress-bar w-12 sm:w-16 lg:w-24 h-[1.5px] bg-white/30 relative overflow-hidden cursor-pointer" data-index="0">
+        <div class="progress-fill absolute left-0 top-0 h-full bg-white/80 w-full origin-left scale-x-0"></div>
+      </div>
+      <div class="progress-bar w-12 sm:w-16 lg:w-24 h-[1.5px] bg-white/30 relative overflow-hidden cursor-pointer" data-index="1">
+        <div class="progress-fill absolute left-0 top-0 h-full bg-white/80 w-full origin-left scale-x-0"></div>
       </div>
     </div>
   </div>
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-    <span class="text-white/40 text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-    <div class="w-px h-8 bg-white/30"></div>
-  </div>
 </section>
 
-<!-- Introduction — Left-aligned, editorial -->
-<section class="py-24 lg:py-36 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto reveal">
-    <div class="max-w-2xl">
-      <h2 class="font-display text-4xl lg:text-5xl font-light mb-10 text-text leading-[1.15]">A Space for<br>Contemporary Dialogue</h2>
-      <p class="text-base lg:text-lg leading-[1.8] mb-6 text-secondary">Caelis Galeria is a contemporary art gallery based in Shanghai, dedicated to presenting thoughtful artistic practices and cross-cultural perspectives. We focus on contemporary visual expression, critical discourse, and experimental approaches within an international context.</p>
-      <p class="text-base lg:text-lg leading-[1.8] text-secondary">Through our curatorial program, we seek to create meaningful encounters between artworks, artists, and audiences—fostering conversations that transcend geographical and cultural boundaries.</p>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Current Exhibitions Preview — Bolder cards -->
+<!-- Current Exhibitions -->
 <section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-end justify-between mb-16 reveal">
+    <div class="flex items-end justify-between mb-16">
       <div>
         <p class="text-[11px] tracking-[0.3em] uppercase mb-3 text-muted font-body">Now Showing</p>
         <h2 class="font-display text-3xl lg:text-4xl font-light text-text">Current Exhibitions</h2>
@@ -283,15 +328,34 @@
       </a>
     </div>
     <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
-      
+      <!-- August Vilella -->
+      <a href="/exhibitions/august-vilella-shenzhen/" class="group cursor-pointer block">
+        <div class="aspect-[4/3] overflow-hidden mb-8">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            style="background-image: url(/images/artworks/august-vilella-shenzhen/640-1.webp)"></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">Mar 15 — Jun 30, 2026</p>
+        <h3 class="font-display text-2xl lg:text-3xl font-normal mb-3 text-text group-hover:text-primary transition-colors leading-tight">Between Universe and Forest</h3>
+        <p class="text-sm text-secondary">August Vilella · Shenzhen Bay MixC</p>
+      </a>
+      <!-- Jaime Sancorlo Online -->
+      <a href="/exhibitions/jaime-sancorlo-online/" class="group cursor-pointer block">
+        <div class="aspect-[4/3] overflow-hidden mb-8">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            style="background-image: url(/images/artworks/jaime-sancorlo/on-ice-89x130cm-2023.jpg)"></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">Online</p>
+        <h3 class="font-display text-2xl lg:text-3xl font-normal mb-3 text-text group-hover:text-primary transition-colors leading-tight">Reach Out</h3>
+        <p class="text-sm text-secondary">Jaime Sancorlo · Online Exhibition</p>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Art Insight Preview — More editorial -->
+<!-- Art Insight Preview -->
 <section class="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-surface">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-end justify-between mb-16 reveal">
+    <div class="flex items-end justify-between mb-16">
       <div>
         <p class="text-[11px] tracking-[0.3em] uppercase mb-3 text-muted font-body">From the Journal</p>
         <h2 class="font-display text-3xl lg:text-4xl font-light text-text">Art Insight</h2>
@@ -303,53 +367,213 @@
     </div>
     <div class="grid md:grid-cols-3 gap-8 lg:gap-10">
       
+      <a href="/art-insight/santa-fe-artfair-2025/" class="group cursor-pointer block">
+        <div class="aspect-[3/2] overflow-hidden mb-6">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            style="background-image: url(/images/insight/santa-fe-artfair-2025/0af31facb913cf6639db88191acfa178.jpg)"></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">Art Fair</p>
+        <h3 class="font-display text-xl lg:text-2xl font-normal mb-4 leading-snug text-text group-hover:text-primary transition-colors">Santa Fe Art Fair 2025</h3>
+        <p class="text-sm text-secondary">Jul 11, 2025</p>
+      </a>
+      
+      <a href="/art-insight/la-art-show-2025/" class="group cursor-pointer block">
+        <div class="aspect-[3/2] overflow-hidden mb-6">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            style="background-image: url(/images/insight/la-art-show-2025/640.webp)"></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">Art Fair</p>
+        <h3 class="font-display text-xl lg:text-2xl font-normal mb-4 leading-snug text-text group-hover:text-primary transition-colors">L.A. Art Show 2025</h3>
+        <p class="text-sm text-secondary">Feb 19, 2025</p>
+      </a>
+      
+      <a href="/art-insight/west-bund-2024/" class="group cursor-pointer block">
+        <div class="aspect-[3/2] overflow-hidden mb-6">
+          <div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+            style="background-image: url(/images/insight/westbund-2024/IMG_6359.JPG)"></div>
+        </div>
+        <p class="text-[11px] tracking-[0.2em] uppercase mb-3 text-muted font-body">Art Fair</p>
+        <h3 class="font-display text-xl lg:text-2xl font-normal mb-4 leading-snug text-text group-hover:text-primary transition-colors">West Bund Art &amp; Design Fair Shanghai 2024</h3>
+        <p class="text-sm text-secondary">Nov 7, 2024</p>
+      </a>
+      
     </div>
   </div>
 </section>
 
-<!-- Newsletter Subscribe — Clean DZ style -->
+<!-- Newsletter -->
 <section class="py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-2xl mx-auto reveal">
+  <div class="max-w-2xl mx-auto">
     <h2 class="font-display text-2xl lg:text-3xl font-light mb-0 text-text leading-[1.4]">Join our mailing list for updates about our artists, exhibitions, events, and more.</h2>
-
-    <!-- Collapsible form -->
     <div id="subscribe-form-wrapper" class="hidden mt-12">
-      <form action="https://caelis-subscribe.shufang0026.workers.dev" method="POST" class="space-y-8" id="subscribe-form">
+      <form action="https://caelis-subscribe-production.shufang0026.workers.dev/subscribe" method="POST" class="space-y-8" id="subscribe-form">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <input type="text" name="firstName" placeholder="First Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
           <input type="text" name="lastName" placeholder="Last Name" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
         </div>
         <input type="email" name="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
         <input type="text" name="country" placeholder="Country" required class="w-full bg-transparent border-b border-gray-300 pb-3 text-text placeholder:text-gray-400 focus:outline-none focus:border-text transition-colors text-base" />
-        <button type="submit" class="mt-2 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-colors cursor-pointer">
-          Submit
-        </button>
+        <button type="submit" class="mt-2 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-colors cursor-pointer">Submit</button>
       </form>
       <p id="subscribe-message" class="mt-8 text-sm hidden"></p>
     </div>
-
-    <!-- Toggle button -->
-    <button type="button" id="subscribe-toggle" class="mt-10 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-all duration-200 cursor-pointer">
-      Subscribe
-    </button>
+    <button type="button" id="subscribe-toggle" class="mt-10 inline-flex items-center text-[11px] tracking-[0.25em] uppercase text-white bg-black px-8 py-3.5 hover:bg-text transition-all duration-200 cursor-pointer">Subscribe</button>
   </div>
 </section>
 
 <script>
 (function() {
+  /* ===== Sound toggle ===== */
+  var soundBtn = document.getElementById('hero-sound-btn');
+  var iconMuted = document.getElementById('hero-icon-muted');
+  var iconUnmuted = document.getElementById('hero-icon-unmuted');
+  var isMuted = true;
+
+  function getActiveVideo() {
+    var slide = document.querySelector('.hero-slide[data-index="' + current + '"]');
+    return slide ? slide.querySelector('video') : null;
+  }
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      isMuted = !isMuted;
+      // Toggle current video's sound
+      var vid = getActiveVideo();
+      if (vid) vid.muted = isMuted;
+      // Update icon
+      iconMuted.classList.toggle('hidden', !isMuted);
+      iconUnmuted.classList.toggle('hidden', isMuted);
+      soundBtn.setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
+    });
+  }
+
+  /* ===== Hero Slideshow (Pace Gallery style) ===== */
+  var slides = document.querySelectorAll('.hero-slide');
+  var progressBars = document.querySelectorAll('.progress-bar');
+  var playBtn = document.getElementById('hero-play-btn');
+  var iconPlay = document.getElementById('hero-icon-play');
+  var iconPause = document.getElementById('hero-icon-pause');
+  var SLIDE_INTERVAL = 6000; // 6s per slide
+  var current = 0;
+  var playing = true;
+  var timer = null;
+  var startTime = null;
+  var pausedAt = 0;
+
+  function goTo(index, immediate) {
+    if (index === current && !immediate) return;
+    // Mute video on outgoing slide
+    var prevVideo = document.querySelector('.hero-slide[data-index="' + current + '"] video');
+    if (prevVideo) prevVideo.muted = true;
+
+    slides.forEach(function(s, i) {
+      s.classList.toggle('opacity-100', i === index);
+      s.classList.toggle('opacity-0', i !== index);
+      s.classList.toggle('pointer-events-none', i !== index);
+    });
+    current = index;
+
+    // Apply current mute state to incoming video
+    var nextVideo = document.querySelector('.hero-slide[data-index="' + current + '"] video');
+    if (nextVideo) nextVideo.muted = isMuted;
+
+    resetProgress(immediate);
+  }
+
+  function resetProgress(immediate) {
+    progressBars.forEach(function(bar, i) {
+      var fill = bar.querySelector('.progress-fill');
+      if (i === current) {
+        fill.style.transition = immediate ? 'none' : 'transform ' + SLIDE_INTERVAL + 'ms linear';
+        fill.style.transform = 'scaleX(1)';
+      } else {
+        fill.style.transition = 'none';
+        fill.style.transform = 'scaleX(0)';
+      }
+    });
+    startTime = performance.now();
+  }
+
+  function next() {
+    goTo((current + 1) % slides.length);
+  }
+
+  function startTimer() {
+    stopTimer();
+    timer = setTimeout(next, SLIDE_INTERVAL);
+  }
+
+  function stopTimer() {
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+
+  function pause() {
+    playing = false;
+    stopTimer();
+    pausedAt = performance.now() - startTime;
+    // freeze current progress bar
+    var activeBar = document.querySelector('.progress-bar[data-index="' + current + '"] .progress-fill');
+    if (activeBar) {
+      var pct = Math.min(pausedAt / SLIDE_INTERVAL, 1);
+      activeBar.style.transition = 'none';
+      activeBar.style.transform = 'scaleX(' + pct + ')';
+    }
+    iconPlay.classList.remove('hidden');
+    iconPause.classList.add('hidden');
+  }
+
+  function resume() {
+    playing = true;
+    // resume progress bar with remaining time
+    var remaining = SLIDE_INTERVAL - pausedAt;
+    if (remaining <= 0) { next(); return; }
+    var activeBar = document.querySelector('.progress-bar[data-index="' + current + '"] .progress-fill');
+    if (activeBar) {
+      var pct = pausedAt / SLIDE_INTERVAL;
+      activeBar.style.transition = 'transform ' + remaining + 'ms linear';
+      activeBar.style.transform = 'scaleX(1)';
+    }
+    startTimer();
+    setTimeout(next, remaining);
+    iconPlay.classList.add('hidden');
+    iconPause.classList.remove('hidden');
+  }
+
+  // Play/pause button
+  if (playBtn) {
+    playBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (playing) pause(); else resume();
+    });
+  }
+
+  // Click on progress bar to jump
+  progressBars.forEach(function(bar) {
+    bar.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var idx = parseInt(this.dataset.index);
+      goTo(idx);
+      if (!playing) { pausedAt = 0; resume(); } else { startTimer(); setTimeout(next, SLIDE_INTERVAL); }
+    });
+  });
+
+  // Start
+  resetProgress(true);
+  startTimer();
+
+  /* ===== Newsletter ===== */
   var toggle = document.getElementById('subscribe-toggle');
   var wrapper = document.getElementById('subscribe-form-wrapper');
   var form = document.getElementById('subscribe-form');
   var message = document.getElementById('subscribe-message');
   if (!toggle || !wrapper) return;
-
   toggle.addEventListener('click', function() {
     wrapper.classList.remove('hidden');
     toggle.classList.add('hidden');
     var firstInput = wrapper.querySelector('input[name=firstName]');
     if (firstInput) firstInput.focus();
   });
-
   if (form && message) {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -357,33 +581,29 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
       try {
-        var resp = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-        });
+        var resp = await fetch(form.action, { method: 'POST', body: new FormData(form) });
         var data = await resp.json();
         if (resp.ok) {
           message.textContent = data.message;
-          message.className = 'mt-8 text-sm text-green-600';
+          message.className = 'mt-6 text-sm text-green-600';
           message.classList.remove('hidden');
           form.reset();
         } else {
           message.textContent = data.error || 'Something went wrong. Please try again.';
-          message.className = 'mt-8 text-sm text-red-600';
+          message.className = 'mt-6 text-sm text-red-600';
           message.classList.remove('hidden');
         }
       } catch (err) {
         message.textContent = 'Network error. Please check your connection and try again.';
-        message.className = 'mt-8 text-sm text-red-600';
+        message.className = 'mt-6 text-sm text-red-600';
         message.classList.remove('hidden');
       }
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit';
+      submitBtn.textContent = 'Subscribe';
     });
   }
 })();
 </script>
-
   </main>
   
   <!-- Footer -->
