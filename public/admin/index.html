@@ -58,7 +58,7 @@
     </div>
   </div>
   <script>
-    const API_BASE = '/api';
+    const API_BASE = 'https://caelis-subscribe-production.shufang0026.workers.dev';
     const countryFlags = {'ES':'🇪🇸','CN':'🇨🇳','US':'🇺🇸','GB':'🇬🇧','FR':'🇫🇷','DE':'🇩🇪','IT':'🇮🇹','JP':'🇯🇵','KR':'🇰🇷','AU':'🇦🇺','CA':'🇨🇦','NL':'🇳🇱'};
     function b64e(str) { return btoa(unescape(encodeURIComponent(str))); }
     function parseCreds() { try { return atob(localStorage.getItem('cg_creds')||'').split(':'); } catch(e) { return ['admin','']; } }
