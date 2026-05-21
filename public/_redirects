@@ -1,3 +1,3 @@
-# Exclude admin routes from SPA fallback
-/admin/* /admin/index.html 200
-/admin/*/* /admin/index.html 200
+# Admin routes - redirect to Worker
+/admin /admin/ 301
+/admin/* https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
