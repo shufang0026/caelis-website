@@ -16,6 +16,8 @@ const ADMIN_HTML = `<!DOCTYPE html>
     .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
     .btn { width: 100%; padding: 14px; background: #222; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
     .btn:hover { background: #444; }
+    .btn-del { padding: 4px 8px; background: #ffebee; color: #c62828; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .btn-del:hover { background: #ffcdd2; }
     #dashboard { display: none; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
     .header h1 { font-size: 24px; color: #333; }
@@ -52,7 +54,7 @@ const ADMIN_HTML = `<!DOCTYPE html>
     <div id="dashboard">
       <div class="header"><h1>Visitors & Subscribers</h1><button class="logout-btn" onclick="logout()">Sign Out</button></div>
       <div class="stats"><div class="stat-card"><div class="label">Total Visitors</div><div class="value" id="visitor-count">-</div></div><div class="stat-card"><div class="label">Newsletter</div><div class="value" id="subscriber-count">-</div></div></div>
-      <div class="section"><div class="section-header"><h2>Recent Visitors</h2></div><table><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Exhibition</th><th>Date</th></tr></thead><tbody id="visitors-table"></tbody></table></div>
+      <div class="section"><div class="section-header"><h2>Recent Visitors</h2></div><table><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Exhibition</th><th>Date</th><th></th></tr></thead><tbody id="visitors-table"></tbody></table></div>
       <div class="section"><div class="section-header"><h2>Newsletter</h2></div><table><thead><tr><th>Email</th><th>Name</th><th>Country</th><th>Date</th></tr></thead><tbody id="newsletter-table"></tbody></table></div>
     </div>
   </div>
@@ -63,13 +65,20 @@ const ADMIN_HTML = `<!DOCTYPE html>
     function parseCreds() { try { return atob(localStorage.getItem('cg_creds')||'').split(':'); } catch(e) { return ['admin','']; } }
     function doLogin(e) { e.preventDefault(); const user = document.getElementById('username').value||'admin'; const pass = document.getElementById('password').value; if(!pass) return alert('Password required'); localStorage.setItem('cg_creds', b64e(user+':'+pass)); location.reload(); }
     function logout() { localStorage.removeItem('cg_creds'); location.reload(); }
-    async function apiCall(ep) { const res = await fetch(WORKER_URL+ep, {headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||'')}}); if(!res.ok) throw new Error(res.status); return res.json(); }
+    async function apiCall(ep, opts={}) { const res = await fetch(WORKER_URL+ep, {...opts,headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||''),'Content-Type':'application/json'}}); if(!res.ok) throw new Error(res.status); return res.json(); }
+    async function deleteVisitor(email) {
+      if(!confirm('Delete '+email+'?')) return;
+      try {
+        await apiCall('/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
+        loadData();
+      } catch(e){ alert('Delete failed: '+e.message); }
+    }
     async function loadData() {
       try {
         const [v,n] = await Promise.all([apiCall('/visitors'),apiCall('/newsletter')]);
         document.getElementById('visitor-count').textContent = v.total;
         document.getElementById('subscriber-count').textContent = n.total;
-        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="5" class="empty">No visitors</td></tr>';
+        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del" onclick="deleteVisitor(\''+x.email+'\')">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
         document.getElementById('newsletter-table').innerHTML = n.subscribers.length ? n.subscribers.map(x => '<tr class="'+(x.email.includes('@wshu')?'spam-row':'')+'"><td class="'+(x.email.includes('@wshu')?'spam':'')+'">'+x.email+'</td><td>'+x.firstName+' '+x.lastName+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+new Date(x.subscribedAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="4" class="empty">No subscribers</td></tr>';
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
@@ -119,18 +128,29 @@ export default {
     const path = url.pathname;
     const contentType = request.headers.get("Content-Type") || "";
 
-    // GET: Visitors list (protected by API key)
+    // GET: Admin panel or API
     if (request.method === "GET") {
-      if (path === "/visitors" || path === "/newsletter" || path === "/admin-panel") {
-        return new Response("Use POST or check API endpoints", { status: 405 });
-      }
-      // Serve admin panel HTML
       if (path === "/panel" || path === "/admin") {
         return new Response(ADMIN_HTML, {
           headers: { "Content-Type": "text/html; charset=utf-8" }
         });
       }
+      // API endpoints
+      if (path === "/visitors") return handleVisitors(request, env);
+      if (path === "/newsletter") return handleNewsletter(request, env);
       return json({ error: "Not found" }, 404);
+    }
+
+    // DELETE: Visitor
+    if (path === "/visitor" && request.method === "DELETE") {
+      const url = new URL(request.url);
+      const email = url.searchParams.get("email");
+      if (!email) return json({ error: "Email required" }, 400);
+      if (!await validateBasicAuth(request, env)) return new Response("Unauthorized", { status: 401 });
+      try {
+        await env.SUBSCRIBERS.delete("visitor-" + email);
+        return json({ success: true, deleted: email });
+      } catch(e) { return json({ error: e.message }, 500); }
     }
 
     // Route: Exhibition visitor registration (JSON)
