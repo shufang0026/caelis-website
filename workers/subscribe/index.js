@@ -59,17 +59,17 @@ const ADMIN_HTML = `<!DOCTYPE html>
     </div>
   </div>
   <script>
-    const WORKER_URL = location.origin;
+    const API_BASE = '/api';
     const countryFlags = {'ES':'🇪🇸','CN':'🇨🇳','US':'🇺🇸','GB':'🇬🇧','FR':'🇫🇷','DE':'🇩🇪','IT':'🇮🇹','JP':'🇯🇵','KR':'🇰🇷','AU':'🇦🇺','CA':'🇨🇳','NL':'🇳🇱'};
     function b64e(str) { return btoa(unescape(encodeURIComponent(str))); }
     function parseCreds() { try { return atob(localStorage.getItem('cg_creds')||'').split(':'); } catch(e) { return ['admin','']; } }
     function doLogin(e) { e.preventDefault(); const user = document.getElementById('username').value||'admin'; const pass = document.getElementById('password').value; if(!pass) return alert('Password required'); localStorage.setItem('cg_creds', b64e(user+':'+pass)); location.reload(); }
     function logout() { localStorage.removeItem('cg_creds'); location.reload(); }
-    async function apiCall(ep, opts={}) { const res = await fetch(WORKER_URL+ep, {...opts,headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||''),'Content-Type':'application/json'}}); if(!res.ok) throw new Error(res.status); return res.json(); }
+    async function apiCall(ep, opts={}) { const res = await fetch(API_BASE+ep, {...opts,headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||''),'Content-Type':'application/json'}}); if(!res.ok) throw new Error(res.status); return res.json(); }
     async function deleteVisitor(email) {
       if(!confirm('Delete '+email+'?')) return;
       try {
-        await apiCall('/admin/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
+        await apiCall('/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
         loadData();
       } catch(e){ alert('Delete failed: '+e.message); }
     }
