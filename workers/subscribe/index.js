@@ -66,19 +66,12 @@ const ADMIN_HTML = `<!DOCTYPE html>
     function doLogin(e) { e.preventDefault(); const user = document.getElementById('username').value||'admin'; const pass = document.getElementById('password').value; if(!pass) return alert('Password required'); localStorage.setItem('cg_creds', b64e(user+':'+pass)); location.reload(); }
     function logout() { localStorage.removeItem('cg_creds'); location.reload(); }
     async function apiCall(ep, opts={}) { const res = await fetch(API_BASE+ep, {...opts,headers:{'Authorization':'Basic '+(localStorage.getItem('cg_creds')||''),'Content-Type':'application/json'}}); if(!res.ok) throw new Error(res.status); return res.json(); }
-    async function deleteVisitor(email) {
-      if(!confirm('Delete '+email+'?')) return;
-      try {
-        await apiCall('/visitor?email='+encodeURIComponent(email),{method:'DELETE'});
-        loadData();
-      } catch(e){ alert('Delete failed: '+e.message); }
-    }
     async function loadData() {
       try {
         const [v,n] = await Promise.all([apiCall('/admin/visitors'),apiCall('/admin/newsletter')]);
         document.getElementById('visitor-count').textContent = v.total;
         document.getElementById('subscriber-count').textContent = n.total;
-        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del" onclick="deleteVisitor(\''+x.email+'\')">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
+        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del" data-email="' + encodeURIComponent(x.email) + '">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
         document.getElementById('newsletter-table').innerHTML = n.subscribers.length ? n.subscribers.map(x => '<tr class="'+(x.email.includes('@wshu')?'spam-row':'')+'"><td class="'+(x.email.includes('@wshu')?'spam':'')+'">'+x.email+'</td><td>'+x.firstName+' '+x.lastName+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+new Date(x.subscribedAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="4" class="empty">No subscribers</td></tr>';
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
@@ -86,6 +79,17 @@ const ADMIN_HTML = `<!DOCTYPE html>
     }
     document.getElementById('login-form').addEventListener('submit',doLogin);
     if(localStorage.getItem('cg_creds'))loadData();
+    // Event delegation for delete buttons (avoid inline onclick escaping issues)
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.btn-del');
+      if (!btn) return;
+      const email = decodeURIComponent(btn.dataset.email);
+      if (!confirm('Delete ' + email + '?')) return;
+      try {
+        await apiCall('/visitor?email=' + encodeURIComponent(email), {method:'DELETE'});
+        loadData();
+      } catch(err) { alert('Delete failed: ' + err.message); }
+    });
   </script>
 </body>
 </html>`;
@@ -130,7 +134,7 @@ export default {
 
     // GET: Admin panel or API
     if (request.method === "GET") {
-      if (path === "/panel" || path === "/admin") {
+      if (path === "/panel" || path === "/admin" || path === "/admin/") {
         return new Response(ADMIN_HTML, {
           headers: { "Content-Type": "text/html; charset=utf-8" }
         });
