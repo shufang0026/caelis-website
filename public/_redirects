@@ -1,6 +1,7 @@
-# Admin routes - redirect to Worker (serves complete admin panel HTML)
+# Admin panel & API - proxy everything to Worker
 /admin https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
 /admin/* https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
+/api/* https://caelis-subscribe-production.shufang0026.workers.dev/api/ 200
 
 # SPA fallback (MUST be last rule)
 /* /index.html 200

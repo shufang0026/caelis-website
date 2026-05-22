@@ -132,24 +132,26 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     const contentType = request.headers.get("Content-Type") || "";
+    // Strip /api prefix for internal routing (when accessed via Cloudflare Pages proxy)
+    const routePath = path.startsWith('/api') ? path.slice(4) : path;
 
     // GET: Admin panel or API
     if (request.method === "GET") {
-      if (path === "/panel" || path === "/admin" || path === "/admin/") {
+      if (routePath === "/panel" || routePath === "/admin" || routePath === "/admin/") {
         return new Response(ADMIN_HTML, {
           headers: { "Content-Type": "text/html; charset=utf-8" }
         });
       }
       // API endpoints (both /visitors and /admin/visitors for compatibility)
-      if (path === "/visitors" || path === "/admin/visitors") return handleVisitors(request, env);
-      if (path === "/newsletter" || path === "/admin/newsletter") return handleNewsletter(request, env);
+      if (routePath === "/visitors" || routePath === "/admin/visitors") return handleVisitors(request, env);
+      if (routePath === "/newsletter" || routePath === "/admin/newsletter") return handleNewsletter(request, env);
       return json({ error: "Not found" }, 404);
     }
 
     // DELETE: Visitor (both /visitor and /admin/visitor for compatibility)
-    if ((path === "/visitor" || path === "/admin/visitor") && request.method === "DELETE") {
-      const url = new URL(request.url);
-      const email = url.searchParams.get("email");
+    if ((routePath === "/visitor" || routePath === "/admin/visitor") && request.method === "DELETE") {
+      const u = new URL(request.url);
+      const email = u.searchParams.get("email");
       if (!email) return json({ error: "Email required" }, 400);
       if (!await validateBasicAuth(request, env)) return new Response("Unauthorized", { status: 401 });
       try {
@@ -159,7 +161,7 @@ export default {
     }
 
     // Route: Exhibition visitor registration (JSON)
-    if (path === "/visitor" && contentType.includes("json")) {
+    if (routePath === "/visitor" && contentType.includes("json")) {
       return handleVisitor(request, env);
     }
 
