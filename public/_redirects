@@ -1,5 +1,6 @@
-# Cloudflare Pages _redirects
-# No proxy rules needed - using Pages Functions for /api/* and static files for /admin/
+# Admin routes - redirect to Worker (serves complete admin panel HTML)
+/admin https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
+/admin/* https://caelis-subscribe-production.shufang0026.workers.dev/admin 200
 
 # SPA fallback (MUST be last rule)
 /* /index.html 200
