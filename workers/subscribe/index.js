@@ -71,7 +71,7 @@ const ADMIN_HTML = `<!DOCTYPE html>
         const [v,n] = await Promise.all([apiCall('/admin/visitors'),apiCall('/admin/newsletter')]);
         document.getElementById('visitor-count').textContent = v.total;
         document.getElementById('subscriber-count').textContent = n.total;
-        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del" data-email="' + encodeURIComponent(x.email) + '">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
+        document.getElementById('visitors-table').innerHTML = v.visitors.length ? v.visitors.map(x => '<tr><td>'+x.firstName+' '+x.lastName+'</td><td>'+x.email+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+x.exhibition+'</td><td>'+new Date(x.registeredAt).toLocaleDateString()+'</td><td><button class="btn-del">🗑</button></td></tr>').join('') : '<tr><td colspan="6" class="empty">No visitors</td></tr>';
         document.getElementById('newsletter-table').innerHTML = n.subscribers.length ? n.subscribers.map(x => '<tr class="'+(x.email.includes('@wshu')?'spam-row':'')+'"><td class="'+(x.email.includes('@wshu')?'spam':'')+'">'+x.email+'</td><td>'+x.firstName+' '+x.lastName+'</td><td>'+(countryFlags[x.country]||'')+' '+x.country+'</td><td>'+new Date(x.subscribedAt).toLocaleDateString()+'</td></tr>').join('') : '<tr><td colspan="4" class="empty">No subscribers</td></tr>';
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
@@ -79,11 +79,12 @@ const ADMIN_HTML = `<!DOCTYPE html>
     }
     document.getElementById('login-form').addEventListener('submit',doLogin);
     if(localStorage.getItem('cg_creds'))loadData();
-    // Event delegation for delete buttons (avoid inline onclick escaping issues)
+    // Event delegation for delete buttons - read email from table row
     document.addEventListener('click', async (e) => {
       const btn = e.target.closest('.btn-del');
       if (!btn) return;
-      const email = decodeURIComponent(btn.dataset.email);
+      const row = btn.closest('tr');
+      const email = row.cells[1].textContent.trim();
       if (!confirm('Delete ' + email + '?')) return;
       try {
         await apiCall('/visitor?email=' + encodeURIComponent(email), {method:'DELETE'});
