@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Caelis Visitors & Subscribers — Data Export</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; padding: 20px; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { font-size: 28px; color: #333; margin-bottom: 24px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat-card .label { font-size: 14px; color: #888; margin-bottom: 4px; }
+    .stat-card .value { font-size: 32px; font-weight: 600; color: #222; }
+    .section { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .section-header { padding: 16px 20px; border-bottom: 1px solid #eee; }
+    .section-header h2 { font-size: 18px; color: #333; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+    th { background: #fafafa; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { color: #333; }
+    .spam-row { background: #fef0f0; }
+    .spam { color: #c00; }
+    .country-flag { font-size: 16px; margin-right: 4px; }
+    .timestamp { color: #888; font-size: 13px; }
+    .exhibition { color: #666; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Caelis Visitors & Subscribers</h1>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="label">Total Visitors</div>
+        <div class="value" id="visitor-count">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Newsletter Subscribers</div>
+        <div class="value" id="subscriber-count">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Spam Subscribers</div>
+        <div class="value" id="spam-count" style="color: #c00;">-</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>🎨 Exhibition Visitors (3)</h2>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>Exhibition</th>
+            <th>Registered At</th>
+            <th>IP Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Jose Ruiz</strong></td>
+            <td>jirco69@gmail.com</td>
+            <td><span class="country-flag">🇪🇸</span> ES</td>
+            <td class="exhibition">jaime-sancorlo-reach-out</td>
+            <td class="timestamp">2026-05-19 17:46 (Barcelona)</td>
+            <td>Barcelona, Catalonia 🇪🇸</td>
+          </tr>
+          <tr>
+            <td><strong>Vanessa Fang</strong></td>
+            <td>info@caelis.cn</td>
+            <td><span class="country-flag">🇨🇳</span> CN</td>
+            <td class="exhibition">jaime-sancorlo-reach-out</td>
+            <td class="timestamp">2026-05-19 14:24 (Barcelona)</td>
+            <td>Barcelona, Catalonia 🇪🇸</td>
+          </tr>
+          <tr>
+            <td><strong>Vanessa Fang</strong></td>
+            <td>vanessa@caelis.cn</td>
+            <td><span class="country-flag">🇪🇸</span> ES</td>
+            <td class="exhibition">jaime-sancorlo-reach-out</td>
+            <td class="timestamp">2026-05-19 13:35 (Barcelona)</td>
+            <td>Barcelona, Catalonia 🇪🇸</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>📧 Newsletter Subscribers (7 total, 3 spam)</h2>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Subscribed At</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>vanessa-test-123@caelis.cn</td>
+            <td>Vanessa Test</td>
+            <td><span class="country-flag">🇪🇸</span> Spain</td>
+            <td class="timestamp">2026-05-21 17:36</td>
+            <td>✅ Legitimate</td>
+          </tr>
+          <tr>
+            <td>test123@example.com</td>
+            <td>Test User</td>
+            <td><span class="country-flag">🇪🇸</span> ES</td>
+            <td class="timestamp">2026-05-21 17:34</td>
+            <td>⚠️ Test account</td>
+          </tr>
+          <tr>
+            <td>shufang@caelis.cn</td>
+            <td>Shu Fang</td>
+            <td><span class="country-flag">🇪🇸</span> Spain</td>
+            <td class="timestamp">2026-05-21 17:16</td>
+            <td>✅ Legitimate</td>
+          </tr>
+          <tr class="spam-row">
+            <td class="spam">4limxwza6mgl4s@wshu.net</td>
+            <td>📟 Transfer to you. GO &gt;&gt;&gt; ...</td>
+            <td>xmfadg</td>
+            <td class="timestamp">2026-05-20 07:54</td>
+            <td>🚫 Spam</td>
+          </tr>
+          <tr class="spam-row">
+            <td class="spam">vei37dg4zecvxs@wshu.net</td>
+            <td>🔨 Transfer to you. SIGN IN &gt;&gt;&gt; ...</td>
+            <td>b1lmd4</td>
+            <td class="timestamp">2026-05-20 04:44</td>
+            <td>🚫 Spam</td>
+          </tr>
+          <tr class="spam-row">
+            <td class="spam">mqjnrv9o0qtu1n@wshu.net</td>
+            <td>💰 + 36,824.44 USD 🚀▶ ...</td>
+            <td>x7ucn6</td>
+            <td class="timestamp">2026-05-20 03:19</td>
+            <td>🚫 Spam</td>
+          </tr>
+          <tr>
+            <td>vanessa0026@163.com</td>
+            <td>vanessa fang</td>
+            <td><span class="country-flag">🇪🇸</span> Spain</td>
+            <td class="timestamp">2026-05-19 20:35</td>
+            <td>✅ Legitimate</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 32px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
+      <strong>⚠️ Action Needed:</strong>
+      <ul style="margin-top: 8px; margin-left: 20px; color: #856404;">
+        <li>Delete 3 spam subscribers (all from @wshu.net)</li>
+        <li>Consider adding CAPTCHA to newsletter signup form</li>
+        <li>All 3 exhibition visitors are from Barcelona (IP geolocation)</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Update stats
+    document.getElementById('visitor-count').textContent = '3';
+    document.getElementById('subscriber-count').textContent = '7';
+    document.getElementById('spam-count').textContent = '3';
+  </script>
+</body>
+</html>
