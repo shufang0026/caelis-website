@@ -362,6 +362,60 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
     .oe-text { padding: 3vh 1.5rem; }
     .oe-closing { padding: 4vh 1.5rem 8vh; }
   }
+
+  /* ── Lightbox ── */
+  .lb-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 30000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    cursor: zoom-out;
+  }
+  .lb-overlay.open { opacity: 1; pointer-events: all; }
+  .lb-overlay img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.5);
+  }
+  .lb-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s;
+    z-index: 30001;
+  }
+  .lb-close:hover { background: rgba(255,255,255,.25); }
+  .lb-overlay .lb-caption {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,.6);
+    letter-spacing: 0.1em;
+    text-align: center;
+    pointer-events: none;
+  }
 </style>
 
 <!-- ═══════════════ VISITOR GATE OVERLAY ═══════════════ -->
@@ -665,6 +719,8 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
 
 
 <!-- Visitor Gate Logic -->
+  <div class="lb-overlay" id="lb-overlay"><button class="lb-close" id="lb-close">×</button><img id="lb-img" src="" alt="artwork" /><div class="lb-caption" id="lb-caption"></div></div>
+
 <script>
 (function() {
   var gate = document.getElementById('visitor-gate');
@@ -750,5 +806,44 @@ permalink: "/exhibitions/jaime-sancorlo-online/"
       submitBtn.textContent = 'Enter Exhibition';
     }
   };
+
+  /* ── Lightbox for artwork images ── */
+  var lb = document.getElementById('lb-overlay');
+  var lbImg = document.getElementById('lb-img');
+  var lbClose = document.getElementById('lb-close');
+  var lbCaption = document.getElementById('lb-caption');
+
+  function openLB(src, caption) {
+    lbImg.src = src;
+    lbCaption.textContent = caption || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLB() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb || e.target === lbClose) closeLB();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLB();
+  });
+
+  document.querySelectorAll('.oe-artwork-img, .oe-pair-img, .oe-hero-right img').forEach(function(img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function() {
+      var caption = '';
+      var wrap = img.closest('.oe-artwork, .oe-pair-item');
+      if (wrap) {
+        var t = wrap.querySelector('.oe-artwork-title');
+        var s = wrap.querySelector('.oe-artwork-spec');
+        if (t) caption += t.textContent;
+        if (s) caption += (caption ? '  ·  ' : '') + s.textContent;
+      }
+      openLB(img.src, caption);
+    });
+  });
 })();
 </script>
