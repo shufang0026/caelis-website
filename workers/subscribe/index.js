@@ -71,7 +71,7 @@ const ADMIN_HTML = `<!DOCTYPE html>
     </div>
     <div id="dashboard">
       <div class="header"><h1>Visitors & Subscribers</h1><button class="logout-btn" onclick="logout()">Sign Out</button></div>
-      <div class="stats"><div class="stat-card"><div class="label">Today's Visitors</div><div class="value" id="today-visitors">-</div></div><div class="stat-card"><div class="label">Today's Newsletter</div><div class="value" id="today-newsletter">-</div></div><div class="stat-card"><div class="label">Total Visitors</div><div class="value" id="visitor-count">-</div></div><div class="stat-card"><div class="label">Total Newsletter</div><div class="value" id="subscriber-count">-</div></div></div>
+      <div class="stats"><div class="stat-card"><div class="label">This Week</div><div class="value" id="week-visitors">-</div><div class="sub-label" id="week-newsletter" style="font-size:12px;color:#888;margin-top:2px"></div></div><div class="stat-card"><div class="label">This Month</div><div class="value" id="month-visitors">-</div><div class="sub-label" id="month-newsletter" style="font-size:12px;color:#888;margin-top:2px"></div></div><div class="stat-card"><div class="label">This Year</div><div class="value" id="year-visitors">-</div><div class="sub-label" id="year-newsletter" style="font-size:12px;color:#888;margin-top:2px"></div></div><div class="stat-card"><div class="label">Total Visitors</div><div class="value" id="visitor-count">-</div></div><div class="stat-card"><div class="label">Total Newsletter</div><div class="value" id="subscriber-count">-</div></div></div>
       <div class="section traffic-section"><div class="section-header"><h2>📊 Today's Traffic</h2><span id="traffic-date"></span></div><div id="traffic-content"><p style="padding:20px;color:#888;text-align:center">Loading...</p></div></div>
       <div class="section"><div class="section-header"><h2>Recent Visitors</h2><button class="btn-export" onclick="downloadCSV('visitors')">Export CSV</button></div><table><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Details</th><th>IP Location</th><th>Match</th><th>Exhibition</th><th>Date</th><th></th></tr></thead><tbody id="visitors-table"></tbody></table></div>
       <div class="section"><div class="section-header"><h2>Newsletter</h2><button class="btn-export" onclick="downloadCSV('newsletter')">Export CSV</button></div><table><thead><tr><th>Email</th><th>Name</th><th>Country</th><th>Date</th><th></th></tr></thead><tbody id="newsletter-table"></tbody></table></div>
@@ -99,8 +99,15 @@ const ADMIN_HTML = `<!DOCTYPE html>
         const [v,n,t] = await Promise.all([apiCall('/admin/visitors'),apiCall('/admin/newsletter'),apiCall('/admin/traffic')]);
         document.getElementById('visitor-count').textContent = v.total;
         document.getElementById('subscriber-count').textContent = n.total;
-        document.getElementById('today-visitors').textContent = t.todayVisitors || 0;
-        document.getElementById('today-newsletter').textContent = t.todayNewsletter || 0;
+        // Weekly / Monthly / Yearly stats
+        document.getElementById('week-visitors').textContent = (t.weekVisitors||0) + ' visitors';
+        document.getElementById('week-newsletter').textContent = (t.weekNewsletter||0) + ' newsletter';
+        document.getElementById('month-visitors').textContent = (t.monthVisitors||0) + ' visitors';
+        document.getElementById('month-newsletter').textContent = (t.monthNewsletter||0) + ' newsletter';
+        document.getElementById('year-visitors').textContent = (t.yearVisitors||0) + ' visitors';
+        document.getElementById('year-newsletter').textContent = (t.yearNewsletter||0) + ' newsletter';
+        // Today's traffic section (country breakdown)
+        document.getElementById('traffic-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
         document.getElementById('traffic-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
         // Render traffic by country
         if(t.countries && t.countries.length){var maxC=Math.max(...t.countries.map(function(c){return c.count;}));var html='<div class=traffic-grid>';
@@ -485,42 +492,75 @@ async function handleNewsletter(request, env) {
   }
 }
 
-// ─── Traffic Dashboard (Today's Stats) ────────────────────────
+// ─── Traffic Dashboard (Today's + Weekly + Monthly + Yearly Stats) ──
 async function handleTraffic(request, env) {
   if (!await validateBasicAuth(request, env)) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { "Content-Type": "application/json", "WWW-Authenticate": "Basic realm=\"Caelis Admin\"" } });
   }
   try {
-    const today = new Date().toISOString().slice(0,10);
+    const now = new Date();
+    const today = now.toISOString().slice(0,10);
+    const weekAgo = new Date(now); weekAgo.setDate(weekAgo.getDate() - 6);
+    const monthAgo = new Date(now); monthAgo.setDate(monthAgo.getDate() - 29);
+    const yearAgo = new Date(now); yearAgo.setDate(yearAgo.getDate() - 364);
+    
     const [vList, nList] = await Promise.all([
       env.SUBSCRIBERS.list({ prefix: "visitor-" }),
       env.SUBSCRIBERS.list({ prefix: "newsletter-" })
     ]);
+    
     var todayVisitors = 0, todayNewsletter = 0;
+    var weekVisitors = 0, weekNewsletter = 0;
+    var monthVisitors = 0, monthNewsletter = 0;
+    var yearVisitors = 0, yearNewsletter = 0;
     var countryMap = {};
+    
+    // Helper: is date within range [start, end] (inclusive)
+    function inRange(dateStr, start, end) {
+      var d = dateStr ? new Date(dateStr) : null;
+      if (!d || isNaN(d)) return false;
+      return d >= start && d <= end;
+    }
+    
     // Process visitors
     for (const key of vList.keys) {
       var val = await env.SUBSCRIBERS.get(key.name);
       if (!val) continue;
       try { var d = JSON.parse(val); } catch { continue; }
-      if ((d.registeredAt||'').slice(0,10) === today) { todayVisitors++; }
+      var regDate = d.registeredAt || '';
+      if (regDate.slice(0,10) === today) todayVisitors++;
+      if (inRange(regDate, weekAgo, now)) weekVisitors++;
+      if (inRange(regDate, monthAgo, now)) monthVisitors++;
+      if (inRange(regDate, yearAgo, now)) yearVisitors++;
       var cc = d.country || d.ipCountry || 'Unknown';
       if (!countryMap[cc]) countryMap[cc] = { code: cc, name: cc, count: 0 };
       countryMap[cc].count++;
     }
+    
     // Process newsletter
     for (const key of nList.keys) {
       var val2 = await env.SUBSCRIBERS.get(key.name);
       if (!val2) continue;
       try { var d2 = JSON.parse(val2); } catch { continue; }
-      if ((d2.subscribedAt||'').slice(0,10) === today) { todayNewsletter++; }
+      var subDate = d2.subscribedAt || '';
+      if (subDate.slice(0,10) === today) todayNewsletter++;
+      if (inRange(subDate, weekAgo, now)) weekNewsletter++;
+      if (inRange(subDate, monthAgo, now)) monthNewsletter++;
+      if (inRange(subDate, yearAgo, now)) yearNewsletter++;
       var cc2 = d2.country || d2.ipCountry || 'Unknown';
       if (!countryMap[cc2]) countryMap[cc2] = { code: cc2, name: cc2, count: 0 };
       countryMap[cc2].count++;
     }
-    // Sort by count descending
+    
     var countries = Object.values(countryMap).sort(function(a,b){return b.count-a.count;});
-    return json({ todayVisitors, todayNewsletter, totalVisitors: vList.keys.length, totalNewsletter: nList.keys.length, date: today, countries });
+    return json({
+      todayVisitors, todayNewsletter,
+      weekVisitors, weekNewsletter,
+      monthVisitors, monthNewsletter,
+      yearVisitors, yearNewsletter,
+      totalVisitors: vList.keys.length, totalNewsletter: nList.keys.length,
+      date: today, countries
+    });
   } catch (err) {
     console.error("Traffic error:", err);
     return json({ error: err.message }, 500);
